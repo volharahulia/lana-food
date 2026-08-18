@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <g fill="none" stroke="#C8873D" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- stroller body -->
+    <path d="M35 58 H93"/>
+    <path d="M36 58 C36 79 48 91 64 91 C80 91 92 79 92 58"/>
+
+    <!-- canopy -->
+    <path d="M64 58 V31"/>
+    <path d="M64 31 C79 31 92 42 92 58"/>
+
+    <!-- handle -->
+    <path d="M36 58 L43 42 Q45 39 49 39 H53"/>
+
+    <!-- wheels/supports -->
+    <path d="M52 91 L50 97"/>
+    <path d="M76 91 L78 97"/>
+    <circle cx="48" cy="103" r="8"/>
+    <circle cx="80" cy="103" r="8"/>
+  </g>
+</svg>

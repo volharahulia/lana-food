@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <g stroke="#C8873D" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- handle -->
+    <circle cx="64" cy="22" r="7"/>
+
+    <!-- cloche dome -->
+    <path d="M43 61C43 43 52 33 64 33C76 33 85 43 85 61"/>
+
+    <!-- tray -->
+    <path d="M39 61H89"/>
+    <path d="M40 61C42 67 45 69 50 69H78C83 69 86 67 88 61"/>
+
+    <!-- highlight -->
+    <path d="M69 39C75 42 79 47 80 53"/>
+  </g>
+</svg>

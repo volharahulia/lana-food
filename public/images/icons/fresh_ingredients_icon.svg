@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <g stroke="#C8873D" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- left leaf -->
+    <path d="M60 63C43 60 27 49 27 25C47 24 62 35 63 52C63 57 62 61 60 63Z"/>
+    <path d="M33 31C42 39 50 47 60 61"/>
+    <path d="M41 38L34 38"/>
+    <path d="M47 45L42 51"/>
+    <path d="M53 52L48 53"/>
+
+    <!-- right leaf -->
+    <path d="M68 63C85 60 101 49 101 25C81 24 66 35 65 52C65 57 66 61 68 63Z"/>
+    <path d="M95 31C86 39 78 47 68 61"/>
+    <path d="M87 38L94 38"/>
+    <path d="M81 45L86 51"/>
+    <path d="M75 52L80 53"/>
+
+    <!-- stems -->
+    <path d="M64 60C63 69 63 75 55 83"/>
+    <path d="M64 60C65 69 65 75 73 83"/>
+
+    <!-- lower seed/ingredient shapes -->
+    <path d="M55 81C43 78 31 84 29 97C28 106 36 112 45 111C56 110 63 101 62 91C61 86 59 83 55 81Z"/>
+    <path d="M73 81C85 78 97 84 99 97C100 106 92 112 83 111C72 110 65 101 66 91C67 86 69 83 73 81Z"/>
+  </g>
+</svg>

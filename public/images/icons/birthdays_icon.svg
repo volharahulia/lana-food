@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <g stroke="#C8873D" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round">
+    <!-- flame -->
+    <path d="M64 17C61 21 62 24 64 26C67 23 68 20 64 17Z"/>
+
+    <!-- candle -->
+    <path d="M61 27H67V35H61Z"/>
+    <path d="M62 30L66 33"/>
+
+    <!-- top cake tier -->
+    <path d="M51 35H77C79 35 80 37 79 39L77 44H51L49 39C48 37 49 35 51 35Z"/>
+    <path d="M51 44C54 42 56 46 59 44C62 42 64 46 67 44C70 42 72 46 77 44"/>
+
+    <!-- middle cake tier -->
+    <path d="M46 44H82C84 44 85 46 84 48L82 54H46L44 48C43 46 44 44 46 44Z"/>
+    <path d="M46 54C49 52 51 56 54 54C57 52 59 56 62 54C65 52 67 56 70 54C73 52 76 56 82 54"/>
+
+    <!-- bottom cake tier -->
+    <path d="M42 54H86C88 54 89 56 88 58L86 66H42L40 58C39 56 40 54 42 54Z"/>
+    <path d="M42 66H86"/>
+
+    <!-- cake plate -->
+    <path d="M38 68H90"/>
+    <path d="M41 68C43 72 48 74 64 74C80 74 85 72 87 68"/>
+  </g>
+</svg>

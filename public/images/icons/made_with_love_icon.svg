@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <g stroke="#C8873D" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- center person -->
+    <circle cx="64" cy="29" r="8"/>
+    <path d="M52 60V47C52 41 57 37 64 37C71 37 76 41 76 47V60"/>
+    <rect x="51" y="57" width="26" height="31" rx="8"/>
+
+    <!-- left person: head + partial body -->
+    <circle cx="48" cy="27" r="6.5"/>
+    <path d="M39 48C39 42 43 38 48 38C51 38 54 39 56 42"/>
+    <path d="M39 48C34 48 31 52 31 57V67C31 72 35 75 40 75H47"/>
+
+    <!-- right person: head + partial body -->
+    <circle cx="80" cy="27" r="6.5"/>
+    <path d="M89 48C89 42 85 38 80 38C77 38 74 39 72 42"/>
+    <path d="M89 48C94 48 97 52 97 57V67C97 72 93 75 88 75H81"/>
+  </g>
+</svg>

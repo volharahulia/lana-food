@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <g stroke="#C8873D" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- house -->
+    <path d="M22 57L64 20L106 57"/>
+    <path d="M29 54V104C29 107 31 109 34 109H94C97 109 99 107 99 104V54"/>
+    <!-- heart -->
+    <path d="M64 91L48 76C40 69 42 57 51 55C57 54 61 57 64 62C67 57 71 54 77 55C86 57 88 69 80 76L64 91Z"/>
+  </g>
+</svg>
