@@ -1,17 +1,30 @@
 import type { Metadata } from "next";
-import StubPage from "../_components/StubPage";
+import { Suspense } from "react";
+import MenuHero from "./_components/MenuHero";
+import MenuExperience from "./_components/MenuExperience";
+import { getMenuData } from "./_data/parseMenu";
+import { buildMenuSchema } from "./_data/schema";
 
 export const metadata: Metadata = {
-  title: "Lana Food Menu | Homemade Eastern European Food | Bay Area California",
+  title: "Menu | Lana Food",
   description:
-    "Browse Lana Food's Holiday, Everyday, and Kids' menus of homemade Eastern European dishes.",
+    "Explore our menu of homemade Eastern European dishes. Order from our Everyday Menu, Holiday Menu, Kids' Menu, or custom Gastroboxes.",
 };
 
-export default function MenuPage() {
+export default async function MenuPage() {
+  const categories = await getMenuData();
+  const jsonLd = buildMenuSchema(categories);
+
   return (
-    <StubPage
-      title="Menu"
-      description="Our full Holiday, Everyday, and Kids' menus are coming soon."
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <MenuHero />
+      <Suspense fallback={null}>
+        <MenuExperience categories={categories} />
+      </Suspense>
+    </>
   );
 }

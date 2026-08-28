@@ -11,19 +11,19 @@ export const menuCategories: MenuCategory[] = [
   {
     name: "Holiday Menu",
     description: "Traditional dishes for holidays & special occasions",
-    href: "/menu/holiday",
+    href: "/menu?tab=holiday",
     image: "/images/home/menu-holiday.jpg",
   },
   {
     name: "Everyday Menu",
     description: "Delicious homemade meals for any day",
-    href: "/menu/everyday",
+    href: "/menu?tab=everyday",
     image: "/images/home/menu-everyday.jpg",
   },
   {
     name: "Kids' Menu",
     description: "Tasty & wholesome options kids will love",
-    href: "/menu/kids",
+    href: "/menu?tab=kids",
     image: "/images/home/menu-kids.jpg",
   },
 ];

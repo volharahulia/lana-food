@@ -25,7 +25,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-cream-700 pb-28 laptop:pb-0">
-      <div className="mx-auto max-w-[1400px] px-4 py-10 tablet:px-6 laptop:px-8 laptop:py-14 desktop:px-12">
+      <div className="container-page py-10 laptop:py-14">
         <div className="flex flex-col gap-8 tablet:grid tablet:grid-cols-3 tablet:gap-8">
           <div className="flex flex-col gap-4">
             <div className="relative h-11 w-[74px]">
@@ -34,7 +34,7 @@ export default function Footer() {
                 alt="Lana Food"
                 fill
                 sizes="74px"
-                className="object-cover object-center"
+                className="object-contain object-center"
               />
             </div>
             <p className="font-body text-sm text-ink-700">

@@ -1,11 +1,8 @@
-import type { Metadata } from "next";
-import StubPage from "../../_components/StubPage";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Kids' Menu | Lana Food",
-  description: "Tasty & wholesome homemade options kids will love, from Lana Food.",
-};
-
-export default function KidsMenuPage() {
-  return <StubPage title="Kids' Menu" description="Our Kids' Menu is coming soon." />;
+// The Menu page is now a single tabbed route (MENU.md "Architecture: Single
+// Tabbed Page") — this URL is kept as a redirect so existing links/bookmarks
+// still land on the right tab instead of 404ing.
+export default function KidsMenuRedirect() {
+  redirect("/menu?tab=kids");
 }

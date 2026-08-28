@@ -1,13 +1,16 @@
 import type { CSSProperties } from "react";
-import { Leaf, CookingPot, ShieldCheck, Heart } from "@phosphor-icons/react/ssr";
+import Image from "next/image";
 import Button from "./ui/Button";
 import ImagePlaceholder from "./ui/ImagePlaceholder";
 
+// Approved icon set — public/images/icons/ is the single source of truth
+// (CLAUDE.md §33 / asset audit); do not substitute Phosphor or another
+// library for these four.
 const trustIndicators = [
-  { label: "Fresh Ingredients", icon: Leaf },
-  { label: "Homemade Recipes", icon: CookingPot },
-  { label: "Reliable Service", icon: ShieldCheck },
-  { label: "Made with Love", icon: Heart },
+  { label: "Fresh Ingredients", icon: "/images/icons/fresh_ingredients_icon.svg" },
+  { label: "Homemade Recipes", icon: "/images/icons/homemade_recipes_icon.svg" },
+  { label: "Reliable Service", icon: "/images/icons/reliable_service_icon.svg" },
+  { label: "Made with Love", icon: "/images/icons/made_with_love_icon.svg" },
 ];
 
 const HERO_IMAGE_SRC = "/images/home/hero-table.png";
@@ -72,22 +75,26 @@ const HERO_CREAM_BLEND =
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-cream-500">
-      <div className="mx-auto grid max-w-[1400px] gap-6 px-4 py-8 tablet:px-6 laptop:grid-cols-[400px_1fr] laptop:items-stretch laptop:gap-8 laptop:px-8 laptop:py-12 desktop:grid-cols-[440px_1fr] desktop:gap-12 desktop:px-12 desktop:py-16">
+      <div className="container-page grid gap-6 py-8 laptop:grid-cols-[400px_1fr] laptop:items-stretch laptop:gap-8 laptop:py-12 desktop:grid-cols-[440px_1fr] desktop:gap-12 desktop:py-16">
         <div className="relative order-1 laptop:order-2 laptop:h-full">
-          {/* Mobile: stacked layout, no sibling to match height against — fixed crop. */}
+          {/* Mobile: stacked layout, no sibling to match height against — fixed crop.
+              Container-page mobile padding is 20px each side. */}
           <ImagePlaceholder
             ratio="4:5"
             alt="Signature Lana Food spread of homemade dishes, ready for a celebration"
             radiusClassName="rounded-lg tablet:hidden"
             src={HERO_IMAGE_SRC}
+            sizes="calc(100vw - 40px)"
             priority
           />
-          {/* Tablet: still stacked (grid columns only start at laptop) — fixed crop. */}
+          {/* Tablet: still stacked (grid columns only start at laptop) — fixed crop.
+              Container-page tablet padding is 32px each side. */}
           <ImagePlaceholder
             ratio="16:9"
             alt="Signature Lana Food spread of homemade dishes, ready for a celebration"
             radiusClassName="rounded-lg hidden tablet:block laptop:hidden"
             src={HERO_IMAGE_SRC}
+            sizes="calc(100vw - 64px)"
             priority
           />
           {/* Laptop+: side-by-side with text — no fixed aspect box. The image
@@ -98,12 +105,17 @@ export default function Hero() {
             className="relative hidden h-full overflow-hidden rounded-lg laptop:block"
             style={HERO_FADE_VARS}
           >
+            {/* Laptop+ image column width = container-page content width minus
+                the fixed text column (400px laptop / 440px desktop) and the
+                row gap (32px laptop / 48px desktop), capped once the
+                container itself hits its 1440px max at ~1600px viewport. */}
             <ImagePlaceholder
               ratio="auto"
               alt="Signature Lana Food spread of homemade dishes, ready for a celebration"
               radiusClassName="rounded-none"
               className="h-full"
               src={HERO_IMAGE_SRC}
+              sizes="(min-width: 1600px) 952px, (min-width: 1280px) calc(100vw - 648px), calc(100vw - 528px)"
               priority
             />
 
@@ -145,7 +157,7 @@ export default function Hero() {
             </span>
           </div>
 
-          <h1 className="font-display text-[32px] font-semibold leading-[1.12] tracking-[-0.5px] text-ink-900 laptop:text-[42px] desktop:text-[52px] laptop:leading-[1.1]">
+          <h1 className="font-display text-[32px] font-semibold leading-[1.12] tracking-[-0.5px] text-ink-900 laptop:text-[42px] desktop:text-[52px] laptop:leading-[1.1] text-left">
             Homemade Eastern European Cuisine for Life&rsquo;s Best Moments
           </h1>
 
@@ -165,9 +177,9 @@ export default function Hero() {
           </div>
 
           <ul className="mt-2 grid grid-cols-2 gap-x-5 gap-y-3 tablet:grid-cols-4">
-            {trustIndicators.map(({ label, icon: Icon }) => (
+            {trustIndicators.map(({ label, icon }) => (
               <li key={label} className="flex flex-col items-start gap-1.5">
-                <Icon size={26} weight="thin" className="text-gold-decorative" aria-hidden />
+                <Image src={icon} alt="" width={56} height={56} aria-hidden />
                 <span className="font-body text-sm text-ink-700">{label}</span>
               </li>
             ))}

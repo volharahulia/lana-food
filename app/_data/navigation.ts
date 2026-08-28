@@ -11,10 +11,13 @@ export const primaryNav: NavLink[] = [
   { label: "Contact", href: "/contact" },
 ];
 
+// The Menu page is a single tabbed route (MENU.md) — these deep-link into
+// the matching tab via ?tab=, rather than pointing at separate pages.
 export const menuDropdown: NavLink[] = [
-  { label: "Holiday Menu", href: "/menu/holiday" },
-  { label: "Everyday Menu", href: "/menu/everyday" },
-  { label: "Kids' Menu", href: "/menu/kids" },
+  { label: "Holiday Menu", href: "/menu?tab=holiday" },
+  { label: "Everyday Menu", href: "/menu?tab=everyday" },
+  { label: "Kids' Menu", href: "/menu?tab=kids" },
+  { label: "Gastroboxes", href: "/menu?tab=gastroboxes" },
 ];
 
 // Russian is optional per the Website Strategy / IA. No localized content

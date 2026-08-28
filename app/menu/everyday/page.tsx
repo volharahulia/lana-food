@@ -1,13 +1,8 @@
-import type { Metadata } from "next";
-import StubPage from "../../_components/StubPage";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Everyday Menu | Lana Food",
-  description: "Delicious homemade meals for any day, from Lana Food.",
-};
-
-export default function EverydayMenuPage() {
-  return (
-    <StubPage title="Everyday Menu" description="Our Everyday Menu is coming soon." />
-  );
+// The Menu page is now a single tabbed route (MENU.md "Architecture: Single
+// Tabbed Page") — this URL is kept as a redirect so existing links/bookmarks
+// still land on the right tab instead of 404ing.
+export default function EverydayMenuRedirect() {
+  redirect("/menu?tab=everyday");
 }

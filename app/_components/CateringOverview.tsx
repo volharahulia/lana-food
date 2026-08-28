@@ -1,15 +1,18 @@
-import { Cake, BabyCarriage, UsersThree, Briefcase } from "@phosphor-icons/react/ssr";
+import Image from "next/image";
 import SectionHeading from "./ui/SectionHeading";
 import ImagePlaceholder from "./ui/ImagePlaceholder";
 import Button from "./ui/Button";
 import { cateringEvents, type CateringEvent } from "../_data/cateringEvents";
 import { homeImages, resolveImage } from "../_data/homeImages";
 
-const iconMap: Record<CateringEvent["icon"], typeof Cake> = {
-  cake: Cake,
-  stroller: BabyCarriage,
-  usersThree: UsersThree,
-  briefcase: Briefcase,
+// Approved icon set — public/images/icons/ is the single source of truth
+// (CLAUDE.md §33 / asset audit); do not substitute Phosphor or another
+// library for these four.
+const iconMap: Record<CateringEvent["icon"], string> = {
+  cake: "/images/icons/birthdays_icon.svg",
+  stroller: "/images/icons/baby_showers_icon.svg",
+  usersThree: "/images/icons/family_gatherings_icon.svg",
+  briefcase: "/images/icons/corporate_events_icon.svg",
 };
 
 export default function CateringOverview() {
@@ -19,23 +22,20 @@ export default function CateringOverview() {
         <SectionHeading
           title="Catering with Professional Setup"
           subtitle="Complete catering service for any event."
-          align="left"
+          align="center"
           as="h3"
         />
 
         <ul className="grid grid-cols-2 gap-4 tablet:grid-cols-4">
-          {cateringEvents.map((event) => {
-            const Icon = iconMap[event.icon];
-            return (
-              <li key={event.label} className="flex flex-col items-start gap-1.5">
-                <Icon size={26} weight="thin" className="text-primary-600" aria-hidden />
-                <span className="font-body text-sm font-semibold text-ink-900">
-                  {event.label}
-                </span>
-                <span className="font-body text-xs text-ink-700">{event.supportText}</span>
-              </li>
-            );
-          })}
+          {cateringEvents.map((event) => (
+            <li key={event.label} className="flex flex-col items-center gap-1.5 text-center">
+              <Image src={iconMap[event.icon]} alt="" width={66} height={66} aria-hidden />
+              <span className="font-body text-sm font-semibold text-ink-900">
+                {event.label}
+              </span>
+              <span className="font-body text-xs text-ink-700">{event.supportText}</span>
+            </li>
+          ))}
         </ul>
 
         <Button href="/catering" size="lg" className="self-start">
@@ -43,11 +43,16 @@ export default function CateringOverview() {
         </Button>
       </div>
 
+      {/* Stacked full-width below laptop; from laptop up this is 42% of the
+          row's content box, where the row itself is the page grid's 1fr
+          column (container width minus the 360px Most Popular column and
+          the row gap) minus this card's own padding. */}
       <ImagePlaceholder
         ratio="auto"
         alt="Catering table set with professional presentation for a celebration"
-        className="h-56 tablet:h-72 laptop:h-auto laptop:w-[340px] laptop:shrink-0"
+        className="h-56 tablet:h-72 laptop:h-auto laptop:w-[42%] laptop:shrink-0"
         src={resolveImage(homeImages.catering)}
+        sizes="(min-width: 1600px) 420px, (min-width: 1280px) calc(42vw - 252px), (min-width: 1024px) calc(42vw - 222px), (min-width: 768px) calc(100vw - 104px), calc(100vw - 80px)"
       />
     </div>
   );

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
-  <g stroke="#C8873D" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(1.767956 -2.121547) scale(0.972376)" stroke="#C8873D" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
     <!-- left leaf -->
     <path d="M60 63C43 60 27 49 27 25C47 24 62 35 63 52C63 57 62 61 60 63Z"/>
     <path d="M33 31C42 39 50 47 60 61"/>

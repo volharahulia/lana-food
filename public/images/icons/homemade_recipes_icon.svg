@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
-  <g stroke="#C8873D" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(3.764706 3.294118) scale(0.941176)" stroke="#C8873D" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
     <!-- house -->
     <path d="M22 57L64 20L106 57"/>
     <path d="M29 54V104C29 107 31 109 34 109H94C97 109 99 107 99 104V54"/>

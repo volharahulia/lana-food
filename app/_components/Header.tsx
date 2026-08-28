@@ -27,24 +27,25 @@ export default function Header() {
   }
 
   const linkClass =
-    "font-body text-[15px] font-medium text-ink-900 transition-colors duration-150 hover:text-primary-600 data-[active]:text-primary-600";
+    "font-body text-[15px] font-medium leading-5 text-ink-900 transition-colors duration-150 hover:text-primary-600 data-[active]:text-primary-600";
 
   return (
     <header className="sticky top-0 z-40 border-b border-border-hairline bg-surface-white/95 backdrop-blur-sm">
-      <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between gap-4 px-4 tablet:px-6 laptop:h-[72px] laptop:px-8 desktop:px-12">
+      <div className="container-page flex h-16 items-center justify-between gap-4 laptop:h-[72px]">
         <Link href="/" className="relative h-12 w-20 shrink-0 laptop:h-14 laptop:w-24" aria-label="Lana Food, go to homepage">
+          {/* w-20 (80px) below laptop, w-24 (96px) from laptop up. */}
           <Image
             src="/images/common/logo.PNG"
             alt="Lana Food"
             fill
-            sizes="96px"
-            className="object-cover object-center"
+            sizes="(min-width: 1024px) 96px, 80px"
+            className="object-contain object-center"
             priority
           />
         </Link>
 
         <NavigationMenu.Root className="relative hidden laptop:block">
-          <NavigationMenu.List className="flex items-center gap-6">
+          <NavigationMenu.List className="flex items-center gap-6 desktop:gap-8">
             <NavigationMenu.Item>
               <NavigationMenu.Link asChild active={pathname === "/"}>
                 <Link href="/" className={linkClass}>
@@ -54,33 +55,44 @@ export default function Header() {
             </NavigationMenu.Item>
 
             <NavigationMenu.Item className="relative">
-              <NavigationMenu.Trigger
-                className={`group inline-flex items-center gap-1 bg-transparent ${linkClass}`}
-              >
-                Menu
-                <CaretDown
-                  size={14}
-                  weight="bold"
-                  className="transition-transform duration-200 group-data-[state=open]:rotate-180"
-                  aria-hidden
-                />
-              </NavigationMenu.Trigger>
-              <NavigationMenu.Content className="absolute left-0 top-full mt-2 min-w-[200px] rounded-md border border-border-hairline bg-surface-white p-2 shadow-md">
-                <ul className="flex flex-col">
-                  {menuDropdown.map((item) => (
-                    <li key={item.href}>
-                      <NavigationMenu.Link asChild>
-                        <Link
-                          href={item.href}
-                          className="block rounded-xs px-3 py-2 text-sm text-ink-900 transition-colors hover:bg-cream-500 hover:text-primary-600"
-                        >
-                          {item.label}
-                        </Link>
-                      </NavigationMenu.Link>
-                    </li>
-                  ))}
-                </ul>
-              </NavigationMenu.Content>
+              <div className="flex items-center">
+                {/* Main Menu link */}
+                <NavigationMenu.Link asChild active={pathname === "/menu"}>
+                  <Link href="/menu" className={linkClass}>
+                    Menu
+                  </Link>
+                </NavigationMenu.Link>
+
+                {/* Dropdown trigger */}
+                <NavigationMenu.Trigger
+                  aria-label="Open Menu categories"
+                  className={`group ml-1 inline-flex h-8 w-6 items-center justify-center bg-transparent text-ink-900`}
+                >
+                  <CaretDown
+                    size={14}
+                    weight="bold"
+                    className="transition-transform duration-200 group-data-[state=open]:rotate-180"
+                    aria-hidden
+                  />
+                </NavigationMenu.Trigger>
+
+                <NavigationMenu.Content className="absolute left-0 top-full mt-2 min-w-[200px] rounded-md border border-border-hairline bg-surface-white p-2 shadow-md">
+                  <ul className="flex flex-col">
+                    {menuDropdown.map((item) => (
+                      <li key={item.href}>
+                        <NavigationMenu.Link asChild>
+                          <Link
+                            href={item.href}
+                            className="block rounded-xs px-3 py-2 text-sm text-ink-900 transition-colors hover:bg-cream-500 hover:text-primary-600"
+                          >
+                            {item.label}
+                          </Link>
+                        </NavigationMenu.Link>
+                      </li>
+                    ))}
+                  </ul>
+                </NavigationMenu.Content>
+              </div>
             </NavigationMenu.Item>
 
             {primaryNav.slice(1).map((item) => (

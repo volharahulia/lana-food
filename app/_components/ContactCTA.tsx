@@ -19,7 +19,7 @@ const contactMethods: ContactMethod[] = [
 
 export default function ContactCTA() {
   return (
-    <section className="mx-auto max-w-[1400px] px-4 py-10 tablet:px-6 laptop:px-8 laptop:py-16 desktop:px-12">
+    <section className="container-page py-10 laptop:py-16">
       <div className="flex flex-col items-center gap-5 rounded-lg bg-primary-600 px-6 py-10 text-center text-cream-300 laptop:px-12 laptop:py-12">
         <h2 className="font-display text-2xl font-medium laptop:text-[32px]">
           Ready to Plan Your Celebration?

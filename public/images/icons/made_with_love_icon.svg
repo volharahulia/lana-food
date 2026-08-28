@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
-  <g stroke="#C8873D" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(-14.222222 -2.305556) scale(1.222222)" stroke="#C8873D" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
     <!-- center person -->
     <circle cx="64" cy="29" r="8"/>
     <path d="M52 60V47C52 41 57 37 64 37C71 37 76 41 76 47V60"/>

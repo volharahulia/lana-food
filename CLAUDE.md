@@ -10,7 +10,7 @@ The website is a warm, photography-led business website whose main goals are:
 1. Help visitors discover Lana Food and its food offering.
 2. Present homemade Eastern European food clearly.
 3. Support celebrations and catering inquiries.
-4. Present Everyday, Kids', Holiday and Frozen Food offerings.
+4. Present Everyday, Kids' and Holiday menu offerings.
 5. Build trust through real food photography, Lana's story and customer reviews.
 6. Make contacting Lana Food easy.
 7. Establish a strong technical and content foundation for local SEO.
@@ -57,9 +57,11 @@ in this CLAUDE.md.
 
 When implementing the website:
 
-1. Follow explicit project decisions in this CLAUDE.md.
-2. Follow the approved source documents.
-3. Match the provided visual references.
+1. Follow explicit current project decisions recorded in this CLAUDE.md.
+2. Use the approved source documents as the detailed specification for
+   product requirements, website strategy, information architecture,
+   content, design system and visual rules.
+3. Match the provided visual references for approved visual composition.
 4. Do not invent business facts.
 5. Do not silently introduce new sections, features, copy, services,
    locations or UI patterns.
@@ -67,6 +69,10 @@ When implementing the website:
    and preserve the existing structure.
 7. Do not redesign the information architecture.
 8. Do not replace approved terminology with generic website terminology.
+
+When implementing a feature or section, read the relevant source documentation
+before making implementation decisions. Do not rely on this CLAUDE.md as a
+replacement for the source documents.
 
 The goal is a close, faithful implementation — not a new interpretation of
 the Lana Food brand.
@@ -81,27 +87,13 @@ The website must communicate two connected directions under one brand.
 
 ## 4.1 Homemade Everyday Food
 
-Lana Food offers authentic homemade Eastern European food for people who want
-good food at home without preparing everything themselves.
+Lana Food offers authentic homemade Eastern European food for people who want good food at home without preparing everything themselves.
 
 Relevant offerings include:
 
 - Everyday Menu
 - Kids' Menu
-- Frozen Food
 - Holiday Menu
-
-Frozen Food is a separate product line and must not be presented merely as
-another catering package.
-
-It has its own page and customer journey.
-
-Relevant search intent includes:
-
-- homemade frozen food
-- frozen pelmeni
-- frozen Eastern European food
-- take-home meals
 
 ## 4.2 Celebrations / Catering
 
@@ -136,38 +128,33 @@ The website should communicate:
 
 Both are united by authentic Eastern European homemade cooking and family care.
 
-Do not let the catering narrative visually or verbally overwhelm the Everyday
-Food and Frozen Food offering.
+Do not let the catering narrative visually or verbally overwhelm the Everyday Food offering.
 
 ---
 
 # 5. LOCATION AND SERVICE AREA
 
-Business-provided location:
-
-Primary location:
-Mountain View, California.
-
 Broader service area:
+
 San Francisco Bay Area, California.
 
-Use Mountain View naturally where it accurately describes the business.
-
-Use San Francisco Bay Area as the broader service area.
+Use the San Francisco Bay Area naturally where it accurately describes the
+business.
 
 Do not invent:
 
-- additional cities
-- counties
-- exact addresses
-- opening hours
-- service boundaries
+- primary business locations;
+- additional cities;
+- counties;
+- exact addresses;
+- opening hours;
+- service boundaries;
 - delivery radius
 
 unless they are provided as confirmed business information.
 
-The current source documents explicitly define the broader service area as
-San Francisco Bay Area, California.
+Maintain consistent location information across the website and structured
+data.
 
 ---
 
@@ -238,7 +225,6 @@ Desktop structure:
 - Home
 - Menu
 - Catering
-- Frozen Foods
 - About
 - Reviews
 - Contact
@@ -259,8 +245,6 @@ The Menu navigation may expose:
 - Holiday Menu
 - Everyday Menu
 - Kids' Menu
-
-Frozen Foods remains a separate top-level navigation item.
 
 Mobile:
 
@@ -392,7 +376,6 @@ Featured menu categories:
 - Holiday Menu
 - Everyday Menu
 - Kids' Menu
-- Frozen Foods
 
 Each card contains:
 
@@ -415,12 +398,7 @@ Each card contains:
 
 `Tasty & wholesome options kids will love`
 
-**Frozen Foods**
-
-`Homemade favorites ready to enjoy`
-
-Do not add Seasonal Specials unless it is part of the approved final
-reference/content.
+Do not add Seasonal Specials unless it is part of the approved final reference/content.
 
 ### Card layout
 
@@ -974,7 +952,6 @@ The route structure should mirror the approved IA:
 - `/menu/kids`
 - `/menu/holiday`
 - `/catering`
-- `/frozen`
 - `/about`
 - `/reviews`
 - `/contact`
@@ -1076,18 +1053,6 @@ Secondary:
 - Baby shower catering
 - Family event catering
 - Holiday catering
-
-## Frozen Foods
-
-Primary:
-
-`Homemade frozen food`
-
-Secondary:
-
-- Frozen pelmeni
-- Frozen Eastern European food
-- Take-home meals
 
 ## About
 

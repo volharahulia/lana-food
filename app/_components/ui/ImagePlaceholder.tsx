@@ -21,6 +21,11 @@ type ImagePlaceholderProps = {
    * automatically for a next/image fill — no layout change required. */
   src?: string;
   priority?: boolean;
+  /** Required whenever `src` is set: the image's actual rendered width at
+   * each breakpoint (this component uses `fill`, so Next.js can't infer it
+   * from layout). Compute it from the caller's real container/grid math,
+   * not a generic guess — see call sites for worked examples. */
+  sizes?: string;
 };
 
 export default function ImagePlaceholder({
@@ -30,6 +35,7 @@ export default function ImagePlaceholder({
   className = "",
   src,
   priority = false,
+  sizes,
 }: ImagePlaceholderProps) {
   return (
     <div
@@ -43,6 +49,7 @@ export default function ImagePlaceholder({
           alt={alt}
           fill
           priority={priority}
+          sizes={sizes}
           className="object-cover"
         />
       ) : (

@@ -11,12 +11,14 @@ export default function Home() {
     <>
       <Hero />
       <FeaturedMenuCategories />
-      <section className="mx-auto flex max-w-[1400px] flex-col gap-5 px-4 py-10 tablet:px-6 laptop:grid laptop:grid-cols-[360px_1fr] laptop:px-8 laptop:py-16 desktop:px-12">
+      <section className="container-page flex flex-col gap-5 py-10 laptop:grid laptop:grid-cols-[360px_1fr] laptop:gap-6 laptop:py-16 desktop:gap-8">
         <MostPopularDishes />
         <CateringOverview />
       </section>
-      <MeetLana />
-      <ReviewsPreview />
+      <section className="container-page flex flex-col gap-10 py-10 laptop:grid laptop:grid-cols-2 laptop:items-start laptop:gap-12 laptop:py-16">
+        <MeetLana />
+        <ReviewsPreview />
+      </section>
       <ContactCTA />
     </>
   );

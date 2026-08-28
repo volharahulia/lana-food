@@ -7,7 +7,7 @@ import { resolveImage } from "../_data/homeImages";
 
 export default function FeaturedMenuCategories() {
   return (
-    <section className="mx-auto max-w-[1400px] px-4 py-10 tablet:px-6 laptop:px-8 laptop:py-16 desktop:px-12">
+    <section className="container-page py-10 laptop:py-16">
       <SectionHeading
         title="Explore Our Menus"
         subtitle="Choose the perfect menu for your occasion."
@@ -20,12 +20,16 @@ export default function FeaturedMenuCategories() {
             href={category.href}
             className="group flex flex-col overflow-hidden rounded-md border border-border-hairline bg-surface-white shadow-xs transition-shadow duration-200 hover:shadow-sm"
           >
+            {/* 1 column (full width) below tablet; 3 columns with a 20px
+                gap from tablet up, capped once the shared container hits
+                its 1440px max at ~1600px viewport. */}
             <ImagePlaceholder
               ratio="16:9"
               alt={`${category.name} photography`}
               radiusClassName="rounded-none"
               className="transition-transform duration-250 group-hover:scale-[1.02]"
               src={resolveImage(category.image)}
+              sizes="(min-width: 1600px) 467px, (min-width: 1280px) calc((100vw - 200px) / 3), (min-width: 1024px) calc((100vw - 136px) / 3), (min-width: 768px) calc((100vw - 104px) / 3), calc(100vw - 40px)"
             />
             <div className="flex flex-col gap-2 p-4">
               <h3 className="font-display text-xl font-medium text-ink-900">

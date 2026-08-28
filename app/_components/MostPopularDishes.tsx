@@ -17,12 +17,14 @@ export default function MostPopularDishes() {
               href="/menu"
               className="group flex items-center gap-4 py-2.5 transition-colors hover:text-primary-600"
             >
+              {/* Fixed w-14 (56px) at every breakpoint — no responsive variant. */}
               <ImagePlaceholder
                 ratio="1:1"
                 alt={`${dish.name} thumbnail`}
                 radiusClassName="rounded-sm"
                 className="w-14 shrink-0"
                 src={resolveImage(dish.image)}
+                sizes="56px"
               />
               <span className="flex-1 font-display text-base text-ink-900 transition-colors group-hover:text-primary-600">
                 {dish.name}
