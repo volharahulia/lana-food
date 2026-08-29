@@ -1,20 +1,23 @@
 import type { CSSProperties } from "react";
 import Button from "../../_components/ui/Button";
 import ImagePlaceholder from "../../_components/ui/ImagePlaceholder";
+import HeroPhotoFade, {
+  HERO_TITLE_CLASSNAME,
+  type HeroFadeVars,
+} from "../../_components/ui/HeroPhotoFade";
 import { menuHero } from "../_data/menuConfig";
 import { menuImages, resolveImage } from "../_data/menuImages";
 
 // ---------------------------------------------------------------------------
-// Cream/photo fade — same technique as the Home Hero (app/_components/Hero.tsx):
-// three progressively-blurred copies of the photo, each masked with its own
-// soft alpha ramp, topped with a continuous cream gradient. That's what makes
-// the blur build up gradually with no single hard edge, instead of one
-// backdrop-blur box with a visible boundary. Every position lives here as a
-// CSS custom property, expressed as "% across the photo, from the cream edge
-// (0%) to the fully sharp side (100%)" — nothing below this block should need
-// to change to retune the fade.
+// Cream/photo fade — every adjustable position lives here as a CSS custom
+// property, expressed as "% across the photo, from the cream edge (0%) to
+// the fully sharp side (100%)" — nothing below this block should need to
+// change to retune the fade. The fade mechanism itself (blur layers, mask
+// gradients, cream blend) is shared with every page Hero via HeroPhotoFade
+// (app/_components/ui/HeroPhotoFade.tsx); only these values are specific to
+// the Menu Hero.
 // ---------------------------------------------------------------------------
-const HERO_FADE_VARS = {
+const HERO_FADE_VARS: HeroFadeVars = {
   "--hero-fade-light-blur-start": "0%",
   "--hero-fade-light-blur-end": "20%",
   "--hero-fade-medium-blur-start": "0%",
@@ -27,28 +30,7 @@ const HERO_FADE_VARS = {
   "--hero-fade-cream-soft": "34%",
   "--hero-fade-cream-faint": "46%",
   "--hero-fade-cream-clear": "58%",
-} as CSSProperties;
-
-const HERO_BLUR_LAYERS = [
-  {
-    blur: 6,
-    mask:
-      "linear-gradient(to right, black 0%, black var(--hero-fade-light-blur-start), transparent var(--hero-fade-light-blur-end))",
-  },
-  {
-    blur: 16,
-    mask:
-      "linear-gradient(to right, black 0%, black var(--hero-fade-medium-blur-start), transparent var(--hero-fade-medium-blur-end))",
-  },
-  {
-    blur: 34,
-    mask:
-      "linear-gradient(to right, black 0%, black var(--hero-fade-heavy-blur-start), transparent var(--hero-fade-heavy-blur-end))",
-  },
-];
-
-const HERO_CREAM_BLEND =
-  "linear-gradient(to right, var(--color-cream-500) var(--hero-fade-cream-solid), rgba(246,237,224,0.92) var(--hero-fade-cream-strong), rgba(246,237,224,0.62) var(--hero-fade-cream-mid), rgba(246,237,224,0.28) var(--hero-fade-cream-soft), rgba(246,237,224,0.08) var(--hero-fade-cream-faint), transparent var(--hero-fade-cream-clear))";
+};
 
 // Single shared page-level Hero (MENU.md "Menu Hero") — one photo for the
 // whole /menu page, the same for every category tab. Composition mirrors the
@@ -69,9 +51,7 @@ export default function MenuHero() {
             </p>
           )}
 
-          <h1 className="font-display text-[32px] font-semibold leading-[1.12] tracking-[-0.5px] text-ink-900 laptop:text-[42px] laptop:leading-[1.1] desktop:text-[52px]">
-            {menuHero.h1}
-          </h1>
+          <h1 className={HERO_TITLE_CLASSNAME}>{menuHero.h1}</h1>
 
           {menuHero.intro && (
             <p className="max-w-md font-body text-base leading-[1.6] text-ink-700 desktop:text-lg">
@@ -113,7 +93,7 @@ export default function MenuHero() {
           {/* Laptop+: side-by-side with text, stretched to the row's full height. */}
           <div
             className="relative hidden h-full min-h-[420px] overflow-hidden rounded-lg laptop:block"
-            style={HERO_FADE_VARS}
+            style={HERO_FADE_VARS as CSSProperties}
           >
             <ImagePlaceholder
               ratio="auto"
@@ -125,25 +105,7 @@ export default function MenuHero() {
               priority
             />
 
-            {heroSrc &&
-              HERO_BLUR_LAYERS.map(({ blur, mask }) => (
-                <div
-                  key={blur}
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 bg-cover bg-center"
-                  style={{
-                    backgroundImage: `url(${heroSrc})`,
-                    filter: `blur(${blur}px)`,
-                    WebkitMaskImage: mask,
-                    maskImage: mask,
-                  }}
-                />
-              ))}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0"
-              style={{ backgroundImage: HERO_CREAM_BLEND }}
-            />
+            <HeroPhotoFade src={heroSrc} />
           </div>
           <div
             aria-hidden

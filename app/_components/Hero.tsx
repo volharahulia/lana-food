@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import Image from "next/image";
 import Button from "./ui/Button";
 import ImagePlaceholder from "./ui/ImagePlaceholder";
+import HeroPhotoFade, { HERO_TITLE_CLASSNAME, type HeroFadeVars } from "./ui/HeroPhotoFade";
 
 // Approved icon set — public/images/icons/ is the single source of truth
 // (CLAUDE.md §33 / asset audit); do not substitute Phosphor or another
@@ -19,7 +20,10 @@ const HERO_IMAGE_SRC = "/images/home/hero-table.png";
 // Hero cream/photo fade — every adjustable position lives here as a CSS
 // custom property, all expressed as "% across the photo, from the cream
 // edge (0%) to the sharp side (100%)". Nothing below this block should need
-// to change to move the fade boundary — edit these values only.
+// to change to move the fade boundary — edit these values only. The fade
+// mechanism itself (blur layers, mask gradients, cream blend) is shared with
+// every page Hero via HeroPhotoFade (app/_components/ui/HeroPhotoFade.tsx);
+// only these values are specific to the Home Hero.
 //
 // Each blur layer's "-end" is where that layer has fully disappeared, i.e.
 // how far right that amount of softness reaches. HERO_FADE_VARS["--hero-fade-cream-clear"]
@@ -28,7 +32,7 @@ const HERO_IMAGE_SRC = "/images/home/hero-table.png";
 // overall fade boundary left (smaller %, more of the photo stays sharp) or
 // right (larger %, the soft/tinted zone reaches further into the photo).
 // ---------------------------------------------------------------------------
-const HERO_FADE_VARS = {
+const HERO_FADE_VARS: HeroFadeVars = {
   "--hero-fade-light-blur-start": "0%",
   "--hero-fade-light-blur-end": "0%",
   "--hero-fade-medium-blur-start": "0%",
@@ -41,36 +45,7 @@ const HERO_FADE_VARS = {
   "--hero-fade-cream-soft": "0%",
   "--hero-fade-cream-faint": "0%",
   "--hero-fade-cream-clear": "0%",
-} as CSSProperties;
-
-// Progressive-blur ramp for the left edge of the Hero photo: three copies of
-// the same image at increasing blur radii, each faded in with its own
-// gradient mask. Stacking soft, overlapping alpha ramps (rather than one
-// backdrop-blur box with a hard edge) is what makes the blur itself appear
-// to build up gradually — there is no single boundary where blur starts.
-const HERO_BLUR_LAYERS = [
-  {
-    blur: 6,
-    mask:
-      "linear-gradient(to right, black 0%, black var(--hero-fade-light-blur-start), transparent var(--hero-fade-light-blur-end))",
-  },
-  {
-    blur: 16,
-    mask:
-      "linear-gradient(to right, black 0%, black var(--hero-fade-medium-blur-start), transparent var(--hero-fade-medium-blur-end))",
-  },
-  {
-    blur: 34,
-    mask:
-      "linear-gradient(to right, black 0%, black var(--hero-fade-heavy-blur-start), transparent var(--hero-fade-heavy-blur-end))",
-  },
-];
-
-// Final blend into the solid cream ground. A continuous multi-stop gradient
-// (rather than a flat color block) so opacity itself ramps smoothly and
-// there is no point where the fade visibly "starts."
-const HERO_CREAM_BLEND =
-  "linear-gradient(to right, var(--color-cream-500) var(--hero-fade-cream-solid), rgba(246,237,224,0.92) var(--hero-fade-cream-strong), rgba(246,237,224,0.62) var(--hero-fade-cream-mid), rgba(246,237,224,0.28) var(--hero-fade-cream-soft), rgba(246,237,224,0.08) var(--hero-fade-cream-faint), transparent var(--hero-fade-cream-clear))";
+};
 
 export default function Hero() {
   return (
@@ -103,7 +78,7 @@ export default function Hero() {
               visual height of the Hero instead of sitting in an isolated crop. */}
           <div
             className="relative hidden h-full overflow-hidden rounded-lg laptop:block"
-            style={HERO_FADE_VARS}
+            style={HERO_FADE_VARS as CSSProperties}
           >
             {/* Laptop+ image column width = container-page content width minus
                 the fixed text column (400px laptop / 440px desktop) and the
@@ -119,29 +94,9 @@ export default function Hero() {
               priority
             />
 
-            {/* Seamless cream/photo transition: stacked, softly-masked blur
-                copies of the same photo (no backdrop-blur box, so there is
-                no rectangular edge), topped with a continuous cream gradient.
-                Every layer fades via a smooth alpha ramp — nothing here is
-                clipped to a hard boundary. */}
-            {HERO_BLUR_LAYERS.map(({ blur, mask }) => (
-              <div
-                key={blur}
-                aria-hidden
-                className="pointer-events-none absolute inset-0 bg-cover bg-center"
-                style={{
-                  backgroundImage: `url(${HERO_IMAGE_SRC})`,
-                  filter: `blur(${blur}px)`,
-                  WebkitMaskImage: mask,
-                  maskImage: mask,
-                }}
-              />
-            ))}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0"
-              style={{ backgroundImage: HERO_CREAM_BLEND }}
-            />
+            {/* Seamless cream/photo transition — shared mechanism, see
+                HeroPhotoFade (app/_components/ui/HeroPhotoFade.tsx). */}
+            <HeroPhotoFade src={HERO_IMAGE_SRC} />
           </div>
           <div
             aria-hidden
@@ -157,7 +112,7 @@ export default function Hero() {
             </span>
           </div>
 
-          <h1 className="font-display text-[32px] font-semibold leading-[1.12] tracking-[-0.5px] text-ink-900 laptop:text-[42px] desktop:text-[52px] laptop:leading-[1.1] text-left">
+          <h1 className={`${HERO_TITLE_CLASSNAME} text-left`}>
             Homemade Eastern European Cuisine for Life&rsquo;s Best Moments
           </h1>
 

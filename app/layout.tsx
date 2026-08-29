@@ -34,6 +34,10 @@ export const metadata: Metadata = {
     "Fresh homemade Eastern European catering for birthdays, family gatherings, baby showers, holiday celebrations, and kids' parties across the San Francisco Bay Area.",
 };
 
+// Sitewide LocalBusiness schema — the single source of structured business
+// data for the whole site (do not add a second LocalBusiness block on any
+// individual page, e.g. Contact; extend this one instead). Optional fields
+// are included only when business.ts has a confirmed value, never invented.
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
@@ -47,6 +51,21 @@ const jsonLd = {
     addressCountry: "US",
   },
   areaServed: business.serviceArea,
+  ...(business.phone ? { telephone: business.phone } : {}),
+  ...(business.email ? { email: business.email } : {}),
+  ...(business.instagram || business.facebook
+    ? { sameAs: [business.instagram, business.facebook].filter(Boolean) }
+    : {}),
+  ...(business.phone
+    ? {
+        contactPoint: {
+          "@type": "ContactPoint",
+          telephone: business.phone,
+          contactType: "customer service",
+          areaServed: business.serviceArea,
+        },
+      }
+    : {}),
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
