@@ -1,20 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
-  <g stroke="#C8873D" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
-    <!-- handle -->
-    <path d="M51 28V24C51 21 53 19 56 19H72C75 19 77 21 77 24V28"/>
-
-    <!-- briefcase -->
-    <rect x="35" y="28" width="58" height="45" rx="4"/>
-
-    <!-- lid / upper separation -->
-    <path d="M35 43H93"/>
-
-    <!-- center clasp -->
-    <path d="M35 43H56"/>
-    <path d="M72 43H93"/>
-    <circle cx="64" cy="43" r="5"/>
-
-    <!-- subtle lower case line -->
-    <path d="M35 58C44 61 53 62 64 62C75 62 84 61 93 58"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+<g fill="none" stroke="#B88635" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M102 56 V48 C102 42 106 38 112 38 H144 C150 38 154 42 154 48 V56"/>
+<path d="M70 56 H186 V146 C186 151 182 154 177 154 H79 C74 154 70 151 70 146 Z"/>
+<path d="M70 86 H186"/>
+<path d="M70 86 H112"/>
+<path d="M144 86 H186"/>
+<path d="M128 76 A10 10 0 1 0 128 96 A10 10 0 1 0 128 76"/>
+<path d="M70 116 C88 122 106 124 128 124 C150 124 168 122 186 116"/>
+</g></svg>

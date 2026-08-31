@@ -1,4 +1,4 @@
-import { Heart } from "@phosphor-icons/react/ssr";
+import HeartDivider from "../../_components/ui/HeartDivider";
 import { contactIntro } from "../_data/contactConfig";
 
 // Compact editorial page introduction — deliberately not a Hero (CLAUDE.md:
@@ -13,11 +13,7 @@ export default function ContactIntro() {
         {contactIntro.eyebrow}
       </p>
 
-      <div aria-hidden className="mt-3 flex items-center justify-center gap-3">
-        <span className="h-px w-8 bg-primary-600" />
-        <Heart size={14} weight="fill" className="text-primary-600" />
-        <span className="h-px w-8 bg-primary-600" />
-      </div>
+      <HeartDivider className="mt-3 justify-center text-primary-600" />
 
       <h1 className="mt-4 font-display text-[34px] font-semibold leading-[40px] tracking-[-0.5px] text-ink-900 laptop:text-[56px] laptop:leading-[64px]">
         {contactIntro.h1}

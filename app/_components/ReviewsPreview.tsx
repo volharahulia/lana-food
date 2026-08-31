@@ -4,13 +4,14 @@ import { useState } from "react";
 import { Star } from "@phosphor-icons/react";
 import SectionHeading from "./ui/SectionHeading";
 import { reviews } from "../_data/reviews";
+import { reviewsPreviewContent } from "../_data/homeContent";
 
 export default function ReviewsPreview() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <div className="flex h-full flex-col gap-5">
-      <SectionHeading title="Customer Reviews" align="center" as="h3" />
+      <SectionHeading title={reviewsPreviewContent.title} align="center" as="h3" />
 
       <div className="flex flex-col gap-4">
         {reviews.map((review, i) => (

@@ -1,9 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
-  <g transform="translate(3.764706 3.294118) scale(0.941176)" stroke="#C8873D" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
-    <!-- house -->
-    <path d="M22 57L64 20L106 57"/>
-    <path d="M29 54V104C29 107 31 109 34 109H94C97 109 99 107 99 104V54"/>
-    <!-- heart -->
-    <path d="M64 91L48 76C40 69 42 57 51 55C57 54 61 57 64 62C67 57 71 54 77 55C86 57 88 69 80 76L64 91Z"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+<g fill="none" stroke="#B88635" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+<rect x="62" y="98" width="132" height="104" rx="18"/>
+<path d="M62 120 H46 V145 H62"/>
+<path d="M194 120 H210 V145 H194"/>
+<path d="M70 98 C76 76 91 66 128 66 C165 66 180 76 186 98"/>
+<path d="M70 98 H186"/>
+<circle cx="128" cy="57" r="12"/>
+</g>
+<path d="M111 151 C111 143 121 140 128 148 C135 140 145 143 145 151 C145 160 128 173 128 173 C128 173 111 160 111 151Z" fill="#B88635"/>
 </svg>

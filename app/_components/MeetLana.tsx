@@ -2,6 +2,7 @@ import SectionHeading from "./ui/SectionHeading";
 import ImagePlaceholder from "./ui/ImagePlaceholder";
 import Button from "./ui/Button";
 import { homeImages, resolveImage } from "../_data/homeImages";
+import { meetLanaContent } from "../_data/homeContent";
 
 export default function MeetLana() {
   return (
@@ -10,7 +11,7 @@ export default function MeetLana() {
           tablet up — narrower than a standalone Meet Lana would use, sized
           to share the row with the Reviews column from laptop up. */}
       <ImagePlaceholder
-        ratio="4:5"
+        ratio="9:16"
         alt="Portrait of Lana in the kitchen"
         radiusClassName="rounded-lg"
         src={resolveImage(homeImages.lanaPortrait)}
@@ -19,16 +20,12 @@ export default function MeetLana() {
       />
 
       <div className="flex flex-col items-start gap-5">
-        <SectionHeading title="Meet Lana" align="left" />
+        <SectionHeading title={meetLanaContent.title} align="left" />
         <p className="max-w-2xl font-body text-base leading-[1.6] text-ink-700 laptop:text-lg">
-          At Lana Food, every dish starts in a home kitchen, not a factory
-          line. We prepare each order the way we&rsquo;d cook for our own
-          family — from scratch, with fresh ingredients and no artificial
-          anything. It&rsquo;s homemade Eastern European cooking, made with
-          love, for your table across the San Francisco Bay Area.
+          {meetLanaContent.body}
         </p>
-        <Button href="/about" variant="secondary">
-          Learn More About Us
+        <Button href={meetLanaContent.cta.href} variant="secondary">
+          {meetLanaContent.cta.label}
         </Button>
       </div>
     </div>

@@ -6,6 +6,7 @@ import path from "path";
 // dish images live next to their own content instead — see the `image`
 // field on each entry in menuCategories.ts / popularDishes.ts.
 export const homeImages = {
+  hero: "/images/home/hero-table.png",
   catering: "/images/home/catering.jpg",
   lanaPortrait: "/images/home/lana-portrait.jpg",
 } as const;

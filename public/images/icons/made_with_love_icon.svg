@@ -1,18 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
-  <g transform="translate(-14.222222 -2.305556) scale(1.222222)" stroke="#C8873D" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
-    <!-- center person -->
-    <circle cx="64" cy="29" r="8"/>
-    <path d="M52 60V47C52 41 57 37 64 37C71 37 76 41 76 47V60"/>
-    <rect x="51" y="57" width="26" height="31" rx="8"/>
-
-    <!-- left person: head + partial body -->
-    <circle cx="48" cy="27" r="6.5"/>
-    <path d="M39 48C39 42 43 38 48 38C51 38 54 39 56 42"/>
-    <path d="M39 48C34 48 31 52 31 57V67C31 72 35 75 40 75H47"/>
-
-    <!-- right person: head + partial body -->
-    <circle cx="80" cy="27" r="6.5"/>
-    <path d="M89 48C89 42 85 38 80 38C77 38 74 39 72 42"/>
-    <path d="M89 48C94 48 97 52 97 57V67C97 72 93 75 88 75H81"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+<g fill="none" stroke="#B88635" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M128 92 C116 77 101 75 91 84 C79 94 82 111 94 123 L128 151 L162 123 C174 111 177 94 165 84 C155 75 140 77 128 92Z"/>
+<path d="M80 113 H68 C60 113 56 120 56 129 V147 C56 157 63 164 74 168 L92 176 L108 191 H112 V165 L98 151"/>
+<path d="M176 113 H188 C196 113 200 120 200 129 V147 C200 157 193 164 182 168 L164 176 L148 191 H144 V165 L158 151"/>
+<path d="M56 129 V146"/>
+<path d="M200 129 V146"/>
+<path d="M112 191 V166"/>
+<path d="M144 191 V166"/>
+</g></svg>

@@ -1,15 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
-  <g stroke="#C8873D" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
-    <!-- left person -->
-    <circle cx="48" cy="31" r="10"/>
-    <path d="M31 61C31 50 38 43 48 43C58 43 65 50 65 61V70H31V61Z"/>
-
-    <!-- right person -->
-    <circle cx="80" cy="31" r="10"/>
-    <path d="M63 61C63 50 70 43 80 43C90 43 97 50 97 61V70H63V61Z"/>
-
-    <!-- overlapping center shoulders -->
-    <path d="M48 45C55 45 61 49 64 55"/>
-    <path d="M80 45C73 45 67 49 64 55"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+<g fill="none" stroke="#B88635" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M116 42 A20 20 0 1 0 116 82 A20 20 0 1 0 116 42"/>
+<path d="M62 122 C62 100 76 86 96 86 C116 86 130 100 130 122 V140 H62 Z"/>
+<path d="M160 42 A20 20 0 1 0 160 82 A20 20 0 1 0 160 42"/>
+<path d="M126 122 C126 100 140 86 160 86 C180 86 194 100 194 122 V140 H126 Z"/>
+<path d="M96 90 C110 90 122 98 128 110"/>
+<path d="M160 90 C146 90 134 98 128 110"/>
+</g></svg>

@@ -4,11 +4,16 @@ import SectionHeading from "./ui/SectionHeading";
 import ImagePlaceholder from "./ui/ImagePlaceholder";
 import { popularDishes } from "../_data/popularDishes";
 import { resolveImage } from "../_data/homeImages";
+import { mostPopularDishesContent } from "../_data/homeContent";
 
 export default function MostPopularDishes() {
   return (
     <div className="flex h-full flex-col gap-5 rounded-lg border border-border-hairline bg-surface-white p-5 shadow-xs laptop:p-6">
-      <SectionHeading title="Most Popular Dishes" subtitle="Customer favorites made with love." as="h3" />
+      <SectionHeading
+        title={mostPopularDishesContent.title}
+        subtitle={mostPopularDishesContent.subtitle}
+        as="h3"
+      />
 
       <ul className="flex flex-col divide-y divide-border-hairline">
         {popularDishes.map((dish) => (
@@ -40,10 +45,10 @@ export default function MostPopularDishes() {
       </ul>
 
       <Link
-        href="/menu"
+        href={mostPopularDishesContent.cta.href}
         className="inline-flex items-center justify-center gap-1 self-center font-body text-sm font-semibold text-primary-600 hover:underline"
       >
-        View Full Menu
+        {mostPopularDishesContent.cta.label}
         <ArrowRight size={16} weight="bold" aria-hidden />
       </Link>
     </div>

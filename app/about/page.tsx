@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
-import StubPage from "../_components/StubPage";
+import AboutFounder from "./_components/AboutFounder";
+import AboutMission from "./_components/AboutMission";
+import AboutValues from "./_components/AboutValues";
+import AboutCTA from "./_components/AboutCTA";
 
 export const metadata: Metadata = {
   title: "About Lana Food | Family-Owned Homemade Catering | Bay Area California",
@@ -9,9 +12,11 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <StubPage
-      title="About"
-      description="Lana's story, our values, and frequently asked questions are coming soon."
-    />
+    <>
+      <AboutFounder />
+      <AboutMission />
+      <AboutValues />
+      <AboutCTA />
+    </>
   );
 }

@@ -1,20 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-  <g fill="none" stroke="#C8873D" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
-    <!-- stroller body -->
-    <path d="M35 58 H93"/>
-    <path d="M36 58 C36 79 48 91 64 91 C80 91 92 79 92 58"/>
-
-    <!-- canopy -->
-    <path d="M64 58 V31"/>
-    <path d="M64 31 C79 31 92 42 92 58"/>
-
-    <!-- handle -->
-    <path d="M36 58 L43 42 Q45 39 49 39 H53"/>
-
-    <!-- wheels/supports -->
-    <path d="M52 91 L50 97"/>
-    <path d="M76 91 L78 97"/>
-    <circle cx="48" cy="103" r="8"/>
-    <circle cx="80" cy="103" r="8"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+<g fill="none" stroke="#B88635" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M70 116 H186"/>
+<path d="M72 116 C72 158 96 182 128 182 C160 182 184 158 184 116"/>
+<path d="M128 116 V62"/>
+<path d="M128 62 C158 62 184 84 184 116"/>
+<path d="M72 116 L86 84 Q90 78 98 78 H106"/>
+<path d="M104 182 L100 194"/>
+<path d="M152 182 L156 194"/>
+<path d="M96 206 A16 16 0 1 0 96 238 A16 16 0 1 0 96 206"/>
+<path d="M160 206 A16 16 0 1 0 160 238 A16 16 0 1 0 160 206"/>
+</g></svg>

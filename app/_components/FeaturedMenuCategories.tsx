@@ -4,13 +4,14 @@ import SectionHeading from "./ui/SectionHeading";
 import ImagePlaceholder from "./ui/ImagePlaceholder";
 import { menuCategories } from "../_data/menuCategories";
 import { resolveImage } from "../_data/homeImages";
+import { featuredMenuCategoriesContent } from "../_data/homeContent";
 
 export default function FeaturedMenuCategories() {
   return (
     <section className="container-page py-10 laptop:py-16">
       <SectionHeading
-        title="Explore Our Menus"
-        subtitle="Choose the perfect menu for your occasion."
+        title={featuredMenuCategoriesContent.title}
+        subtitle={featuredMenuCategoriesContent.subtitle}
       />
 
       <div className="mt-8 grid grid-cols-1 gap-5 tablet:grid-cols-3">

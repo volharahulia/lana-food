@@ -2,26 +2,17 @@ import Image from "next/image";
 import SectionHeading from "./ui/SectionHeading";
 import ImagePlaceholder from "./ui/ImagePlaceholder";
 import Button from "./ui/Button";
-import { cateringEvents, type CateringEvent } from "../_data/cateringEvents";
+import { cateringEvents } from "../_data/cateringEvents";
 import { homeImages, resolveImage } from "../_data/homeImages";
-
-// Approved icon set — public/images/icons/ is the single source of truth
-// (CLAUDE.md §33 / asset audit); do not substitute Phosphor or another
-// library for these four.
-const iconMap: Record<CateringEvent["icon"], string> = {
-  cake: "/images/icons/birthdays_icon.svg",
-  stroller: "/images/icons/baby_showers_icon.svg",
-  usersThree: "/images/icons/family_gatherings_icon.svg",
-  briefcase: "/images/icons/corporate_events_icon.svg",
-};
+import { cateringOverviewContent } from "../_data/homeContent";
 
 export default function CateringOverview() {
   return (
     <div className="relative flex h-full flex-col gap-5 overflow-hidden rounded-lg border border-border-hairline bg-gradient-to-br from-cream-500 to-cream-300 p-5 laptop:flex-row laptop:items-stretch laptop:gap-8 laptop:p-6">
       <div className="flex flex-1 flex-col justify-center gap-5">
         <SectionHeading
-          title="Catering with Professional Setup"
-          subtitle="Complete catering service for any event."
+          title={cateringOverviewContent.title}
+          subtitle={cateringOverviewContent.subtitle}
           align="center"
           as="h3"
         />
@@ -29,7 +20,7 @@ export default function CateringOverview() {
         <ul className="grid grid-cols-2 gap-4 tablet:grid-cols-4">
           {cateringEvents.map((event) => (
             <li key={event.label} className="flex flex-col items-center gap-1.5 text-center">
-              <Image src={iconMap[event.icon]} alt="" width={66} height={66} aria-hidden />
+              <Image src={event.icon} alt="" width={66} height={66} aria-hidden />
               <span className="font-body text-sm font-semibold text-ink-900">
                 {event.label}
               </span>
@@ -38,8 +29,8 @@ export default function CateringOverview() {
           ))}
         </ul>
 
-        <Button href="/catering" size="lg" className="self-start">
-          Explore Catering
+        <Button href={cateringOverviewContent.cta.href} size="lg" className="self-start">
+          {cateringOverviewContent.cta.label}
         </Button>
       </div>
 

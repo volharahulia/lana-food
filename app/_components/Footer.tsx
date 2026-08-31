@@ -30,7 +30,7 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <div className="relative h-11 w-[74px]">
               <Image
-                src="/images/common/logo.PNG"
+                src={business.logo}
                 alt="Lana Food"
                 fill
                 sizes="74px"

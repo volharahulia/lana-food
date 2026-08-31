@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { business } from "../../_data/business";
 
 type MenuPhotoProps = {
   /** Already-resolved image src, or undefined — resolution happens server-side
@@ -39,7 +40,7 @@ export default function MenuPhoto({
       ) : (
         <div className="absolute inset-0 flex items-center justify-center p-8">
           <Image
-            src="/images/common/logo.PNG"
+            src={business.logo}
             alt=""
             aria-hidden
             width={120}

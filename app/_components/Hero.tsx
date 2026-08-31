@@ -3,18 +3,10 @@ import Image from "next/image";
 import Button from "./ui/Button";
 import ImagePlaceholder from "./ui/ImagePlaceholder";
 import HeroPhotoFade, { HERO_TITLE_CLASSNAME, type HeroFadeVars } from "./ui/HeroPhotoFade";
+import { heroContent, trustIndicators } from "../_data/homeContent";
+import { homeImages, resolveImage } from "../_data/homeImages";
 
-// Approved icon set — public/images/icons/ is the single source of truth
-// (CLAUDE.md §33 / asset audit); do not substitute Phosphor or another
-// library for these four.
-const trustIndicators = [
-  { label: "Fresh Ingredients", icon: "/images/icons/fresh_ingredients_icon.svg" },
-  { label: "Homemade Recipes", icon: "/images/icons/homemade_recipes_icon.svg" },
-  { label: "Reliable Service", icon: "/images/icons/reliable_service_icon.svg" },
-  { label: "Made with Love", icon: "/images/icons/made_with_love_icon.svg" },
-];
-
-const HERO_IMAGE_SRC = "/images/home/hero-table.png";
+const HERO_IMAGE_SRC = resolveImage(homeImages.hero);
 
 // ---------------------------------------------------------------------------
 // Hero cream/photo fade — every adjustable position lives here as a CSS
@@ -108,26 +100,22 @@ export default function Hero() {
           <div className="flex items-center gap-3 text-primary-600">
             <span aria-hidden className="h-px w-8 bg-primary-600" />
             <span className="font-body text-xs font-semibold uppercase tracking-[2px]">
-              California Catering
+              {heroContent.eyebrow}
             </span>
           </div>
 
-          <h1 className={`${HERO_TITLE_CLASSNAME} text-left`}>
-            Homemade Eastern European Cuisine for Life&rsquo;s Best Moments
-          </h1>
+          <h1 className={`${HERO_TITLE_CLASSNAME} text-left`}>{heroContent.h1}</h1>
 
           <p className="max-w-md font-body text-base leading-[1.6] text-ink-700 laptop:text-base desktop:text-lg">
-            From family gatherings to corporate events, we bring authentic
-            homemade flavors, beautiful presentation, and warm hospitality to
-            your table.
+            {heroContent.intro}
           </p>
 
           <div className="flex flex-wrap gap-3">
-            <Button href="/contact" size="lg">
-              Contact Us
+            <Button href={heroContent.primaryCta.href} size="lg">
+              {heroContent.primaryCta.label}
             </Button>
-            <Button href="/menu" variant="secondary" size="lg">
-              View Menu
+            <Button href={heroContent.secondaryCta.href} variant="secondary" size="lg">
+              {heroContent.secondaryCta.label}
             </Button>
           </div>
 

@@ -20,12 +20,24 @@ The Home page should contain these sections in this order:
 8. Contact CTA
 9. Footer
 
-**IMPORTANT EXCEPTIONS:**
+IMPORTANT:
 
-❌ Do NOT add a separate "Why Choose Lana Food" section to Home.
+Do NOT add a separate "Why Choose Lana Food" section to the Home page.
 
-Although an earlier IA version contains such a section, it is NOT part of the
-current approved Home visual direction.
+Although an earlier IA version contains such a section, it is NOT part of the current approved Home visual direction.
+
+Trust should instead be communicated through:
+
+- Hero trust indicators where shown;
+- photography;
+- Meet Lana;
+- customer reviews;
+- catering information;
+- overall content and visual presentation.
+
+Do NOT add an Instagram photo gallery to the Home page.
+
+Instagram and Facebook should remain available through simple social links/icons where real account information is available.
 
 Trust should instead be communicated through:
 - Hero trust indicators where shown
@@ -35,22 +47,18 @@ Trust should instead be communicated through:
 - catering information
 - overall content and visual presentation
 
-❌ Do NOT add an Instagram photo gallery to Home.
-
-Instagram and Facebook should remain available through simple social links/icons
-where real account information is available.
 
 ---
 
 ## 1. HEADER (STICKY)
 
-Header sticks to the top of the page when scrolling.
+Header sticks to the top of the page when scrolling and fits the page width.
 
 ### Desktop structure:
 
 - Lana Food logo (links to Home)
 - Home
-- Menu (may expand: Holiday Menu, Everyday Menu, Kids' Menu)
+- Menu (may expand: Holiday Menu, Everyday Menu, Kids' Menu, Gastroboxes)
 - Catering
 - About
 - Reviews
@@ -78,160 +86,164 @@ Header sticks to the top of the page when scrolling.
 
 ---
 
-## 2. HERO SECTION
+## 2. HERO
 
-Hero is one of the most important visual areas of the website.
+The Hero is one of the most important visual areas of the website.
 
-The provided desktop reference is the visual source of truth for composition.
+The provided desktop reference is the visual source of truth for the composition.
 
-### Composition (NOT simple full-width photo)
+IMPORTANT:
 
-**IMPORTANT:** Hero is NOT a simple full-width 16:9 photograph.
+The Hero is NOT a simple full-width 16:9 photograph.
 
 The intended composition is:
 
-- warm cream/solid background on the left
-- Hero text, icons and CTAs positioned within the left area
-- food photography visible primarily on the right
-- the photograph visually merges into the cream area
-- there is no harsh vertical image edge
-- the transition is soft, blurred and faded
-- the food subject itself remains sharp
-- the blur is used for the transition area, not the whole photograph
+- warm cream/solid background on the left;
+- Hero text, icons and CTAs positioned within the left area;
+- food photography visible primarily on the right;
+- the photograph visually merges into the cream area;
+- there is no harsh vertical image edge;
+- the transition is soft, blurred and faded;
+- the food subject itself remains sharp;
+- the blur is used for the transition area, not the whole photograph.
 
-**Implementation:** HTML/CSS
+The visual effect should be implemented in HTML/CSS.
 
-Recommended approach:
-- sharp production image layer
-- blurred/faded image layer or suitable CSS blur treatment
-- gradient/mask transition toward cream background
-- correct stacking so text remains readable
+Recommended implementation:
 
-❌ Do NOT permanently blur or edit the source photograph.
-❌ Do NOT use the desktop reference screenshot as production image.
+- sharp production image layer;
+- blurred/faded image layer or suitable CSS blur treatment;
+- gradient/mask transition toward the cream background;
+- correct stacking so text remains readable.
 
-### Image ratios
+Do NOT permanently blur or edit the source photograph.
 
-- **Desktop:** 16:9
-- **Mobile:** 4:5
+Do NOT use the desktop reference screenshot itself as the production image.
+
+The image container/crop ratio is:
+
+- desktop: 16:9
+- mobile: 4:5
 
 These ratios define the photography container/crop.
 They do NOT mean that the entire Hero is a 16:9 rectangle.
 
-### Hero Content
+Hero content:
 
-**Eyebrow:**
-```
-California Catering
-```
+Eyebrow:
 
-**H1:**
-```
-Homemade Eastern European Cuisine for Life's Best Moments
-```
+`California Catering`
 
-**Supporting copy:**
-```
-From family gatherings to corporate events, we bring authentic homemade flavors, beautiful presentation, and warm hospitality to your table.
-```
+H1:
 
-**Primary CTA:** `Contact Us`
+`Homemade Eastern European Cuisine for Life’s Best Moments`
 
-**Secondary CTA:** `View Menu`
+Supporting copy:
 
-**Trust indicators** (beneath CTA area):
+`From family gatherings to corporate events, we bring authentic homemade flavors, beautiful presentation, and warm hospitality to your table.`
+
+Primary CTA:
+
+`Contact Us`
+
+Secondary CTA:
+
+`View Menu`
+
+Trust indicators beneath the CTA area:
+
 - Fresh Ingredients
 - Homemade Recipes
 - Reliable Service
 - Made with Love
 
+
+Do not invent Hero copy if final copy has not yet been supplied.
+Use clearly identifiable placeholder content only where necessary.
+
 ---
 
 ## 3. FEATURED MENU CATEGORIES
 
-Use **four large photography-led cards** in a horizontal desktop layout.
+Use four large photography-led cards in a horizontal desktop layout.
 
-### Content
+Section heading:
 
-**Section heading:**
-```
-Explore Our Menus
-```
+`Explore Our Menus`
 
-**Supporting text:**
-```
-Choose the perfect menu for your occasion.
-```
+Supporting text:
 
-**Featured categories:**
+`Choose the perfect menu for your occasion.`
+
+Featured menu categories:
+
 - Holiday Menu
 - Everyday Menu
 - Kids' Menu
-
-❌ Do NOT add Seasonal Specials unless it is part of the approved final reference/content.
-
-### Card Structure
+- Gastroboxes
 
 Each card contains:
+
 - image
 - category name
 - short description
 - `View Menu` link with arrow
 
-### Card Content
+### Card content
 
 **Holiday Menu**
-```
-Traditional dishes for holidays & special occasions
-```
+
+`Traditional dishes for holidays & special occasions`
 
 **Everyday Menu**
-```
-Delicious homemade meals for any day
-```
+
+`Delicious homemade meals for any day`
 
 **Kids' Menu**
-```
-Tasty & wholesome options kids will love
-```
 
-### Card Layout
+`Tasty & wholesome options kids will love`
+
+**Gastroboxes**
+
+`Content to add`
+
+Do not add Seasonal Specials unless it is part of the approved final reference/content.
+
+### Card layout
 
 Desktop cards should use a wide landscape photography area on top,
 followed by the text content below.
 
 The four cards should appear as one horizontal row on desktop.
 
-The photography ratio for these Featured Menu Category cards should be landscape
-and follow the approved reference composition.
+The photography ratio for these Featured Menu Category cards should be
+landscape and follow the approved reference composition.
 
-❌ Do NOT use 4:5 portrait ratio for these cards.
+Do not use the 4:5 portrait ratio for these cards.
 
-(4:5 ratio applies to individual menu/dish cards elsewhere in the site, not here.)
+The 4:5 ratio applies to individual menu/dish cards elsewhere in the
+site, not to the Featured Menu Categories section.
 
 ---
 
 ## 4. MOST POPULAR DISHES
 
-Home should feature a compact "Most Popular Dishes" card showing a curated selection
-of customer favorites.
+Home should feature a compact “Most Popular Dishes” card showing a curated selection of customer favorites.
 
-The section should communicate that these are popular, approachable choices
-that customers love.
+The section should communicate that these are popular, approachable choices that customers love.
 
 ### Content
 
-**Title:**
-```
-Most Popular Dishes
-```
+Title:
 
-**Subtitle:**
-```
-Customer favorites made with love.
-```
+`Most Popular Dishes`
 
-**Featured dishes:**
+Subtitle:
+
+`Customer favorites made with love.`
+
+Featured dishes:
+
 - Fruit Platters
 - Olivier Salad
 - Mini Sandwiches
@@ -239,30 +251,26 @@ Customer favorites made with love.
 - Napoleon Cake
 - Stuffed Peppers
 
-**Each dish should include:**
+Each dish should include:
+
 - Dish name
 - Small food thumbnail
 - Right-facing arrow indicating that the item can be explored
 
-**CTA:**
-```
-View Full Menu
-```
+CTA:
 
-**Constraint:** The section should remain compact and visual.
-Do NOT display full dish descriptions, ingredients or pricing on Home.
+`View Full Menu`
+
+The section should remain compact and visual. It should not display full dish descriptions, ingredients or pricing on the Home page.
 
 ---
 
-## 5. CATERING OVERVIEW
+# 4b. CATERING OVERVIEW
 
 Home should introduce Catering as an important part of the Lana Food experience.
 
-The section should use a compact horizontal card with a soft gradient/background treatment.
+The section should use a compact horizontal card with a soft gradient/background treatment. The layout should contain:
 
-### Layout
-
-The card should contain:
 - Catering heading and supporting text
 - Event-type icons with short labels
 - Primary CTA
@@ -270,17 +278,16 @@ The card should contain:
 
 ### Content
 
-**Title:**
-```
-Catering with Professional Setup
-```
+Title:
 
-**Subtitle:**
-```
-Complete catering service for any event.
-```
+`Catering with Professional Setup`
 
-**Relevant event types:**
+Subtitle:
+
+`Complete catering service for any event.`
+
+Relevant event types:
+
 - Birthdays
 - Baby Showers
 - Family Gatherings
@@ -288,108 +295,110 @@ Complete catering service for any event.
 
 Each event type should be represented by a simple icon with a short supporting phrase where appropriate.
 
-The section should communicate celebrations, professional presentation
-and the complete catering experience provided by Lana Food.
+The section should communicate celebrations, professional presentation and the complete catering experience provided by Lana Food.
 
-**CTA:**
-```
-Explore Catering
-```
+CTA:
 
-**Constraint:** The Home section should remain an overview and should NOT become
-a full catering sales page.
+`Explore Catering`
 
-Detailed catering process, pricing logic, event details and quote flow
-belong on the Catering page.
+The Home section should remain an overview and should not become a full catering sales page.
+
+Detailed catering process, pricing logic, event details and quote flow belong on the Catering page.
 
 ---
 
-## 6. MEET LANA
+# 5. MEET LANA
 
 Home includes a warm founder introduction.
 
-### Content
-
 Use:
+
 - Lana portrait
 - short founder story
 - family values
 - homemade philosophy
-- link to About page
+- link to About
 
-**CTA:**
-```
-Learn More About Us
-```
+CTA:
 
-**Photography:** should feel candid, warm and authentic.
+`Learn More About Us`
 
-❌ Do NOT use stock photography.
+Photography should feel candid, warm and authentic.
+
+Do not use stock photography.
 
 ---
 
-## 7. CUSTOMER REVIEWS PREVIEW
+# 6. CUSTOMER REVIEWS
 
 Home includes a preview of customer reviews.
 
 Display a small number of featured reviews rather than the full Reviews page.
 
-### Desktop
+Desktop should display four review cards at a time within a horizontal carousel.
 
-Display three review cards at a time within a horizontal carousel.
+Review cards may include:
 
-### Card Content
-
-Review card may include:
 - star rating
 - customer name
 - city
 - optional event type
 - review text
 
-### Section Controls
-
 The review section should include:
+
 - previous/next navigation arrows
 - carousel pagination dots
 
-### Content
-
 Use real reviews when supplied.
 
-❌ NEVER invent customer names, ratings, locations or review text.
+Never invent customer names, ratings, locations or review text.
 
 ---
 
-## 8. CONTACT CTA SECTION
+# 7. SOCIAL LINKS
+
+Do not include an Instagram photo gallery or social media content preview on the Home page.
+
+The website should not prominently promote Instagram content at this stage.
+
+Social media should still be available through simple icon links.
+
+Include when real information is available:
+
+- Instagram
+- Facebook
+
+Do not invent social media accounts or content.
+
+---
+
+# 8. CONTACT CTA
 
 Home ends with a clear and simple contact section.
 
-### Setup
+The initial website is a presentation/visit-card website without a backend.
 
-Initial website is a presentation/visit-card website without backend.
-
-❌ Do NOT include a message submission form at this stage.
+Do not include a message submission form at this stage.
 
 Provide direct contact options:
+
 - phone
 - WhatsApp
 - email
 - service area
 
-**Service area:**
-```
-San Francisco Bay Area, California
-```
+Service area:
 
-**Primary CTA:**
-```
-Contact Us
-```
+`San Francisco Bay Area, California`
 
-Contact Us CTA should lead to an available direct contact method.
+Primary CTA:
 
-❌ Do NOT invent contact details.
+`Contact Us`
+
+The Contact Us CTA should lead to an available direct contact method.
+
+Do not invent contact details.
 
 ---
 

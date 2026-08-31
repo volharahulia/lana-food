@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 
-type Variant = "primary" | "secondary" | "tertiary" | "ghost";
+type Variant = "primary" | "secondary" | "tertiary" | "ghost" | "inverse";
 type Size = "sm" | "md" | "lg";
 
 const variantClasses: Record<Variant, string> = {
@@ -12,6 +12,11 @@ const variantClasses: Record<Variant, string> = {
   tertiary: "bg-transparent text-primary-600 underline-offset-4 hover:underline",
   ghost:
     "bg-white/10 text-white border border-white/60 backdrop-blur-sm hover:bg-white/20",
+  // Color-inverted primary for use on a red/dark CTA band (Design System
+  // "CTA Block": Button/Primary + optional Button/Secondary) — same
+  // emphasis level as primary, just swapping which existing token is the
+  // fill vs. the text so it stays legible on a primary-600 background.
+  inverse: "bg-cream-300 text-primary-700 hover:bg-cream-500 active:bg-cream-500",
 };
 
 const sizeClasses: Record<Size, string> = {

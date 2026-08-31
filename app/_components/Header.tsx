@@ -10,6 +10,7 @@ import { List, MagnifyingGlass, CaretDown, X } from "@phosphor-icons/react";
 import Button from "./ui/Button";
 import MobileNav from "./MobileNav";
 import { primaryNav, menuDropdown, MULTILINGUAL_ENABLED } from "../_data/navigation";
+import { business } from "../_data/business";
 
 export default function Header() {
   const pathname = usePathname();
@@ -35,7 +36,7 @@ export default function Header() {
         <Link href="/" className="relative h-12 w-20 shrink-0 laptop:h-14 laptop:w-24" aria-label="Lana Food, go to homepage">
           {/* w-20 (80px) below laptop, w-24 (96px) from laptop up. */}
           <Image
-            src="/images/common/logo.PNG"
+            src={business.logo}
             alt="Lana Food"
             fill
             sizes="(min-width: 1024px) 96px, 80px"

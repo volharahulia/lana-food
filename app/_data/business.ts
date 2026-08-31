@@ -4,13 +4,19 @@
 // no component changes are required.
 export const business = {
   name: "Lana Food",
+  // Single source of truth for the logo asset — Header, Footer, and
+  // MenuPhoto's fallback all render whatever this points to; none of them
+  // hardcode the filename themselves (see the About page image-editability
+  // audit: a same-filename asset swap must work without touching a
+  // presentation component).
+  logo: "/images/common/logo.PNG",
   location: "Mountain View, California",
   serviceArea: "San Francisco Bay Area, California",
   phone: "+16505371182",
   whatsapp: "+16505371182",
   email: null as string | null,
   instagram: "https://www.instagram.com/lana_s_food/",
-  facebook: "https://www.facebook.com/profile.php?id=61553112342416",
+  facebook: "https://www.facebook.com/LanaFoodCatering/",
   googleBusinessProfile: null as string | null,
   // Two separate, independently-editable Google Maps values — never derive
   // one from the other (see app/contact/_components/MapPreview.tsx):
