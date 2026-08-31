@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="256" height="256"
+     viewBox="0 0 256 256">
+  <g fill="none"
+     stroke="#B88635"
+     stroke-width="5"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+    <!-- Simple arriving car -->
+    <path d="M 64 145
+             L 72 116
+             C 74 108, 80 103, 89 102
+             L 151 102
+             C 159 102, 165 107, 169 114
+             L 181 145
+             L 181 155
+             L 64 155 Z"/>
+    <path d="M 88 102 L 99 82 L 145 82 L 160 102"/>
+    <path d="M 103 83 L 103 102"/>
+    <path d="M 76 119 L 91 119"/>
+    <path d="M 154 119 L 170 119"/>
+    <path d="M 84 155 A 12 12 0 1 0 108 155 A 12 12 0 1 0 84 155"/>
+    <path d="M 145 155 A 12 12 0 1 0 169 155 A 12 12 0 1 0 145 155"/>
+  </g>
+</svg>

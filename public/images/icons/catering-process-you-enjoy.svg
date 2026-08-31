@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="256" height="256"
+     viewBox="0 0 256 256">
+  <g fill="none"
+     stroke="#B88635"
+     stroke-width="5"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+    <!-- Two guests enjoying the event -->
+    <path d="M 91 91 A 13 13 0 1 0 117 91 A 13 13 0 1 0 91 91"/>
+    <path d="M 139 91 A 13 13 0 1 0 165 91 A 13 13 0 1 0 139 91"/>
+    <path d="M 75 157
+             C 77 135, 86 121, 104 121
+             C 122 121, 131 135, 133 157"/>
+    <path d="M 123 157
+             C 125 135, 134 121, 152 121
+             C 170 121, 179 135, 181 157"/>
+    <!-- Heart above the guests -->
+    <path d="M 128 66
+             C 122 55, 105 58, 105 71
+             C 105 82, 116 89, 128 98
+             C 140 89, 151 82, 151 71
+             C 151 58, 134 55, 128 66 Z"/>
+  </g>
+</svg>

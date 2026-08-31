@@ -26,6 +26,10 @@ type ImagePlaceholderProps = {
    * from layout). Compute it from the caller's real container/grid math,
    * not a generic guess — see call sites for worked examples. */
   sizes?: string;
+  /** Optional CSS object-position (e.g. "center", "top", "30% 60%") for
+   * content-driven focal positioning. Omit for the default centered crop —
+   * existing callers are unaffected. */
+  objectPosition?: string;
 };
 
 export default function ImagePlaceholder({
@@ -36,6 +40,7 @@ export default function ImagePlaceholder({
   src,
   priority = false,
   sizes,
+  objectPosition,
 }: ImagePlaceholderProps) {
   return (
     <div
@@ -51,6 +56,7 @@ export default function ImagePlaceholder({
           priority={priority}
           sizes={sizes}
           className="object-cover"
+          style={objectPosition ? { objectPosition } : undefined}
         />
       ) : (
         <>

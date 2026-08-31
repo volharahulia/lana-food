@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="256" height="256"
+     viewBox="0 0 256 256">
+  <g fill="none"
+     stroke="#B88635"
+     stroke-width="5"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+    <!-- Small catering transport truck -->
+    <path d="M 58 99
+             L 151 99
+             L 151 146
+             L 58 146 Z"/>
+    <path d="M 151 118
+             L 174 118
+             C 180 118, 185 122, 188 128
+             L 195 146
+             L 151 146 Z"/>
+    <path d="M 166 119 L 166 136 L 190 136"/>
+    <path d="M 58 146 L 58 155 L 195 155 L 195 146"/>
+    <path d="M 80 155 A 12 12 0 1 0 104 155 A 12 12 0 1 0 80 155"/>
+    <path d="M 164 155 A 12 12 0 1 0 188 155 A 12 12 0 1 0 164 155"/>
+    <!-- Simple catering load mark -->
+    <path d="M 91 115 L 119 115"/>
+    <path d="M 91 127 L 129 127"/>
+  </g>
+</svg>

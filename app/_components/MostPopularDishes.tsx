@@ -8,7 +8,7 @@ import { mostPopularDishesContent } from "../_data/homeContent";
 
 export default function MostPopularDishes() {
   return (
-    <div className="flex h-full flex-col gap-5 rounded-lg border border-border-hairline bg-surface-white p-5 shadow-xs laptop:p-6">
+    <div className="flex h-full flex-col gap-3 rounded-lg border border-border-hairline bg-surface-white p-4 shadow-xs laptop:p-5">
       <SectionHeading
         title={mostPopularDishesContent.title}
         subtitle={mostPopularDishesContent.subtitle}
@@ -20,7 +20,7 @@ export default function MostPopularDishes() {
           <li key={dish.name}>
             <Link
               href="/menu"
-              className="group flex items-center gap-4 py-2.5 transition-colors hover:text-primary-600"
+              className="group flex items-center gap-4 py-1 transition-colors hover:text-primary-600"
             >
               {/* Fixed w-14 (56px) at every breakpoint — no responsive variant. */}
               <ImagePlaceholder

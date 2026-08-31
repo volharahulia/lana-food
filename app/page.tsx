@@ -11,7 +11,7 @@ export default function Home() {
     <>
       <Hero />
       <FeaturedMenuCategories />
-      <section className="container-page flex flex-col gap-5 py-10 laptop:grid laptop:grid-cols-[360px_1fr] laptop:gap-6 laptop:py-16 desktop:gap-8">
+      <section className="container-page flex flex-col gap-5 py-10 laptop:grid laptop:grid-cols-[360px_1fr] laptop:items-stretch laptop:gap-6 laptop:py-16 desktop:gap-8">
         <MostPopularDishes />
         <CateringOverview />
       </section>

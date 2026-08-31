@@ -8,7 +8,7 @@ import { cateringOverviewContent } from "../_data/homeContent";
 
 export default function CateringOverview() {
   return (
-    <div className="relative flex h-full flex-col gap-5 overflow-hidden rounded-lg border border-border-hairline bg-gradient-to-br from-cream-500 to-cream-300 p-5 laptop:flex-row laptop:items-stretch laptop:gap-8 laptop:p-6">
+    <div className="relative flex flex-col gap-4 overflow-hidden rounded-lg border border-border-hairline bg-gradient-to-br from-cream-500 to-cream-300 p-4 laptop:flex-row laptop:items-stretch laptop:gap-8 laptop:p-5">
       <div className="flex flex-1 flex-col justify-center gap-5">
         <SectionHeading
           title={cateringOverviewContent.title}
@@ -39,9 +39,9 @@ export default function CateringOverview() {
           column (container width minus the 360px Most Popular column and
           the row gap) minus this card's own padding. */}
       <ImagePlaceholder
-        ratio="auto"
+        ratio="4:5"
         alt="Catering table set with professional presentation for a celebration"
-        className="h-56 tablet:h-72 laptop:h-auto laptop:w-[42%] laptop:shrink-0"
+        className="w-full laptop:w-[42%] laptop:shrink-0 laptop:self-center"
         src={resolveImage(homeImages.catering)}
         sizes="(min-width: 1600px) 420px, (min-width: 1280px) calc(42vw - 252px), (min-width: 1024px) calc(42vw - 222px), (min-width: 768px) calc(100vw - 104px), calc(100vw - 80px)"
       />

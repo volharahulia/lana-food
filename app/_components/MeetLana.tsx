@@ -11,7 +11,7 @@ export default function MeetLana() {
           tablet up — narrower than a standalone Meet Lana would use, sized
           to share the row with the Reviews column from laptop up. */}
       <ImagePlaceholder
-        ratio="9:16"
+        ratio="4:5"
         alt="Portrait of Lana in the kitchen"
         radiusClassName="rounded-lg"
         src={resolveImage(homeImages.lanaPortrait)}
