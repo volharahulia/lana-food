@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 
-type Variant = "primary" | "secondary" | "tertiary" | "ghost" | "inverse";
+export type Variant = "primary" | "secondary" | "tertiary" | "ghost" | "inverse";
 type Size = "sm" | "md" | "lg";
 
 const variantClasses: Record<Variant, string> = {

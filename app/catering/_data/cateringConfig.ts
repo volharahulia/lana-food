@@ -263,9 +263,4 @@ export const cateringFinalCta = {
   // in the component (CATERING.md §14: reuse existing configured contact
   // data, never duplicate it in Catering content).
   secondaryCtaLabel: "CALL OR WHATSAPP",
-  image: {
-    src: "/images/catering/final-cta.jpg",
-    alt: "Elegant table setting with candles and fresh flowers",
-    objectPosition: undefined as string | undefined,
-  },
 };
