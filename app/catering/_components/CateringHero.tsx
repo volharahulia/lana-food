@@ -6,6 +6,8 @@ import HeroPhotoFade, {
   HERO_TITLE_CLASSNAME,
   type HeroFadeVars,
 } from "../../_components/ui/HeroPhotoFade";
+import Section from "../../_components/ui/Section";
+import Grid from "../../_components/ui/Grid";
 import { cateringHero, cateringTrustIndicators } from "../_data/cateringConfig";
 import { resolveImage } from "../_data/cateringImages";
 
@@ -31,8 +33,11 @@ export default function CateringHero() {
   const heroSrc = resolveImage(cateringHero.image.src);
 
   return (
-    <section className="relative overflow-hidden bg-cream-500">
-      <div className="container-page grid gap-6 py-8 laptop:grid-cols-[400px_1fr] laptop:items-stretch laptop:gap-8 laptop:py-12 desktop:grid-cols-[440px_1fr] desktop:gap-12 desktop:py-16">
+    // className="relative overflow-hidden" required — containing block for
+    // the absolutely-positioned bottom-fade scrim and a clip for the
+    // stretched laptop+ photo column, same as Home's Hero.
+    <Section spacing="compact" width="full-bleed" background="cream" className="relative overflow-hidden">
+      <Grid columns="hero-split">
         <div className="order-2 flex flex-col items-start gap-4 laptop:order-1">
           <div className="flex items-center gap-3 text-primary-600">
             <span aria-hidden className="h-px w-8 bg-primary-600" />
@@ -61,14 +66,14 @@ export default function CateringHero() {
             </Button>
           </div>
 
-          <ul className="mt-2 grid grid-cols-2 gap-x-5 gap-y-3 tablet:grid-cols-4">
+          <Grid columns="trust-indicators" as="ul" className="mt-2">
             {cateringTrustIndicators.map(({ label, icon }) => (
               <li key={label} className="flex flex-col items-start gap-1.5">
                 <Image src={icon} alt="" width={56} height={56} aria-hidden />
                 <span className="font-body text-sm text-ink-700">{label}</span>
               </li>
             ))}
-          </ul>
+          </Grid>
         </div>
 
         <div className="relative order-1 laptop:order-2 laptop:h-full">
@@ -111,7 +116,7 @@ export default function CateringHero() {
             className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-cream-500 to-transparent tablet:block laptop:hidden"
           />
         </div>
-      </div>
-    </section>
+      </Grid>
+    </Section>
   );
 }

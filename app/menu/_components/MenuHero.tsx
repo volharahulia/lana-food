@@ -5,6 +5,8 @@ import HeroPhotoFade, {
   HERO_TITLE_CLASSNAME,
   type HeroFadeVars,
 } from "../../_components/ui/HeroPhotoFade";
+import Section from "../../_components/ui/Section";
+import Grid from "../../_components/ui/Grid";
 import { menuHero } from "../_data/menuConfig";
 import { menuImages, resolveImage } from "../_data/menuImages";
 
@@ -40,8 +42,14 @@ export default function MenuHero() {
   const heroSrc = resolveImage(menuImages.hero);
 
   return (
-    <section className="relative overflow-hidden bg-cream-500">
-      <div className="container-page grid gap-6 py-10 laptop:grid-cols-[400px_1fr] laptop:items-stretch laptop:gap-8 laptop:py-16 desktop:grid-cols-[440px_1fr] desktop:gap-12 desktop:py-20">
+    // className="relative overflow-hidden" required — containing block for
+    // the absolutely-positioned bottom-fade scrim and a clip for the
+    // stretched laptop+ photo column, same as Home's Hero. Phase 2: brought
+    // down from "spacious" to "compact" to match Home/Catering Hero's
+    // rhythm — Menu is a browsing/utility page and had no reason to carry
+    // the site's single largest section padding.
+    <Section spacing="compact" width="full-bleed" background="cream" className="relative overflow-hidden">
+      <Grid columns="hero-split">
         <div className="order-2 flex flex-col items-start gap-4 laptop:order-1 laptop:justify-center">
           <span aria-hidden className="h-px w-12 bg-gold-decorative" />
 
@@ -112,7 +120,7 @@ export default function MenuHero() {
             className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-1/4 bg-gradient-to-t from-cream-500 to-transparent tablet:block laptop:hidden"
           />
         </div>
-      </div>
-    </section>
+      </Grid>
+    </Section>
   );
 }

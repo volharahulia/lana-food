@@ -1,6 +1,7 @@
 import { Heart } from "@phosphor-icons/react/ssr";
 import HeartDivider from "../../_components/ui/HeartDivider";
 import ImagePlaceholder from "../../_components/ui/ImagePlaceholder";
+import Section from "../../_components/ui/Section";
 import { aboutFounder } from "../_data/aboutConfig";
 import { aboutImages, resolveImage } from "../_data/aboutImages";
 
@@ -9,8 +10,8 @@ import { aboutImages, resolveImage } from "../_data/aboutImages";
 // desktop (text left) — no order-flip needed, unlike the Home/Menu Hero.
 export default function AboutFounder() {
   return (
-    <section className="container-page py-10 laptop:py-16">
-      <div className="grid gap-8 laptop:grid-cols-2 laptop:items-center laptop:gap-16">
+    <Section spacing="default">
+      <div className="grid gap-8 laptop:grid-cols-2 laptop:items-center laptop:gap-12">
         <div className="flex flex-col items-start gap-5">
           <p className="font-body text-xs font-semibold uppercase tracking-[2px] text-primary-600">
             {aboutFounder.eyebrow}
@@ -45,6 +46,6 @@ export default function AboutFounder() {
           sizes="(min-width: 1024px) 50vw, calc(100vw - 40px)"
         />
       </div>
-    </section>
+    </Section>
   );
 }

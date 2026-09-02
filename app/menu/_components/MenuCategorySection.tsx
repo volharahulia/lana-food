@@ -5,6 +5,7 @@ import { CaretDown } from "@phosphor-icons/react";
 import type { MenuCardData, MenuSubcategory } from "../_data/types";
 import MenuCard from "./MenuCard";
 import { slugify } from "./MenuSidebar";
+import Grid from "../../_components/ui/Grid";
 import { expandControls } from "../_data/menuConfig";
 
 type MenuCategorySectionProps = {
@@ -52,11 +53,11 @@ export default function MenuCategorySection({
     <section id={name ? `menu-section-${slugify(name)}` : undefined} className="scroll-mt-[150px]">
       {name && <h2 className="mb-5 font-display text-2xl font-medium text-ink-900">{name}</h2>}
 
-      <div className="grid grid-cols-1 gap-5 tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4">
+      <Grid columns={{ base: 1, tablet: 2, laptop: 3, desktop: 4 }} gap="sm">
         {visible.map((card) => (
           <MenuCard key={card.id} card={card} onOpen={() => onOpenCard(card)} />
         ))}
-      </div>
+      </Grid>
 
       {canToggle && (
         <button

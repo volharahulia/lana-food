@@ -2,19 +2,21 @@ import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react/ssr";
 import SectionHeading from "./ui/SectionHeading";
 import ImagePlaceholder from "./ui/ImagePlaceholder";
+import Section from "./ui/Section";
+import Grid from "./ui/Grid";
 import { menuCategories } from "../_data/menuCategories";
 import { resolveImage } from "../_data/homeImages";
 import { featuredMenuCategoriesContent } from "../_data/homeContent";
 
 export default function FeaturedMenuCategories() {
   return (
-    <section className="container-page py-10 laptop:py-16">
+    <Section spacing="default">
       <SectionHeading
         title={featuredMenuCategoriesContent.title}
         subtitle={featuredMenuCategoriesContent.subtitle}
       />
 
-      <div className="mt-8 grid grid-cols-1 gap-5 tablet:grid-cols-3">
+      <Grid columns={{ base: 1, tablet: 3 }} gap="md" className="mt-8">
         {menuCategories.map((category) => (
           <Link
             key={category.href}
@@ -49,7 +51,7 @@ export default function FeaturedMenuCategories() {
             </div>
           </Link>
         ))}
-      </div>
-    </section>
+      </Grid>
+    </Section>
   );
 }

@@ -3,6 +3,7 @@
 import * as Accordion from "@radix-ui/react-accordion";
 import { CaretDown } from "@phosphor-icons/react";
 import SectionHeading from "../../_components/ui/SectionHeading";
+import Section from "../../_components/ui/Section";
 import { contactFaq } from "../_data/contactConfig";
 
 // Built on Radix Accordion per the Design System (§3.13/§4.2: "build
@@ -14,7 +15,7 @@ export default function ContactFaq() {
   if (contactFaq.length === 0) return null;
 
   return (
-    <section className="container-page py-10 laptop:py-16">
+    <Section spacing="compact">
       <SectionHeading title="Frequently Asked Questions" align="center" />
 
       <Accordion.Root
@@ -40,6 +41,6 @@ export default function ContactFaq() {
           </Accordion.Item>
         ))}
       </Accordion.Root>
-    </section>
+    </Section>
   );
 }

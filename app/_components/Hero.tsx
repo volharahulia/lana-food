@@ -3,6 +3,8 @@ import Image from "next/image";
 import Button from "./ui/Button";
 import ImagePlaceholder from "./ui/ImagePlaceholder";
 import HeroPhotoFade, { HERO_TITLE_CLASSNAME, type HeroFadeVars } from "./ui/HeroPhotoFade";
+import Section from "./ui/Section";
+import Grid from "./ui/Grid";
 import { heroContent, trustIndicators } from "../_data/homeContent";
 import { homeImages, resolveImage } from "../_data/homeImages";
 
@@ -41,8 +43,12 @@ const HERO_FADE_VARS: HeroFadeVars = {
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-cream-500">
-      <div className="container-page grid gap-6 py-8 laptop:grid-cols-[400px_1fr] laptop:items-stretch laptop:gap-8 laptop:py-12 desktop:grid-cols-[440px_1fr] desktop:gap-12 desktop:py-16">
+    // className="relative overflow-hidden" is required here, not decorative:
+    // it's the containing block for the absolutely-positioned bottom-fade
+    // scrim further down and a safety clip for the stretched laptop+ photo
+    // column at ultra-wide viewports — both pre-existing, kept verbatim.
+    <Section spacing="compact" width="full-bleed" background="cream" className="relative overflow-hidden">
+      <Grid columns="hero-split">
         <div className="relative order-1 laptop:order-2 laptop:h-full">
           {/* Mobile: stacked layout, no sibling to match height against — fixed crop.
               Container-page mobile padding is 20px each side. */}
@@ -119,16 +125,16 @@ export default function Hero() {
             </Button>
           </div>
 
-          <ul className="mt-2 grid grid-cols-2 gap-x-5 gap-y-3 tablet:grid-cols-4">
+          <Grid columns="trust-indicators" as="ul" className="mt-2">
             {trustIndicators.map(({ label, icon }) => (
               <li key={label} className="flex flex-col items-start gap-1.5">
                 <Image src={icon} alt="" width={56} height={56} aria-hidden />
                 <span className="font-body text-sm text-ink-700">{label}</span>
               </li>
             ))}
-          </ul>
+          </Grid>
         </div>
-      </div>
-    </section>
+      </Grid>
+    </Section>
   );
 }

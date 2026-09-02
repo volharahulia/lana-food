@@ -1,4 +1,6 @@
 import ImagePlaceholder from "../../_components/ui/ImagePlaceholder";
+import Section from "../../_components/ui/Section";
+import Surface from "../../_components/ui/Surface";
 import { cateringDelivery } from "../_data/cateringConfig";
 import { resolveImage } from "../_data/cateringImages";
 
@@ -9,18 +11,20 @@ export default function CateringDelivery() {
   if (!cateringDelivery.published) return null;
 
   return (
-    <section className="container-page py-10 laptop:py-16">
-      <div className="flex flex-col gap-5 overflow-hidden rounded-lg border border-border-hairline bg-gradient-to-br from-cream-500 to-cream-300 p-4 laptop:flex-row laptop:gap-8 laptop:p-5">
+    <Section spacing="compact">
+      {/* Horizontal from tablet up (not just laptop) — a compact content
+          block rather than two stacked full-width blocks on tablet. */}
+      <Surface tone="cream" className="flex flex-col gap-4 overflow-hidden p-4 tablet:flex-row tablet:items-center tablet:gap-6 laptop:gap-8 laptop:p-5">
         <ImagePlaceholder
-          ratio="4:5"
+          ratio="16:9"
           alt={cateringDelivery.image.alt}
-          className="w-full laptop:w-[280px] laptop:shrink-0 laptop:self-center"
+          className="w-full tablet:w-[220px] tablet:shrink-0 laptop:w-[320px]"
           src={resolveImage(cateringDelivery.image.src)}
           objectPosition={cateringDelivery.image.objectPosition}
-          sizes="(min-width: 1024px) 280px, calc(100vw - 40px)"
+          sizes="(min-width: 1024px) 320px, (min-width: 768px) 220px, calc(100vw - 40px)"
         />
 
-        <div className="flex flex-1 flex-col justify-center gap-3">
+        <div className="flex flex-1 flex-col justify-center gap-2">
           <p className="font-body text-xs font-semibold uppercase tracking-[2px] text-primary-600">
             {cateringDelivery.eyebrow}
           </p>
@@ -32,7 +36,7 @@ export default function CateringDelivery() {
           </p>
           <p className="font-body text-sm text-ink-500">{cateringDelivery.pricingNote}</p>
         </div>
-      </div>
-    </section>
+      </Surface>
+    </Section>
   );
 }

@@ -2,13 +2,14 @@ import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react/ssr";
 import SectionHeading from "./ui/SectionHeading";
 import ImagePlaceholder from "./ui/ImagePlaceholder";
+import Surface from "./ui/Surface";
 import { popularDishes } from "../_data/popularDishes";
 import { resolveImage } from "../_data/homeImages";
 import { mostPopularDishesContent } from "../_data/homeContent";
 
 export default function MostPopularDishes() {
   return (
-    <div className="flex h-full flex-col gap-3 rounded-lg border border-border-hairline bg-surface-white p-4 shadow-xs laptop:p-5">
+    <Surface tone="white" className="flex h-full flex-col gap-3 p-4 laptop:p-5">
       <SectionHeading
         title={mostPopularDishesContent.title}
         subtitle={mostPopularDishesContent.subtitle}
@@ -51,6 +52,6 @@ export default function MostPopularDishes() {
         {mostPopularDishesContent.cta.label}
         <ArrowRight size={16} weight="bold" aria-hidden />
       </Link>
-    </div>
+    </Surface>
   );
 }

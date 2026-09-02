@@ -1,4 +1,6 @@
 import ImagePlaceholder from "../../_components/ui/ImagePlaceholder";
+import Section from "../../_components/ui/Section";
+import Grid from "../../_components/ui/Grid";
 import { cateringEventCards, cateringEventsIntro } from "../_data/cateringConfig";
 import { resolveImage } from "../_data/cateringImages";
 
@@ -13,8 +15,8 @@ export default function CateringEventTypes() {
   if (events.length === 0) return null;
 
   return (
-    <section className="bg-cream-500 py-10 laptop:py-16">
-      <div className="container-page flex flex-col items-center gap-3 text-center">
+    <Section spacing="compact" width="full-bleed" background="cream">
+      <div className="flex flex-col items-center gap-3 text-center">
         <p className="font-body text-xs font-semibold uppercase tracking-[2px] text-primary-600">
           {cateringEventsIntro.eyebrow}
         </p>
@@ -23,7 +25,7 @@ export default function CateringEventTypes() {
         </h2>
       </div>
 
-      <ul className="container-page mt-8 grid grid-cols-2 gap-5 tablet:grid-cols-3 laptop:grid-cols-5">
+      <Grid columns={{ base: 2, tablet: 3, laptop: 5 }} gap="sm" as="ul" className="mt-8">
         {events.map((event) => (
           <li key={event.id} className="flex flex-col items-center gap-3">
             <ImagePlaceholder
@@ -40,7 +42,7 @@ export default function CateringEventTypes() {
             )}
           </li>
         ))}
-      </ul>
-    </section>
+      </Grid>
+    </Section>
   );
 }

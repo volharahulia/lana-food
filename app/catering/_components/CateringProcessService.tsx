@@ -1,4 +1,7 @@
 import Image from "next/image";
+import Section from "../../_components/ui/Section";
+import Surface from "../../_components/ui/Surface";
+import Grid from "../../_components/ui/Grid";
 import {
   cateringIncludesLabel,
   cateringProcessIntro,
@@ -22,8 +25,12 @@ export default function CateringProcessService() {
   }).format(cateringServiceStatement.price);
 
   return (
-    <section className="container-page py-10 laptop:py-16">
-      <div className="rounded-lg border border-border-hairline bg-gradient-to-br from-cream-500 to-cream-300 p-5 laptop:p-8">
+    // "bordered" (hairline border, no fill) instead of "cream" (gradient
+    // fill) — the price/process pitch still reads as one grouped unit, but
+    // lighter, letting the enlarged icons carry the visual weight instead
+    // of a heavy card background.
+    <Section spacing="compact">
+      <Surface tone="bordered" className="p-4 laptop:p-6">
         <div className="flex flex-col items-center gap-3 text-center">
           <p className="font-body text-xs font-semibold uppercase tracking-[2px] text-primary-600">
             {cateringProcessIntro.eyebrow}
@@ -41,14 +48,19 @@ export default function CateringProcessService() {
         </div>
 
         {steps.length > 0 && (
-          <ul className="mt-8 grid grid-cols-2 gap-6 tablet:grid-cols-3 laptop:grid-cols-5">
+          <Grid
+            columns={{ base: 2, tablet: 3, laptop: 5 }}
+            gap="md"
+            as="ul"
+            className="mt-8"
+          >
             {steps.map((step) => (
               <li key={step.id} className="flex flex-col items-center gap-2 text-center">
                 <span
                   aria-hidden
-                  className="flex h-16 w-16 items-center justify-center rounded-full border border-border-hairline bg-surface-white"
+                  className="flex h-20 w-20 items-center justify-center rounded-full border border-border-hairline bg-surface-white"
                 >
-                  <Image src={step.icon} alt="" width={32} height={32} />
+                  <Image src={step.icon} alt="" width={40} height={40} />
                 </span>
                 <span className="font-body text-sm font-semibold text-ink-900">
                   {step.title}
@@ -56,9 +68,9 @@ export default function CateringProcessService() {
                 <p className="font-body text-xs leading-[1.5] text-ink-700">{step.description}</p>
               </li>
             ))}
-          </ul>
+          </Grid>
         )}
-      </div>
-    </section>
+      </Surface>
+    </Section>
   );
 }

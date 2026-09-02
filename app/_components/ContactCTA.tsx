@@ -24,7 +24,6 @@ export default function ContactCTA() {
   return (
     <CtaBlock
       layout="centered"
-      sectionPadding="loose"
       heading={contactCtaContent.heading}
       supportingText={contactCtaContent.subtitle}
       primaryCta={{ ...contactCtaContent.cta, variant: "ghost" }}

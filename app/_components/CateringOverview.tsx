@@ -2,13 +2,18 @@ import Image from "next/image";
 import SectionHeading from "./ui/SectionHeading";
 import ImagePlaceholder from "./ui/ImagePlaceholder";
 import Button from "./ui/Button";
+import Surface from "./ui/Surface";
+import Grid from "./ui/Grid";
 import { cateringEvents } from "../_data/cateringEvents";
 import { homeImages, resolveImage } from "../_data/homeImages";
 import { cateringOverviewContent } from "../_data/homeContent";
 
 export default function CateringOverview() {
   return (
-    <div className="relative flex flex-col gap-4 overflow-hidden rounded-lg border border-border-hairline bg-gradient-to-br from-cream-500 to-cream-300 p-4 laptop:flex-row laptop:items-stretch laptop:gap-8 laptop:p-5">
+    <Surface
+      tone="cream"
+      className="relative flex flex-col gap-4 overflow-hidden p-4 laptop:flex-row laptop:items-stretch laptop:gap-8 laptop:p-5"
+    >
       <div className="flex flex-1 flex-col justify-center gap-5">
         <SectionHeading
           title={cateringOverviewContent.title}
@@ -17,7 +22,7 @@ export default function CateringOverview() {
           as="h3"
         />
 
-        <ul className="grid grid-cols-2 gap-4 tablet:grid-cols-4">
+        <Grid columns={{ base: 2, tablet: 4 }} gap="sm" as="ul">
           {cateringEvents.map((event) => (
             <li key={event.label} className="flex flex-col items-center gap-1.5 text-center">
               <Image src={event.icon} alt="" width={66} height={66} aria-hidden />
@@ -27,7 +32,7 @@ export default function CateringOverview() {
               <span className="font-body text-xs text-ink-700">{event.supportText}</span>
             </li>
           ))}
-        </ul>
+        </Grid>
 
         <Button href={cateringOverviewContent.cta.href} size="lg" className="self-start">
           {cateringOverviewContent.cta.label}
@@ -45,6 +50,6 @@ export default function CateringOverview() {
         src={resolveImage(homeImages.catering)}
         sizes="(min-width: 1600px) 420px, (min-width: 1280px) calc(42vw - 252px), (min-width: 1024px) calc(42vw - 222px), (min-width: 768px) calc(100vw - 104px), calc(100vw - 80px)"
       />
-    </div>
+    </Surface>
   );
 }
