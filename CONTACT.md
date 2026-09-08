@@ -44,68 +44,63 @@ Display primary contact methods in a simple, scannable format.
 
 - **Phone** — Direct call number
 - **WhatsApp** — WhatsApp link with number
-- **Email** — Email address
-- **Service Area** — "San Francisco Bay Area, California"
+- **Instagram** — Instagram profile link
+- **Facebook** — Facebook profile link
 
 Each method should be:
+
 - Clearly labeled
 - Easy to click/tap on mobile (large touch targets)
 - Accessible (links properly formatted)
 
 **Example layout:**
 
-```
 ☎️ Phone
-[+1 (650) XXX-XXXX] — clickable tel: link
+[+1 (650) XXX-XXXX] — clickable `tel:` link
 
-💬 WhatsApp  
-[Message us on WhatsApp] — clickable link
+💬 WhatsApp
+[Message us on WhatsApp] — clickable WhatsApp link
 
-✉️ Email
-[hello@lanafood.com] — clickable mailto: link
+Instagram
+[Instagram profile] — clickable Instagram link
 
-📍 Service Area
-San Francisco Bay Area, California
-```
+Facebook
+[Facebook profile] — clickable Facebook link
 
-### 2. Use Cases (Optional)
+---
 
-Brief cards showing different reasons to contact:
+### 2. FAQ
 
-- **Order Everyday Food** — "Ready to order delicious homemade meals?"
-- **Plan a Catering Event** — "Need food for your celebration?"
-- **Ask Questions** — "Have questions about our service?"
+The Contact page includes a FAQ section with common questions about ordering,
+delivery, catering and other customer inquiries.
 
-Each card may contain a small icon and short CTA.
+The FAQ content must be fully editable so that questions and answers can be
+updated without changing the component structure.
 
-### 3. Service Area (Detailed)
+Initial FAQ content may be defined later by the project owner.
 
-**Service area:**
-```
-San Francisco Bay Area, California
-```
+Possible topics include:
 
-Include: Natural mention that Lana Food serves the broader Bay Area,
-but NOT invented additional locations or detailed delivery zones.
+- Ordering lead times
+- Delivery
+- Catering
+- Menu customization
+- Other common customer questions
 
-### 4. Response Time
+Do NOT invent FAQ questions or answers as final production content.
 
-Example:
-```
-We typically respond to inquiries within 24 hours.
-For urgent requests, please call us directly.
-```
+The FAQ component must support:
 
-### 5. FAQ (Optional)
+- editable question and answer text
+- multiple FAQ items
+- expand/collapse interaction
+- accessible keyboard interaction
+- visible focus states
+- appropriate `aria-expanded` / accordion semantics
+- Design System styling and spacing
 
-If there are common questions, a mini FAQ section can be helpful:
-
-- "What areas do you deliver to?"
-- "How far in advance should I order?"
-- "Do you offer gluten-free options?"
-- "Can I customize dishes?"
-
-❌ Do NOT invent answers if real information is not available.
+If no FAQ content has been provided yet, keep the FAQ component/data structure
+ready for content and do not display fabricated answers.
 
 ---
 
@@ -114,14 +109,17 @@ If there are common questions, a mini FAQ section can be helpful:
 **IMPORTANT:** Initial website is a presentation website WITHOUT backend form.
 
 ❌ **Do NOT add:**
+
 - Contact form submission form
 - Backend form handling
 - Server-side processing
 
 ✅ **Do:**
-- Direct contact links (tel:, mailto:, WhatsApp)
+
+- Direct contact links (`tel:`, WhatsApp, Instagram, Facebook)
 - Clear communication methods
 - Easy-to-find contact information
+- FAQ section with editable content
 
 Form processing can be added later when backend is available.
 
@@ -131,32 +129,41 @@ Form processing can be added later when backend is available.
 
 ### Layout
 
-Use a clean, minimal layout:
+Use a clean, minimal layout.
 
 **Desktop:**
-- Two-column layout: Contact methods on left, optional map/image on right
-- OR: Centered single-column layout with contact cards in grid
+
+- Two-column layout: Contact methods on the left, compact map/location block
+  on the right
+- FAQ displayed below the main contact section
 
 **Mobile:**
+
 - Single-column layout
-- Large, tappable contact buttons
+- Large, tappable contact actions
 - Generous spacing
 - No horizontal scroll
+- FAQ displayed as an accessible accordion
 
 ### Visual Treatment
 
-- Use Phosphor Icons (see `CLAUDE.md` iconography) for each method
+- Use Phosphor Icons (see `CLAUDE.md` iconography) for contact methods
 - Warm cream/ivory background (from Design System)
 - Brand red accents for highlights
 - Generous whitespace
+- Follow the provided Contact visual reference
 
 ### CTAs
 
-**Primary CTA:** Depends on user intent
-- "Call Us" (phone)
+Use direct contact actions where the corresponding real contact information
+is available:
+
+- "Call Us"
 - "Message on WhatsApp"
-- "Send Email"
-- "Get Catering Quote" (link to catering page)
+- "Instagram"
+- "Facebook"
+
+Do NOT include an email CTA unless a real email address is confirmed.
 
 ---
 
@@ -165,10 +172,14 @@ Use a clean, minimal layout:
 Mobile contact page should be especially easy to use:
 
 - **Tap-to-call links:** `<a href="tel:+1-650-XXX-XXXX">`
-- **Tap-to-text WhatsApp:** `<a href="https://wa.me/16505551234">`
-- **Tap-to-email:** `<a href="mailto:hello@lanafood.com">`
-- **Large buttons:** minimum 48px height touch targets
-- **Full-width buttons:** for primary CTAs on mobile
+- **Tap-to-WhatsApp links:** `<a href="https://wa.me/16505551234">`
+- **Instagram:** clickable link to the confirmed Instagram profile
+- **Facebook:** clickable link to the confirmed Facebook profile
+- **Large touch targets:** minimum 48px height
+- **Full-width contact actions:** where appropriate on mobile
+
+Only use real, verified contact information.
+Do not use placeholder contact data in production.
 
 ---
 
@@ -177,16 +188,35 @@ Mobile contact page should be especially easy to use:
 **Throughout the site:**
 
 - Sticky Header contains Contact CTA
-- Fixed bottom Contact bar on mobile (with WhatsApp button if available)
-- Footer contains all contact methods
+- Fixed bottom Contact bar on mobile
+- Footer contains available contact methods
 
-Contact page simply expands these elements with more detailed information.
+The mobile fixed Contact bar should provide the most useful direct actions,
+using only contact methods for which real information is available.
+
+Contact page expands these direct contact options with more detailed
+information and FAQ content.
 
 ---
 
 ## STRUCTURED DATA
 
-Include appropriate schema for SEO:
+Include appropriate schema for SEO.
+
+Use only real, verified business information.
+
+The LocalBusiness structured data may include:
+
+- business name
+- description
+- primary business location
+- telephone, when confirmed
+- email, when confirmed
+- `areaServed`
+- `contactPoint`, when applicable
+- available languages
+
+Example structure:
 
 ```json
 {
@@ -200,61 +230,85 @@ Include appropriate schema for SEO:
     "addressRegion": "California",
     "addressCountry": "USA"
   },
-  "telephone": "+1-650-XXX-XXXX",
-  "email": "hello@lanafood.com",
   "areaServed": "San Francisco Bay Area, California",
   "contactPoint": {
     "@type": "ContactPoint",
     "contactType": "Customer Service",
-    "telephone": "+1-650-XXX-XXXX",
     "availableLanguage": ["en", "ru"]
   }
 }
 ```
+Do not add telephone or email values until the real values are confirmed.
+
+Do not use placeholder values such as +1-650-XXX-XXXX or
+hello@lanafood.com as production structured-data values.
 
 ---
 
 ## CONTENT REQUIREMENTS
 
 ❌ **Do NOT invent:**
+
 - Phone number if real one is not confirmed
 - Email address if not available
 - Hours if not confirmed
+- Social media handles if not confirmed
+- Social media URLs if not confirmed
 - Additional locations if not authorized
+- Google Maps URLs if not confirmed
 
 ✅ **Use:**
+
 - Only real, verified contact information
-- Real business location (Mountain View, California)
-- Real service area (San Francisco Bay Area, California)
+- Real business location: Mountain View, California
+- Real broader service area: San Francisco Bay Area, California
 - Confirmed contact methods
 
-When information is missing — use clearly marked placeholder
-or simply omit section with note that information is coming soon.
+**Current Contact methods:**
+
+- Phone
+- WhatsApp
+- Instagram
+- Facebook
+
+Email is not displayed as a Contact page method.
+
+Service Area is not displayed as a separate Contact page section.
+
+When information is missing, omit it rather than inventing a value.
 
 ---
 
 ## SEO STRATEGY
 
 **Primary search intent:**
-```
-Contact Lana Food catering
-```
+
+`Contact Lana Food catering`
 
 **Secondary:**
+
 - Lana Food phone number
 - How to contact Lana Food
 - Catering inquiry Bay Area
 
 ### Technical SEO
 
-- One H1: "Get in Touch"
+- One H1
 - Descriptive page title
 - Meta description
 - Semantic H2/H3 hierarchy
-- Crawlable contact methods (text, not just images)
-- Proper link formatting (tel:, mailto:, https://)
+- Crawlable contact methods
+- Proper link formatting:
+  - `tel:`
+  - WhatsApp URL
+  - Instagram URL
+  - Facebook URL
 - LocalBusiness structured data
-- Google Business Profile link (when available)
+- Google Business Profile link when available
+- FAQ structured data when FAQ content is provided
+
+Do not include `mailto:` unless a real email address is confirmed and email is
+actually enabled as a project contact method.
 
 ---
 
@@ -262,76 +316,91 @@ Contact Lana Food catering
 
 Contact page should be easy to find:
 
-- **Header:** Contact link or fixed Contact Us button
+- **Header:** Contact link / Contact Us CTA
 - **Footer:** Contact link
-- **Home page:** Contact CTA in Contact section and hero
-- **Catering page:** Contact/Quote link for event inquiries
-- **Menu pages:** "Order" or "Contact Us" CTA
+- **Home page:** Contact CTA
+- **Catering page:** Contact / Quote link for event inquiries
+- **Menu pages:** Contact Us CTA
+
+Follow the approved navigation and CTA terminology from `CLAUDE.md`.
 
 ---
 
 ## MULTILINGUAL SUPPORT
 
-Contact page should be available in both languages (when Russian is enabled):
+Contact page should be available in both languages when Russian is enabled:
 
-- `/contact` (English)
-- `/ru/contact` (Russian)
+- `/contact` — English
+- `/ru/contact` — Russian
 
-**Russian version:**
+**Russian version should translate:**
 
-Translate:
 - Page title
-- H1 and supporting copy
-- Label names (Phone, WhatsApp, Email, Service Area)
-- FAQ (if present)
+- H1
+- Supporting copy
+- Contact method labels
+- FAQ questions and answers
+
+Contact method labels include:
+
+- Phone
+- WhatsApp
+- Instagram
+- Facebook
 
 **Do NOT translate:**
-- Actual contact information (phone, email)
-- Location names (Mountain View, San Francisco Bay Area)
 
-Use `hreflang` to link the versions.
+- Actual contact information
+- Brand name
+- Location names such as Mountain View and San Francisco Bay Area
+
+Use `hreflang` to connect the language versions.
 
 ---
 
 ## MOBILE FIXED CONTACT BAR
 
-On mobile, implement a fixed Contact bar at the bottom of the page containing:
+On mobile, implement the fixed Contact bar at the bottom of the page.
 
-- **WhatsApp button** (when available) — green icon
-- **Call button** — red icon
-- **Email button** (optional) — grey icon
+Show direct contact actions only when real contact information is available:
 
-This should NOT hide main page content (use padding bottom).
+- **WhatsApp** — when a real WhatsApp number is available
+- **Call** — when a real phone number is available
 
-See `CLAUDE.md` section "14. PERSISTENT UI" for details.
+Do not add an Email button.
+
+The bar must not hide main page content.
+
+Provide sufficient bottom padding so the final content remains accessible.
+
+See `CLAUDE.md` persistent UI requirements for positioning and interaction
+with Back to Top and other persistent controls.
 
 ---
 
 ## EXAMPLE LAYOUT (Desktop)
 
-```
+```text
 Header (sticky)
 ├─ Logo | Nav | EN/RU | Contact Us
 
 Main Content
-├─ Section: Get in Touch
-│  ├─ H1 "Get in Touch"
+├─ Contact Introduction
+│  ├─ Eyebrow
+│  ├─ H1
 │  └─ Supporting copy
 │
-├─ Section: Contact Methods (2-column)
-│  ├─ Col 1: Phone, WhatsApp, Email
-│  └─ Col 2: Service Area, Response Time
+├─ Contact Section
+│  ├─ Col 1: Phone, WhatsApp, Instagram, Facebook
+│  └─ Col 2: Compact Google Map / Mountain View, CA
 │
-├─ Section: Use Cases (3-column cards)
-│  ├─ Card: Order Food
-│  ├─ Card: Plan Catering
-│  └─ Card: Ask Questions
+├─ FAQ
+│  └─ Collapsible Q&A items
 │
-├─ Section: FAQ (optional)
-│  └─ Collapsible Q&A cards
+└─ Small closing decorative band
 
 Footer
-└─ Contact methods repeated, social links
+└─ Available contact methods + navigation
 ```
 
 ---
@@ -339,10 +408,17 @@ Footer
 ## IMPORTANT NOTES
 
 - Contact page is a **presentation page**, not an order form
-- Everything should be **mobile-friendly** and **easy to tap**
-- Contact information should be **real and verified**
-- Layout should be **clean and minimal**, not crowded
-- Font, colors, icons should **match Design System** (see `CLAUDE.md`)
-- Page should be **accessible** and **SEO-optimized**
+- No contact submission form in the initial version
+- Contact methods are: **Phone, WhatsApp, Instagram, Facebook**
+- No Email contact block
+- No separate Service Area section
+- FAQ is included and its content is editable
+- Google Map should show **Mountain View, California**
+- Map should be compact and clickable
+- Everything should be mobile-friendly and easy to tap
+- Contact information must be real and verified
+- Layout should be clean and minimal, not crowded
+- Font, colors and icons must match the Design System
+- Page should be accessible and SEO-optimized
 
-See `CLAUDE.md` for all general requirements.
+See `CLAUDE.md` for general project requirements.

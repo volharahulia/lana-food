@@ -9,10 +9,15 @@ import Grid from "../../_components/ui/Grid";
 import { expandControls } from "../_data/menuConfig";
 
 type MenuCategorySectionProps = {
+  categorySlug: string;
   subcategory: MenuSubcategory;
   /** True while a search query is active — shows every match instead of the
    * featured/4-card preview, per MENU.md's search behavior. */
   bypassCollapse: boolean;
+  /** True when this section contains the active Most-Popular-Dishes deep-link
+   * target — forces the full preview open so the target card exists in the
+   * DOM to scroll to, per MENU.md deep-link behavior. */
+  forceExpanded?: boolean;
   onOpenCard: (card: MenuCardData) => void;
 };
 
@@ -38,15 +43,17 @@ function getPreviewCards(cards: MenuCardData[]): MenuCardData[] {
 }
 
 export default function MenuCategorySection({
+  categorySlug,
   subcategory,
   bypassCollapse,
+  forceExpanded = false,
   onOpenCard,
 }: MenuCategorySectionProps) {
   const [expanded, setExpanded] = useState(false);
   const { name, cards } = subcategory;
 
-  const canToggle = !bypassCollapse && cards.length > 4;
-  const showAll = bypassCollapse || expanded || cards.length <= 4;
+  const canToggle = !bypassCollapse && !forceExpanded && cards.length > 4;
+  const showAll = bypassCollapse || forceExpanded || expanded || cards.length <= 4;
   const visible = showAll ? cards : getPreviewCards(cards);
 
   return (
@@ -55,7 +62,12 @@ export default function MenuCategorySection({
 
       <Grid columns={{ base: 1, tablet: 2, laptop: 3, desktop: 4 }} gap="sm">
         {visible.map((card) => (
-          <MenuCard key={card.id} card={card} onOpen={() => onOpenCard(card)} />
+          <MenuCard
+            key={card.id}
+            card={card}
+            categorySlug={categorySlug}
+            onOpen={() => onOpenCard(card)}
+          />
         ))}
       </Grid>
 

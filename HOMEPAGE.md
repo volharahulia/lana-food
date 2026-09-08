@@ -244,18 +244,31 @@ Subtitle:
 
 Featured dishes:
 
-- Fruit Platters
-- Olivier Salad
-- Mini Sandwiches
-- Pelmeni
-- Napoleon Cake
-- Stuffed Peppers
+This list is NOT hardcoded. It is sourced dynamically from the same
+Excel-driven menu data Menu itself reads (see MENU.md's Excel column
+schema): every published menu item/group across all four categories whose
+`Popular Dish` column is `true` appears here, in category → subcategory →
+Display Order sequence — the same ordering already used elsewhere in the
+menu data model. Changing which rows are marked `Popular Dish` in the
+spreadsheet changes this list; no component code changes.
 
 Each dish should include:
 
-- Dish name
-- Small food thumbnail
+- Dish name (from the menu data)
+- Small food thumbnail (the menu item's own Photo; the neutral placeholder
+  treatment applies when no photo is set, same as on the Menu page)
 - Right-facing arrow indicating that the item can be explored
+
+### Arrow / deep-link behavior
+
+Clicking a Popular Dish (its row or arrow) navigates to `/menu` with a
+reference to that exact menu item/group. The Menu page resolves the
+reference against its own parsed menu data, activates the matching
+Category (and Subcategory, if applicable), scrolls to the exact card, and
+automatically opens the existing Menu card modal for it. A grouped menu
+item resolves to its single rendered group card, never to an individual
+variant row. If the reference cannot be resolved (e.g. stale data), the
+Menu page opens normally instead of erroring.
 
 CTA:
 

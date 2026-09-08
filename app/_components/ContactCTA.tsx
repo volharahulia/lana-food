@@ -23,12 +23,12 @@ const contactMethods: ContactMethod[] = [
 export default function ContactCTA() {
   return (
     <CtaBlock
-      layout="centered"
       heading={contactCtaContent.heading}
       supportingText={contactCtaContent.subtitle}
-      primaryCta={{ ...contactCtaContent.cta, variant: "ghost" }}
+      primaryCta={{ ...contactCtaContent.cta, variant: "inverse" }}
+      secondaryCta={{ ...contactCtaContent.secondaryCta, variant: "ghost" }}
     >
-      <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
         {contactMethods.map((method) => (
           <a
             key={method.href}

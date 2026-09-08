@@ -191,6 +191,7 @@ This spreadsheet is the **single source of truth** for:
 - ingredients and allergens
 - availability and publish status
 - featured status
+- Home "Most Popular Dishes" inclusion
 - dish grouping and variants
 - display order
 - photo filenames
@@ -219,6 +220,7 @@ This spreadsheet is the **single source of truth** for:
 | **Published** | Boolean (true/false). If false, do not display on the public menu page. Keep unpublished items in the data; do not delete. |
 | **Featured** | Boolean (true/false). Determines which items appear in the initial collapsed/preview view of a subcategory. See section "Featured Items and Expand/Collapse" below. |
 | **Available** | Boolean (true/false). If true, item is available. If false, apply the unavailable state defined by the Design System. Do not remove unavailable items; display them with appropriate styling. |
+| **Popular Dish** | Boolean (true/false). If true, this item/group appears in the Home page "Most Popular Dishes" section (see HOMEPAGE.md). For a grouped card (see **Group**/**Group ID** below), true on any one member row is enough — the whole rendered group card appears. Does not affect the Menu page itself. Defaults to false. |
 | **Category RU** | Russian translation of Category. Reserved for future localization. Ignore in English mode. |
 | **Subcategory RU** | Russian translation of Subcategory. Reserved for future localization. Ignore in English mode. |
 | **Name RU** | Russian translation of Name. Reserved for future localization. Ignore in English mode. |
@@ -843,6 +845,7 @@ Before considering the Menu page complete:
 - [ ] Available=false items display with appropriate unavailable styling
 - [ ] Clicking a card opens a modal with full details (only populated fields)
 - [ ] Search filters by dish name, variant, description, ingredients
+- [ ] Popular Dish=true items/groups are the ones sourced into Home's "Most Popular Dishes" (see HOMEPAGE.md); navigating from one activates the correct Category/Subcategory, scrolls to and opens that exact card
 - [ ] Sidebar navigation shows Subcategories for the currently active Category and responds to scroll
 - [ ] Mobile layout adapts correctly; no horizontal overflow
 - [ ] Back to Top appears after scroll and positions correctly

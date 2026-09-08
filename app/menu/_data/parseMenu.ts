@@ -96,6 +96,7 @@ type RawItemRow = {
   displayOrder: number;
   featured: boolean;
   available: boolean;
+  popularDish: boolean;
 };
 
 function toRawItemRow(row: Row): RawItemRow | null {
@@ -121,6 +122,7 @@ function toRawItemRow(row: Row): RawItemRow | null {
     displayOrder: num(row, "Display Order in Subcategory") ?? Number.MAX_SAFE_INTEGER,
     featured: bool(row, "Featured", false),
     available: bool(row, "Available", true),
+    popularDish: bool(row, "Popular Dish", false),
   };
 }
 
@@ -173,6 +175,7 @@ function buildSubcategories(rows: RawItemRow[], subcategoryOrder: string[]): Men
         // plain string src, never the resolveImage()/fs machinery itself.
         photo: rawPhoto ? resolveImage(`/images/menu/${rawPhoto}`) : undefined,
         available: variants.some((v) => v.available),
+        popularDish: members.some((m) => m.popularDish),
         variants,
       },
     };

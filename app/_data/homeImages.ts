@@ -2,9 +2,11 @@ import { existsSync } from "fs";
 import path from "path";
 
 // Central path registry for the Home page's single/singleton photo slots
-// (one photo per section, not driven by a content array). Menu-category and
-// dish images live next to their own content instead — see the `image`
-// field on each entry in menuCategories.ts / popularDishes.ts.
+// (one photo per section, not driven by a content array). Menu-category
+// images live next to their own content instead — see the `image` field on
+// each entry in menuCategories.ts. Most Popular Dishes thumbnails come from
+// the Excel-parsed menu data's own resolved `card.photo` (MostPopularDishes.tsx),
+// not from this registry.
 export const homeImages = {
   hero: "/images/home/hero-table.png",
   catering: "/images/home/catering.jpg",

@@ -1,13 +1,15 @@
 import type { MenuCardData } from "../_data/types";
 import { formatPrice, formatQuantity, formatWeight } from "../_data/format";
+import { menuCardDomId } from "../_data/menuTarget";
 import MenuPhoto from "./MenuPhoto";
 
 type MenuCardProps = {
   card: MenuCardData;
+  categorySlug: string;
   onOpen: () => void;
 };
 
-export default function MenuCard({ card, onOpen }: MenuCardProps) {
+export default function MenuCard({ card, categorySlug, onOpen }: MenuCardProps) {
   const primary = card.variants[0];
   const description = card.variants.find((v) => v.description)?.description;
   const quantity = formatQuantity(primary);
@@ -27,8 +29,12 @@ export default function MenuCard({ card, onOpen }: MenuCardProps) {
   return (
     <button
       type="button"
+      id={menuCardDomId(categorySlug, card.id)}
       onClick={onOpen}
-      className="group flex h-full flex-col overflow-hidden rounded-md border border-border-hairline bg-surface-white text-left shadow-xs transition-all duration-150 ease-out hover:-translate-y-0.5 hover:shadow-sm focus-visible:-translate-y-0.5"
+      // scroll-mt matches MenuCategorySection's own — same sticky header/tabs
+      // offset — so a deep-linked scrollIntoView() lands below them, not
+      // hidden behind them (MENU.md deep-link behavior).
+      className="group flex h-full scroll-mt-[150px] flex-col overflow-hidden rounded-md border border-border-hairline bg-surface-white text-left shadow-xs transition-all duration-150 ease-out hover:-translate-y-0.5 hover:shadow-sm focus-visible:-translate-y-0.5"
     >
       <MenuPhoto
         src={card.photo}

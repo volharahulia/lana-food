@@ -62,4 +62,5 @@ export const contactCtaContent = {
   heading: "Ready to Plan Your Celebration?",
   subtitle: "We’d love to help make your next gathering special.",
   cta: { label: "Contact Us", href: "/contact" },
+  secondaryCta: { label: "View Menu", href: "/menu" },
 };

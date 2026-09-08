@@ -10,7 +10,6 @@ import { reviewsFinalCta } from "../_data/reviewsConfig";
 export default function ReviewsFinalCta() {
   return (
     <CtaBlock
-      layout="split"
       decorative={<HeartDivider className="text-cream-300" />}
       heading={reviewsFinalCta.heading}
       supportingText={reviewsFinalCta.supportingText}

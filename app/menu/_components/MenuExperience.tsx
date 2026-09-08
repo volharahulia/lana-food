@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { MenuCardData, MenuCategoryData } from "../_data/types";
 import { searchMenu } from "../_data/search";
+import { resolveMenuTarget, menuCardDomId } from "../_data/menuTarget";
 import MenuTabs from "./MenuTabs";
 import MenuSearch from "./MenuSearch";
 import MenuSidebar, { slugify } from "./MenuSidebar";
@@ -25,15 +26,32 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  // Resolves Home's "Most Popular Dishes" deep link (?item=<categorySlug::cardId>)
+  // against this same parsed menu data — see menuTarget.ts. A Home→Menu
+  // navigation is always a fresh mount (different route), so it's safe to
+  // resolve this once, up front, and seed the state below from it directly.
+  const itemRef = searchParams.get("item");
+  const resolvedTarget = useMemo(() => resolveMenuTarget(categories, itemRef), [categories, itemRef]);
+
   const tabSlugs = categories.map((c) => c.slug);
   const initialTab = searchParams.get("tab");
   const [activeSlug, setActiveSlug] = useState(
-    initialTab && tabSlugs.includes(initialTab) ? initialTab : (categories[0]?.slug ?? "")
+    resolvedTarget?.categorySlug ??
+      (initialTab && tabSlugs.includes(initialTab) ? initialTab : (categories[0]?.slug ?? ""))
   );
   const urlQuery = searchParams.get("q") ?? "";
   const [query, setQuery] = useState(urlQuery);
-  const [openCard, setOpenCard] = useState<MenuCardData | null>(null);
-  const [activeSubcategory, setActiveSubcategory] = useState<string | null>(null);
+  const [openCard, setOpenCard] = useState<MenuCardData | null>(resolvedTarget?.card ?? null);
+  const [activeSubcategory, setActiveSubcategory] = useState<string | null>(
+    resolvedTarget?.subcategoryName ?? null
+  );
+  // Same "<categorySlug>-<subcategoryName|flat>" composition already used as
+  // each MenuCategorySection's React key below — identifies which section
+  // must render fully expanded so the deep-link target exists in the DOM to
+  // scroll to (MenuCategorySection otherwise previews only 4 cards).
+  const forceExpandKey = resolvedTarget
+    ? `${resolvedTarget.categorySlug}-${resolvedTarget.subcategoryName ?? "flat"}`
+    : null;
 
   // Keeps `query` in sync when the Header search (a separate component)
   // navigates to /menu?q=… while this page is already mounted — see MENU
@@ -95,6 +113,17 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
     return () => observer.disconnect();
   }, [activeCategory, searchActive]);
 
+  // Deep-link scroll: forceExpandKey above already renders the target card
+  // on this same first commit, so it exists in the DOM by the time this
+  // effect runs. scroll-mt-[150px] on MenuCard (same value as
+  // MenuCategorySection's) keeps it clear of the sticky header/tabs.
+  useEffect(() => {
+    if (!resolvedTarget) return;
+    document
+      .getElementById(menuCardDomId(resolvedTarget.categorySlug, resolvedTarget.card.id))
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [resolvedTarget]);
+
   if (!activeCategory) return null;
 
   const subcategoryNames = activeCategory.subcategories
@@ -132,14 +161,19 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
               <>
                 <MenuCategoryInfo categorySlug={activeCategory.slug} />
                 <div className="flex flex-col gap-10">
-                  {activeCategory.subcategories.map((subcategory) => (
-                    <MenuCategorySection
-                      key={`${activeCategory.slug}-${subcategory.name ?? "flat"}`}
-                      subcategory={subcategory}
-                      bypassCollapse={false}
-                      onOpenCard={setOpenCard}
-                    />
-                  ))}
+                  {activeCategory.subcategories.map((subcategory) => {
+                    const sectionKey = `${activeCategory.slug}-${subcategory.name ?? "flat"}`;
+                    return (
+                      <MenuCategorySection
+                        key={sectionKey}
+                        categorySlug={activeCategory.slug}
+                        subcategory={subcategory}
+                        bypassCollapse={false}
+                        forceExpanded={sectionKey === forceExpandKey}
+                        onOpenCard={setOpenCard}
+                      />
+                    );
+                  })}
                 </div>
               </>
             )}

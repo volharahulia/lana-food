@@ -7,7 +7,6 @@ import { aboutCta } from "../_data/aboutConfig";
 export default function AboutCTA() {
   return (
     <CtaBlock
-      layout="split"
       decorative={<HeartDivider className="text-cream-300" />}
       heading={aboutCta.headline}
       supportingText={aboutCta.supportText}

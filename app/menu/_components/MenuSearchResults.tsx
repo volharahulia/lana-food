@@ -39,7 +39,12 @@ export default function MenuSearchResults({ query, results, onOpenCard }: MenuSe
 
           <Grid columns={{ base: 1, tablet: 2, laptop: 3, desktop: 4 }} gap="sm">
             {category.cards.map((card) => (
-              <MenuCard key={card.id} card={card} onOpen={() => onOpenCard(card)} />
+              <MenuCard
+                key={card.id}
+                card={card}
+                categorySlug={category.slug}
+                onOpen={() => onOpenCard(card)}
+              />
             ))}
           </Grid>
         </section>

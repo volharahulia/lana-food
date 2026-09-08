@@ -27,6 +27,9 @@ export type MenuCardData = {
   photo?: string;
   /** True when at least one variant is still available. */
   available: boolean;
+  /** True when any row in the group has Popular Dish = true (Home "Most
+   * Popular Dishes" inclusion flag) — see MENU.md's Excel column schema. */
+  popularDish: boolean;
   /** Length 1 for a standalone (non-grouped) dish. */
   variants: MenuVariant[];
 };

@@ -16,7 +16,6 @@ export default function CateringFinalCta() {
 
   return (
     <CtaBlock
-      layout="split"
       decorative={
         <p className="font-body text-xs font-semibold uppercase tracking-[2px] text-cream-300/90">
           {cateringFinalCta.eyebrow}
