@@ -1,19 +1,17 @@
 import { Star, GoogleLogo } from "@phosphor-icons/react/ssr";
 import Section from "../../_components/ui/Section";
 import Surface from "../../_components/ui/Surface";
-import { business } from "../../_data/business";
+import { googleRating, googleReviewCount } from "../../_data/reviews";
 import { ratingSummaryContent } from "../_data/reviewsConfig";
 
 // Section 2 — Google Rating Summary. A rating summary only: overall rating,
-// stars, review count, and Google context — no action buttons here anymore
-// (per explicit project correction: the "Read More Reviews on Google" /
-// "Leave a Review" actions were duplicated between this section and the
-// dedicated GoogleReviewsCta section below the grid; they now live only
-// there). Rating value/count use the reference's own bracketed-placeholder
-// convention ("[Google Rating]"/"[Review Count]") when
-// business.googleRating/googleReviewCount aren't configured yet.
+// stars, review count, and Google context — no action buttons here (per
+// explicit project correction: the "Read More Reviews on Google" / "Leave a
+// Review" actions live only in the dedicated GoogleReviewsCta section below
+// the grid). Rating value/count come from the centralized Reviews data
+// source (app/_data/reviews.ts) and use its bracketed-placeholder convention
+// ("[Google Rating]"/"[Review Count]") when not configured yet.
 export default function RatingSummary() {
-  const { googleRating, googleReviewCount } = business;
   const filledStars = googleRating != null ? Math.round(googleRating) : 5;
 
   return (

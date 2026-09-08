@@ -51,6 +51,11 @@ export const meetLanaContent = {
 
 export const reviewsPreviewContent = {
   title: "Customer Reviews",
+  // Home's own intended compact card count (CLAUDE.md §14: "Desktop should
+  // display three review cards at a time"), independent of how many entries
+  // actually exist in the shared app/_data/reviews.ts list — ReviewsPreview
+  // slices to this number rather than rendering the full list.
+  visibleCount: 3,
 };
 
 export const contactCtaContent = {

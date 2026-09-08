@@ -17,16 +17,11 @@ export const business = {
   email: null as string | null,
   instagram: "https://www.instagram.com/lana_s_food/",
   facebook: "https://www.facebook.com/LanaFoodCatering/",
-  // Single configurable Google Reviews destination — both the Reviews page's
-  // "Read More Reviews on Google" and "Leave a Review" buttons (and the
-  // Footer's Business Profile link) resolve to this one URL, per explicit
-  // project decision. Never invented; left null until the owner supplies it.
-  googleBusinessProfile: null as string | null,
-  // Aggregate values shown in the Reviews page's Google Rating Summary —
-  // never invented; left null until the owner supplies the real, current
-  // values.
-  googleRating: null as number | null,
-  googleReviewCount: null as number | null,
+  // Google Reviews URL/rating/review count moved to the centralized Reviews
+  // data source (app/_data/reviews.ts — googleReviewsUrl/googleRating/
+  // googleReviewCount) so the Reviews page's Google config lives in one
+  // obvious place alongside the review entries themselves.
+  //
   // Two separate, independently-editable Google Maps values — never derive
   // one from the other (see app/contact/_components/MapPreview.tsx):
   //

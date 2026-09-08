@@ -2,33 +2,20 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import type { MenuCardData, MenuCategoryData, MenuSubcategory } from "../_data/types";
+import type { MenuCardData, MenuCategoryData } from "../_data/types";
+import { searchMenu } from "../_data/search";
 import MenuTabs from "./MenuTabs";
 import MenuSearch from "./MenuSearch";
 import MenuSidebar, { slugify } from "./MenuSidebar";
 import MenuCategoryInfo from "./MenuCategoryInfo";
 import MenuCategorySection from "./MenuCategorySection";
+import MenuSearchResults from "./MenuSearchResults";
 import MenuCardModal from "./MenuCardModal";
 import EmptyState from "./EmptyState";
 
 type MenuExperienceProps = {
   categories: MenuCategoryData[];
 };
-
-function cardMatches(card: MenuCardData, query: string): boolean {
-  const q = query.toLowerCase();
-  if (card.name.toLowerCase().includes(q)) return true;
-  return card.variants.some((v) =>
-    [v.variant, v.description, v.ingredients].some((field) => field?.toLowerCase().includes(q))
-  );
-}
-
-function filterSubcategories(subcategories: MenuSubcategory[], query: string): MenuSubcategory[] {
-  if (!query.trim()) return subcategories;
-  return subcategories
-    .map((s) => ({ ...s, cards: s.cards.filter((c) => cardMatches(c, query)) }))
-    .filter((s) => s.cards.length > 0);
-}
 
 // Owns all Menu-page interaction state (active tab, search, open modal,
 // scroll-spy) and composes the presentational Menu* components around it.
@@ -43,17 +30,32 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
   const [activeSlug, setActiveSlug] = useState(
     initialTab && tabSlugs.includes(initialTab) ? initialTab : (categories[0]?.slug ?? "")
   );
-  const [query, setQuery] = useState(searchParams.get("q") ?? "");
+  const urlQuery = searchParams.get("q") ?? "";
+  const [query, setQuery] = useState(urlQuery);
   const [openCard, setOpenCard] = useState<MenuCardData | null>(null);
   const [activeSubcategory, setActiveSubcategory] = useState<string | null>(null);
 
+  // Keeps `query` in sync when the Header search (a separate component)
+  // navigates to /menu?q=… while this page is already mounted — see MENU
+  // search behavior "IMPORTANT URL / STATE REQUIREMENT". Adjusted during
+  // render (React's documented pattern for resetting state when a prop
+  // changes) rather than in an effect, since typing into MenuSearch below
+  // never touches the URL and must not be clobbered by this sync.
+  const [lastUrlQuery, setLastUrlQuery] = useState(urlQuery);
+  if (urlQuery !== lastUrlQuery) {
+    setLastUrlQuery(urlQuery);
+    setQuery(urlQuery);
+  }
+
   const activeCategory = categories.find((c) => c.slug === activeSlug) ?? categories[0];
   const searchActive = query.trim().length > 0;
-  const filtered = useMemo(
-    () => (activeCategory ? filterSubcategories(activeCategory.subcategories, query) : []),
-    [activeCategory, query]
+  // Global search — every category, not just activeCategory — per MENU
+  // search behavior requirements.
+  const searchResults = useMemo(
+    () => (searchActive ? searchMenu(categories, query) : []),
+    [categories, query, searchActive]
   );
-  const hasResults = filtered.some((s) => s.cards.length > 0);
+  const hasResults = searchResults.length > 0;
 
   function handleTabChange(slug: string) {
     setActiveSlug(slug);
@@ -120,21 +122,26 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
           )}
 
           <div className="min-w-0 flex-1">
-            <MenuCategoryInfo categorySlug={activeCategory.slug} />
-
-            {hasResults ? (
-              <div className="flex flex-col gap-10">
-                {filtered.map((subcategory) => (
-                  <MenuCategorySection
-                    key={`${activeCategory.slug}-${subcategory.name ?? "flat"}`}
-                    subcategory={subcategory}
-                    bypassCollapse={searchActive}
-                    onOpenCard={setOpenCard}
-                  />
-                ))}
-              </div>
+            {searchActive ? (
+              hasResults ? (
+                <MenuSearchResults query={query} results={searchResults} onOpenCard={setOpenCard} />
+              ) : (
+                <EmptyState onClear={() => setQuery("")} />
+              )
             ) : (
-              <EmptyState onClear={() => setQuery("")} />
+              <>
+                <MenuCategoryInfo categorySlug={activeCategory.slug} />
+                <div className="flex flex-col gap-10">
+                  {activeCategory.subcategories.map((subcategory) => (
+                    <MenuCategorySection
+                      key={`${activeCategory.slug}-${subcategory.name ?? "flat"}`}
+                      subcategory={subcategory}
+                      bypassCollapse={false}
+                      onOpenCard={setOpenCard}
+                    />
+                  ))}
+                </div>
+              </>
             )}
           </div>
         </div>

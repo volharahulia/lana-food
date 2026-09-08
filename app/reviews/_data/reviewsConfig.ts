@@ -8,10 +8,10 @@
 // (public/images/review-reference.png), same as the equivalent gaps were
 // handled for About/Contact/Catering.
 //
-// Google rating/count/review data itself is NOT duplicated here — it lives
-// in app/_data/business.ts (rating/count/destinations) and
-// app/_data/reviews.ts (the review list, shared with Home's ReviewsPreview),
-// the project's single sources of truth for that real data.
+// Real Google/review data itself is NOT duplicated here — it lives in the
+// centralized app/_data/reviews.ts (googleReviewsUrl, googleWriteReviewUrl,
+// googleRating, googleReviewCount, and the review list — also shared with
+// Home's ReviewsPreview), the project's single source of truth for that data.
 
 export const reviewsHero = {
   h1: "Loved by Families Across the Bay Area",
@@ -25,43 +25,23 @@ export const ratingSummaryContent = {
   googleBadgeLabel: "Review us on Google",
 };
 
-// Both CTA labels live only in the "More Reviews on Google" section now
-// (RatingSummary no longer duplicates these buttons) — kept as named
-// constants so wording only ever needs to change in one place. Both buttons
-// resolve to the same single business.googleBusinessProfile destination.
+// Both CTA labels live only in the "More Reviews on Google" section (the
+// only place these two buttons render) — kept as named constants so wording
+// only ever needs to change in one place. "Read More Reviews on Google" uses
+// app/_data/reviews.ts's googleReviewsUrl; "Leave a Review" uses its
+// googleWriteReviewUrl — two distinct destinations.
 export const googleCtaLabels = {
   readMore: "Read More Reviews on Google",
   leaveReview: "Leave a Review",
 };
 
-// Filter categories as shown in review-reference.png's Review Filters row
-// ("All Reviews / Catering / Everyday Food / Holiday Orders / Kids' Parties").
-// Note: this differs from REVIEW.md §6's prose list (which repeats §9's
-// Celebrations event-type list) — the actual reference pills use Lana Food's
-// service-line categories instead. Per REVIEW.md §1 the reference image is
-// the compositional authority for Reviews-specific UI, so the pills below
-// follow the image; see the implementation report for this recorded
-// conflict. "All Reviews" is handled by the component as the implicit
-// default filter and isn't listed here.
-export type ReviewFilter = { id: string; label: string };
-export const reviewFilters: ReviewFilter[] = [
-  { id: "catering", label: "Catering" },
-  { id: "everyday-food", label: "Everyday Food" },
-  { id: "holiday-orders", label: "Holiday Orders" },
-  { id: "kids-parties", label: "Kids' Parties" },
-];
-export const ALL_REVIEWS_FILTER_ID = "all";
-export const allReviewsFilterLabel = "All Reviews";
+// Review category filters and sorting were removed (explicit project
+// decision): the current review dataset doesn't support meaningful
+// event-type categorization or date-based ordering yet. The page is a
+// simple chronological grid instead — see ReviewsGrid.tsx.
 
-export type SortOption = { id: string; label: string };
-export const reviewSortOptions: SortOption[] = [{ id: "most-recent", label: "Most Recent" }];
-
+// Cards per page — also the grid's 3-column × 2-row initial layout target.
 export const REVIEWS_PAGE_SIZE = 6;
-
-export const reviewsEmptyState = {
-  message: "No reviews match this filter yet.",
-  clearLabel: "Show all reviews",
-};
 
 export const googleReviewsCta = {
   heading: "More Reviews on Google",

@@ -9,6 +9,7 @@ import {
   MapPin,
 } from "@phosphor-icons/react/ssr";
 import { business } from "../_data/business";
+import { googleReviewsUrl } from "../_data/reviews";
 import { menuDropdown, MULTILINGUAL_ENABLED } from "../_data/navigation";
 
 const pageLinks = [
@@ -147,9 +148,9 @@ export default function Footer() {
           </div>
         </div>
 
-        {business.googleBusinessProfile && (
+        {googleReviewsUrl && (
           <a
-            href={business.googleBusinessProfile}
+            href={googleReviewsUrl}
             className="mt-4 inline-block font-body text-sm text-primary-600 hover:underline"
           >
             View our Google Business Profile

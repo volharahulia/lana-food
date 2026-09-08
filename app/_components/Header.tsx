@@ -111,7 +111,12 @@ export default function Header() {
         <div className="flex items-center gap-2 tablet:gap-3">
           <div className="hidden items-center tablet:flex">
             {searchOpen ? (
-              <form onSubmit={handleSearchSubmit} className="flex items-center">
+              <form
+                onSubmit={handleSearchSubmit}
+                role="search"
+                aria-label="Search dishes"
+                className="flex items-center"
+              >
                 <label htmlFor="site-search" className="sr-only">
                   Search dishes
                 </label>
@@ -124,13 +129,26 @@ export default function Header() {
                   placeholder="Search dishes…"
                   className="h-9 w-40 rounded-xs border border-border-hairline bg-surface-white px-3 text-sm text-ink-900 placeholder:text-ink-500 focus:border-primary-600"
                 />
+                {/* Dedicated submit action — same MagnifyingGlass style as the
+                    closed-state toggle below — so Enter and this click both
+                    go through the one handleSearchSubmit, never Contact Us. */}
+                <button
+                  type="submit"
+                  aria-label="Search"
+                  className="flex h-11 w-11 items-center justify-center text-ink-700 transition-colors hover:text-primary-600"
+                >
+                  <MagnifyingGlass size={20} aria-hidden />
+                </button>
+                {/* Same control, existing "close" behavior when empty; once
+                    text is entered it clears the query instead (never
+                    navigates), per Global Header Search UX requirements. */}
                 <button
                   type="button"
-                  onClick={() => setSearchOpen(false)}
-                  aria-label="Close search"
+                  onClick={() => (query ? setQuery("") : setSearchOpen(false))}
+                  aria-label={query ? "Clear search" : "Close search"}
                   className="flex h-11 w-11 items-center justify-center text-ink-700 hover:text-primary-600"
                 >
-                  <X size={20} aria-hidden />
+                  <X size={16} aria-hidden />
                 </button>
               </form>
             ) : (

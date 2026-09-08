@@ -9,7 +9,7 @@ export default function ReviewsPreview() {
       <SectionHeading title={reviewsPreviewContent.title} align="center" as="h3" />
 
       <div className="flex flex-col gap-3">
-        {reviews.map((review, i) => (
+        {reviews.slice(0, reviewsPreviewContent.visibleCount).map((review, i) => (
           <article
             key={i}
             className={`flex flex-col gap-2 rounded-md border p-4 shadow-xs ${review.quote

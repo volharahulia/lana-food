@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import ReviewsHero from "./_components/ReviewsHero";
 import RatingSummary from "./_components/RatingSummary";
-import ReviewsExperience from "./_components/ReviewsExperience";
+import ReviewsGrid from "./_components/ReviewsGrid";
 import GoogleReviewsCta from "./_components/GoogleReviewsCta";
 import ReviewsFinalCta from "./_components/ReviewsFinalCta";
-import { reviews } from "../_data/reviews";
 import { business } from "../_data/business";
+import { googleRating, googleReviewCount } from "../_data/reviews";
 
 export const metadata: Metadata = {
   title: "Customer Reviews | Lana Food | Bay Area California",
@@ -28,15 +28,15 @@ const breadcrumbJsonLd = {
 // approved consent, so there is currently no real, publishable field to use
 // for it — add it once real, attributable review data exists.
 const aggregateRatingJsonLd =
-  business.googleRating != null && business.googleReviewCount != null
+  googleRating != null && googleReviewCount != null
     ? {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         name: business.name,
         aggregateRating: {
           "@type": "AggregateRating",
-          ratingValue: business.googleRating,
-          reviewCount: business.googleReviewCount,
+          ratingValue: googleRating,
+          reviewCount: googleReviewCount,
         },
       }
     : null;
@@ -57,7 +57,7 @@ export default function ReviewsPage() {
 
       <ReviewsHero />
       <RatingSummary />
-      <ReviewsExperience reviews={reviews} />
+      <ReviewsGrid />
       <GoogleReviewsCta />
       <ReviewsFinalCta />
     </>
