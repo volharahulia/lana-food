@@ -10,6 +10,11 @@ type MenuPhotoProps = {
   sizes: string;
   priority?: boolean;
   className?: string;
+  /** Whether the "Currently Unavailable" text badge renders over the photo.
+   * Defaults to true (existing behavior, unchanged). Set false at very small
+   * render sizes (e.g. a compact list thumbnail) where the badge can't fit —
+   * the saturate/opacity dimming below still applies either way. */
+  showBadge?: boolean;
 };
 
 // 4:5 dish photo per MENU.md/Design System. Falls back to the approved Lana
@@ -23,6 +28,7 @@ export default function MenuPhoto({
   sizes,
   priority = false,
   className = "",
+  showBadge = true,
 }: MenuPhotoProps) {
   return (
     <div
@@ -53,7 +59,7 @@ export default function MenuPhoto({
         </div>
       )}
 
-      {unavailable && (
+      {unavailable && showBadge && (
         <span className="absolute left-2 top-2 rounded-full bg-surface-white/95 px-2.5 py-1 font-body text-xs font-semibold text-ink-900 shadow-xs">
           Currently Unavailable
         </span>
