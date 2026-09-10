@@ -50,24 +50,19 @@ export default function Hero() {
     <Section spacing="compact" width="full-bleed" background="cream" className="relative overflow-hidden">
       <Grid columns="hero-split">
         <div className="relative order-1 laptop:order-2 laptop:h-full">
-          {/* Mobile: stacked layout, no sibling to match height against — fixed crop.
-              Container-page mobile padding is 20px each side. */}
-          <ImagePlaceholder
-            ratio="4:5"
-            alt="Signature Lana Food spread of homemade dishes, ready for a celebration"
-            radiusClassName="rounded-lg tablet:hidden"
-            src={HERO_IMAGE_SRC}
-            sizes="calc(100vw - 40px)"
-            priority
-          />
-          {/* Tablet: still stacked (grid columns only start at laptop) — fixed crop.
-              Container-page tablet padding is 32px each side. */}
+          {/* Mobile + tablet: stacked layout, no sibling to match height against —
+              fixed 16:9 landscape crop (the source photo is itself a 16:9
+              horizontal shot, so this shows it uncropped rather than punching a
+              tall portrait window into a wide scene). One box covers both
+              breakpoints since the ratio no longer changes between them — only
+              the container padding does (20px mobile / 32px tablet), reflected
+              in `sizes`. */}
           <ImagePlaceholder
             ratio="16:9"
             alt="Signature Lana Food spread of homemade dishes, ready for a celebration"
-            radiusClassName="rounded-lg hidden tablet:block laptop:hidden"
+            radiusClassName="rounded-lg laptop:hidden"
             src={HERO_IMAGE_SRC}
-            sizes="calc(100vw - 64px)"
+            sizes="(min-width: 768px) calc(100vw - 64px), calc(100vw - 40px)"
             priority
           />
           {/* Laptop+: side-by-side with text — no fixed aspect box. The image

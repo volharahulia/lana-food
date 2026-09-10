@@ -48,27 +48,38 @@ export default function CateringProcessService() {
         </div>
 
         {steps.length > 0 && (
-          <Grid
-            columns={{ base: 2, tablet: 3, laptop: 5 }}
-            gap="md"
-            as="ul"
-            className="mt-8"
-          >
-            {steps.map((step) => (
-              <li key={step.id} className="flex flex-col items-center gap-2 text-center">
-                <span
-                  aria-hidden
-                  className="flex h-20 w-20 items-center justify-center rounded-full border border-border-hairline bg-surface-white"
-                >
-                  <Image src={step.icon} alt="" width={40} height={40} />
-                </span>
-                <span className="font-body text-sm font-semibold text-ink-900">
-                  {step.title}
-                </span>
-                <p className="font-body text-xs leading-[1.5] text-ink-700">{step.description}</p>
-              </li>
-            ))}
-          </Grid>
+          // Icon and title/description stay one flex-col unit per step (as before)
+          // so responsive wrapping on mobile/tablet keeps each step's icon paired
+          // with its own text. The connector is a single absolutely-positioned
+          // line behind the list, shown only at the laptop breakpoint where the
+          // 5 steps are guaranteed one row — top-10 matches the h-20 icon circle
+          // (its own top edge is the row's top edge, so its center sits at exactly
+          // half its own height). Circles paint after it in DOM order and carry an
+          // opaque fill, so the line reads as running behind them, not through them.
+          <div className="relative mt-8">
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 top-10 hidden h-0 border-t-2 border-dotted border-gold-decorative laptop:block"
+            />
+            <Grid columns={{ base: 2, tablet: 3, laptop: 5 }} gap="md" as="ul" className="relative">
+              {steps.map((step) => (
+                <li key={step.id} className="flex flex-col items-center gap-2 text-center">
+                  <span
+                    aria-hidden
+                    className="relative flex h-20 w-20 items-center justify-center rounded-full border border-gold-decorative bg-surface-white"
+                  >
+                    <Image src={step.icon} alt="" width={64} height={64} />
+                  </span>
+                  <span className="font-body text-sm font-semibold text-ink-900">
+                    {step.title}
+                  </span>
+                  <p className="font-body text-xs leading-[1.5] text-ink-700">
+                    {step.description}
+                  </p>
+                </li>
+              ))}
+            </Grid>
+          </div>
         )}
       </Surface>
     </Section>
