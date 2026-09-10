@@ -1,15 +1,18 @@
-import { Star, GoogleLogo } from "@phosphor-icons/react/ssr";
+import Link from "next/link";
+import { Star } from "@phosphor-icons/react/ssr";
 import Section from "../../_components/ui/Section";
 import Surface from "../../_components/ui/Surface";
-import { googleRating, googleReviewCount } from "../../_data/reviews";
+import { googleRating, googleReviewCount, googleWriteReviewUrl } from "../../_data/reviews";
 import { ratingSummaryContent } from "../_data/reviewsConfig";
+import GoogleLogoIcon from "./GoogleLogoIcon";
 
 // Section 2 — Google Rating Summary. A rating summary only: overall rating,
-// stars, review count, and Google context — no action buttons here (per
-// explicit project correction: the "Read More Reviews on Google" / "Leave a
-// Review" actions live only in the dedicated GoogleReviewsCta section below
-// the grid). Rating value/count come from the centralized Reviews data
-// source (app/_data/reviews.ts) and use its bracketed-placeholder convention
+// stars, review count, and Google context — the only action here is the
+// "Review us on Google" badge, which prompts the same write-a-review action
+// as GoogleReviewsCta's "Leave a Review" button below, so it reuses that
+// same googleWriteReviewUrl destination rather than a second URL. Rating
+// value/count come from the centralized Reviews data source
+// (app/_data/reviews.ts) and use its bracketed-placeholder convention
 // ("[Google Rating]"/"[Review Count]") when not configured yet.
 export default function RatingSummary() {
   const filledStars = googleRating != null ? Math.round(googleRating) : 5;
@@ -37,10 +40,27 @@ export default function RatingSummary() {
 
         <div className="flex flex-col items-start gap-3 pt-5 tablet:flex-1 tablet:items-start tablet:pt-0 tablet:pl-8">
           <p className="max-w-xs font-body text-sm text-ink-700">{ratingSummaryContent.caption}</p>
-          <span className="inline-flex items-center gap-2 rounded-full border border-border-hairline bg-cream-300 px-4 py-2 font-body text-sm font-semibold text-ink-900">
-            <GoogleLogo size={20} aria-hidden />
-            {ratingSummaryContent.googleBadgeLabel}
-          </span>
+          {googleWriteReviewUrl ? (
+            <Link
+              href={googleWriteReviewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-border-hairline bg-cream-300 px-4 py-2 font-body text-sm font-semibold text-ink-900 transition-colors duration-150 hover:bg-cream-500"
+            >
+              <GoogleLogoIcon size={20} />
+              {ratingSummaryContent.googleBadgeLabel}
+            </Link>
+          ) : (
+            // No real Google write-review URL configured yet — render the
+            // same badge, inert, rather than a dead/fake link.
+            <span
+              aria-disabled="true"
+              className="inline-flex items-center gap-2 rounded-full border border-border-hairline bg-cream-300 px-4 py-2 font-body text-sm font-semibold text-ink-900 opacity-60"
+            >
+              <GoogleLogoIcon size={20} />
+              {ratingSummaryContent.googleBadgeLabel}
+            </span>
+          )}
         </div>
       </Surface>
     </Section>
