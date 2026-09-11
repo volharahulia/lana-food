@@ -39,7 +39,13 @@ export default function MobileNav({ open, onOpenChange }: MobileNavProps) {
             </Link>
 
             <div className="px-2 py-3">
-              <p className="font-body text-base font-medium text-ink-900">Menu</p>
+              <Link
+                href="/menu"
+                onClick={() => onOpenChange(false)}
+                className="font-body text-base font-medium text-ink-900 hover:text-primary-600"
+              >
+                Menu
+              </Link>
               <div className="mt-2 flex flex-col gap-1 border-l border-border-hairline pl-4">
                 {menuDropdown.map((item) => (
                   <Link

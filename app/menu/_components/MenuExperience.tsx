@@ -41,7 +41,12 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
   );
   const urlQuery = searchParams.get("q") ?? "";
   const [query, setQuery] = useState(urlQuery);
-  const [openCard, setOpenCard] = useState<MenuCardData | null>(resolvedTarget?.card ?? null);
+  // The open modal's card plus the exact card list it was opened from (the
+  // Previous/Next navigation context) — see openCardInContext below. Kept as
+  // one piece of state so a card and its context never drift apart.
+  const [modal, setModal] = useState<{ card: MenuCardData; context: MenuCardData[] } | null>(
+    resolvedTarget ? { card: resolvedTarget.card, context: resolvedTarget.contextCards } : null
+  );
   const [activeSubcategory, setActiveSubcategory] = useState<string | null>(
     resolvedTarget?.subcategoryName ?? null
   );
@@ -84,6 +89,34 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
 
   function handleSelectSubcategory(name: string) {
     document.getElementById(`menu-section-${slugify(name)}`)?.scrollIntoView();
+  }
+
+  // Opens the modal with `card` plus the list it was opened from — the same
+  // array reference MenuCategorySection/MenuSearchResults are already
+  // rendering (the section's current preview/expanded cards, or the full
+  // search-result set), never a separately built/duplicated list.
+  function openCardInContext(card: MenuCardData, context: MenuCardData[]) {
+    setModal({ card, context });
+  }
+
+  // Cards are matched by reference (indexOf), not by `card.id` — ids are
+  // only unique *within* one category (menuTarget.ts), and a search context
+  // can span multiple categories, so two different cards could share an id.
+  // Every context array is built by filter/flatMap over the same parsed
+  // `categories` tree, so its entries are always the same object instances.
+  const modalIndex = modal ? modal.context.indexOf(modal.card) : -1;
+  const hasPrevious = modalIndex > 0;
+  const hasNext = modalIndex !== -1 && modalIndex < (modal?.context.length ?? 0) - 1;
+
+  function navigateModal(direction: 1 | -1) {
+    setModal((current) => {
+      if (!current) return current;
+      const index = current.context.indexOf(current.card);
+      if (index === -1) return current;
+      const nextIndex = index + direction;
+      if (nextIndex < 0 || nextIndex >= current.context.length) return current;
+      return { card: current.context[nextIndex], context: current.context };
+    });
   }
 
   // Scroll-spy: highlight whichever subcategory section sits nearest the top
@@ -153,7 +186,7 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
           <div className="min-w-0 flex-1">
             {searchActive ? (
               hasResults ? (
-                <MenuSearchResults query={query} results={searchResults} onOpenCard={setOpenCard} />
+                <MenuSearchResults query={query} results={searchResults} onOpenCard={openCardInContext} />
               ) : (
                 <EmptyState onClear={() => setQuery("")} />
               )
@@ -170,7 +203,7 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
                         subcategory={subcategory}
                         bypassCollapse={false}
                         forceExpanded={sectionKey === forceExpandKey}
-                        onOpenCard={setOpenCard}
+                        onOpenCard={openCardInContext}
                       />
                     );
                   })}
@@ -181,7 +214,14 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
         </div>
       </div>
 
-      <MenuCardModal card={openCard} onOpenChange={(open) => !open && setOpenCard(null)} />
+      <MenuCardModal
+        card={modal?.card ?? null}
+        onOpenChange={(open) => !open && setModal(null)}
+        hasPrevious={hasPrevious}
+        hasNext={hasNext}
+        onPrevious={() => navigateModal(-1)}
+        onNext={() => navigateModal(1)}
+      />
     </div>
   );
 }

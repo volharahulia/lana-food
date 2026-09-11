@@ -24,6 +24,11 @@ export type MenuTarget = {
   /** The rendered MenuSubcategory's name (null for a flat/no-subcategory
    * bucket) — used to force that section's preview open for the deep link. */
   subcategoryName: string | null;
+  /** The containing subcategory's own card list (same array reference as
+   * MenuCategorySection renders) — seeds the modal's Previous/Next
+   * navigation context for a deep-linked card, exactly like opening any
+   * other card from that same subcategory would. */
+  contextCards: MenuCardData[];
 };
 
 // Resolves a menuCardRef back against freshly parsed menu data. Returns null
@@ -45,7 +50,14 @@ export function resolveMenuTarget(
 
   for (const subcategory of category.subcategories) {
     const card = subcategory.cards.find((c) => c.id === cardId);
-    if (card) return { categorySlug, card, subcategoryName: subcategory.name };
+    if (card) {
+      return {
+        categorySlug,
+        card,
+        subcategoryName: subcategory.name,
+        contextCards: subcategory.cards,
+      };
+    }
   }
   return null;
 }

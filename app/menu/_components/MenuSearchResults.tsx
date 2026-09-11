@@ -6,7 +6,11 @@ import MenuCard from "./MenuCard";
 type MenuSearchResultsProps = {
   query: string;
   results: MenuSearchCategoryResult[];
-  onOpenCard: (card: MenuCardData) => void;
+  /** `context` is every matching card across all result groups, in the same
+   * order rendered here — while search is active, the modal's Previous/Next
+   * browses the full filtered result set, per MENU.md, not just one
+   * category's group of matches. */
+  onOpenCard: (card: MenuCardData, context: MenuCardData[]) => void;
 };
 
 // Renders global search results grouped by Menu Category (Holiday, Everyday,
@@ -14,6 +18,7 @@ type MenuSearchResultsProps = {
 // MenuCard/Grid presentation as normal browsing; no separate result-card design.
 export default function MenuSearchResults({ query, results, onOpenCard }: MenuSearchResultsProps) {
   const total = results.reduce((sum, r) => sum + r.cards.length, 0);
+  const allResultCards = results.flatMap((r) => r.cards);
 
   return (
     <div className="flex flex-col gap-10">
@@ -43,7 +48,7 @@ export default function MenuSearchResults({ query, results, onOpenCard }: MenuSe
                 key={card.id}
                 card={card}
                 categorySlug={category.slug}
-                onOpen={() => onOpenCard(card)}
+                onOpen={() => onOpenCard(card, allResultCards)}
               />
             ))}
           </Grid>

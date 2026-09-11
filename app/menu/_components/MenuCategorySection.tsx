@@ -18,7 +18,11 @@ type MenuCategorySectionProps = {
    * target — forces the full preview open so the target card exists in the
    * DOM to scroll to, per MENU.md deep-link behavior. */
   forceExpanded?: boolean;
-  onOpenCard: (card: MenuCardData) => void;
+  /** `context` is the exact array of cards currently rendered in this
+   * section (the 4-card preview, or the full list once expanded) — the
+   * modal's Previous/Next navigation set, per MENU.md: navigation stays
+   * within "the same set of menu cards the user is currently browsing". */
+  onOpenCard: (card: MenuCardData, context: MenuCardData[]) => void;
 };
 
 // Featured items (preserving their own Display Order) fill the preview first;
@@ -66,7 +70,7 @@ export default function MenuCategorySection({
             key={card.id}
             card={card}
             categorySlug={categorySlug}
-            onOpen={() => onOpenCard(card)}
+            onOpen={() => onOpenCard(card, visible)}
           />
         ))}
       </Grid>
