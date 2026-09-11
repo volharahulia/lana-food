@@ -66,9 +66,12 @@ export default function CateringHero() {
             </Button>
           </div>
 
-          <Grid columns="trust-indicators" as="ul" className="mt-2">
+          <Grid columns="trust-indicators" as="ul" className="mt-2 w-full">
             {cateringTrustIndicators.map(({ label, icon }) => (
-              <li key={label} className="flex flex-col items-start gap-1.5">
+              <li
+                key={label}
+                className="flex min-w-0 flex-col items-center gap-1.5 text-center"
+              >
                 <Image src={icon} alt="" width={56} height={56} aria-hidden />
                 <span className="font-body text-sm text-ink-700">{label}</span>
               </li>

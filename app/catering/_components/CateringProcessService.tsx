@@ -48,27 +48,37 @@ export default function CateringProcessService() {
         </div>
 
         {steps.length > 0 && (
-          // Icon and title/description stay one flex-col unit per step (as before)
-          // so responsive wrapping on mobile/tablet keeps each step's icon paired
-          // with its own text. The connector is a single absolutely-positioned
-          // line behind the list, shown only at the laptop breakpoint where the
-          // 5 steps are guaranteed one row — top-10 matches the h-20 icon circle
-          // (its own top edge is the row's top edge, so its center sits at exactly
-          // half its own height). Circles paint after it in DOM order and carry an
-          // opaque fill, so the line reads as running behind them, not through them.
+          // One structure for both breakpoints — only the Grid's column count,
+          // the icon-circle size, and which connector is visible change
+          // responsively; the step content (icon/title/description) is never
+          // duplicated. Desktop (laptop+, unchanged): 5-across, the existing
+          // shared horizontal line behind the circles (top-10 = half of h-20,
+          // so it centers on them; circles paint after it in DOM order and
+          // occlude it at each step). Mobile/tablet (new): a single column —
+          // a vertical timeline — where each step (but the last) trails a
+          // short in-flow dotted segment down to the next icon. Being a
+          // normal-flow element sitting strictly between two steps, it can
+          // never run through an icon or through any step's own text; no
+          // absolute positioning or offset math is needed for it at all.
           <div className="relative mt-8">
             <span
               aria-hidden
               className="pointer-events-none absolute inset-x-0 top-10 hidden h-0 border-t-2 border-dotted border-gold-decorative laptop:block"
             />
-            <Grid columns={{ base: 2, tablet: 3, laptop: 5 }} gap="md" as="ul" className="relative">
-              {steps.map((step) => (
+            <Grid columns={{ base: 1, laptop: 5 }} gap="md" as="ul" className="relative">
+              {steps.map((step, index) => (
                 <li key={step.id} className="flex flex-col items-center gap-2 text-center">
                   <span
                     aria-hidden
-                    className="relative flex h-20 w-20 items-center justify-center rounded-full border border-gold-decorative bg-surface-white"
+                    className="relative flex h-14 w-14 items-center justify-center rounded-full border border-gold-decorative bg-surface-white laptop:h-20 laptop:w-20"
                   >
-                    <Image src={step.icon} alt="" width={64} height={64} />
+                    <Image
+                      src={step.icon}
+                      alt=""
+                      width={64}
+                      height={64}
+                      className="h-11 w-11 laptop:h-auto laptop:w-auto"
+                    />
                   </span>
                   <span className="font-body text-sm font-semibold text-ink-900">
                     {step.title}
@@ -76,6 +86,12 @@ export default function CateringProcessService() {
                   <p className="font-body text-xs leading-[1.5] text-ink-700">
                     {step.description}
                   </p>
+                  {index < steps.length - 1 && (
+                    <span
+                      aria-hidden
+                      className="h-6 w-0 border-l-2 border-dotted border-gold-decorative laptop:hidden"
+                    />
+                  )}
                 </li>
               ))}
             </Grid>

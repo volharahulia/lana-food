@@ -97,7 +97,7 @@ export default function Hero() {
           />
         </div>
 
-        <div className="order-2 flex flex-col items-start gap-4 laptop:order-1">
+        <div className="order-2 flex min-w-0 flex-col items-start gap-4 laptop:order-1">
           <div className="flex items-center gap-3 text-primary-600">
             <span aria-hidden className="h-px w-8 bg-primary-600" />
             <span className="font-body text-xs font-semibold uppercase tracking-[2px]">
@@ -120,9 +120,17 @@ export default function Hero() {
             </Button>
           </div>
 
-          <Grid columns="trust-indicators" as="ul" className="mt-2">
+          <Grid columns="trust-indicators" as="ul" className="mt-2 w-full">
             {trustIndicators.map(({ label, icon }) => (
-              <li key={label} className="flex flex-col items-start gap-1.5">
+              // min-w-0 overrides the grid item's default min-width:auto —
+              // without it, a column refuses to shrink below its label's
+              // unwrapped single-line width, so the 4 columns never actually
+              // narrow to fit and the row silently overflows instead of the
+              // label wrapping (the fr tracks + gap-x alone aren't enough).
+              <li
+                key={label}
+                className="flex min-w-0 flex-col items-center gap-1.5 text-center"
+              >
                 <Image src={icon} alt="" width={56} height={56} aria-hidden />
                 <span className="font-body text-sm text-ink-700">{label}</span>
               </li>

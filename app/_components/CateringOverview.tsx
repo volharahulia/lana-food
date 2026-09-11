@@ -22,14 +22,37 @@ export default function CateringOverview() {
           as="h3"
         />
 
-        <Grid columns={{ base: 2, tablet: 4 }} gap="sm" as="ul">
+        {/* min-w-0 on each <li> below lets a column shrink below its
+            label's unwrapped width (e.g. "Family Gatherings") so text
+            actually wraps instead of forcing the row past the mobile
+            viewport — grid items default to min-width:auto otherwise. */}
+        <Grid columns={{ base: 4 }} gap="sm" as="ul">
           {cateringEvents.map((event) => (
-            <li key={event.label} className="flex flex-col items-center gap-1.5 text-center">
-              <Image src={event.icon} alt="" width={66} height={66} aria-hidden />
+            <li
+              key={event.label}
+              className="flex min-w-0 flex-col items-center gap-1.5 text-center"
+            >
+              {/* 56px (h-14/w-14) on mobile — matches the Hero trust-indicator
+                  icon size so 4 columns stay compact and fit without
+                  overflow — reverts to the original 66px from tablet up,
+                  where the row already had room to spare. */}
+              <Image
+                src={event.icon}
+                alt=""
+                width={66}
+                height={66}
+                aria-hidden
+                className="h-14 w-14 tablet:h-auto tablet:w-auto"
+              />
               <span className="font-body text-sm font-semibold text-ink-900">
                 {event.label}
               </span>
-              <span className="font-body text-xs text-ink-700">{event.supportText}</span>
+              {/* Supporting phrase stays a tablet+ detail — the mobile row is
+                  the compact icon+label overview; the desktop/tablet layout
+                  (with room for it) is unchanged. */}
+              <span className="hidden font-body text-xs text-ink-700 tablet:block">
+                {event.supportText}
+              </span>
             </li>
           ))}
         </Grid>

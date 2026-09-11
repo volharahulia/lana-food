@@ -11,7 +11,7 @@ import type { ReactNode } from "react";
 // gap-x/gap-y trust-badge row shared by Home's and Catering's Hero). Numeric
 // `columns` covers every other card-grid duplication found in the audit.
 export type GridColumns =
-  | { base?: 1 | 2; tablet?: 2 | 3 | 4; laptop?: 3 | 4 | 5; desktop?: 4 }
+  | { base?: 1 | 2 | 4; tablet?: 2 | 3 | 4; laptop?: 3 | 4 | 5; desktop?: 4 }
   | "hero-split"
   | "trust-indicators";
 
@@ -23,9 +23,10 @@ const gapClass: Record<GridGap, string> = {
   lg: "gap-6",
 };
 
-const baseColsClass: Record<1 | 2, string> = {
+const baseColsClass: Record<1 | 2 | 4, string> = {
   1: "grid-cols-1",
   2: "grid-cols-2",
+  4: "grid-cols-4",
 };
 const tabletColsClass: Record<2 | 3 | 4, string> = {
   2: "tablet:grid-cols-2",
@@ -51,13 +52,23 @@ type GridProps = {
 
 export default function Grid({ columns, gap = "md", as: Tag = "div", className = "", children }: GridProps) {
   if (columns === "hero-split") {
+    // Explicit grid-cols-1 below laptop (rather than leaving the single
+    // mobile/tablet column implicit) — an implicit "auto" track's minimum
+    // is content-based, so a wide child (e.g. a full-width icon row) could
+    // otherwise inflate the whole column past the viewport; grid-cols-1
+    // (minmax(0,1fr), same as every other numeric Grid variant) has an
+    // explicit zero minimum, so the column always respects the container.
     const classes =
-      `grid gap-6 laptop:grid-cols-[400px_1fr] laptop:items-stretch laptop:gap-8 desktop:grid-cols-[440px_1fr] desktop:gap-12 ${className}`.trim();
+      `grid grid-cols-1 gap-6 laptop:grid-cols-[400px_1fr] laptop:items-stretch laptop:gap-8 desktop:grid-cols-[440px_1fr] desktop:gap-12 ${className}`.trim();
     return <Tag className={classes}>{children}</Tag>;
   }
 
   if (columns === "trust-indicators") {
-    const classes = `grid grid-cols-2 gap-x-5 gap-y-3 tablet:grid-cols-4 ${className}`.trim();
+    // One row of 4 at every breakpoint, mobile included — the compact
+    // gap-x-3 keeps four 56px icons + labels inside the mobile content width
+    // with room to spare; tablet+ opens back up to the original gap-x-5.
+    const classes =
+      `grid grid-cols-4 gap-x-3 gap-y-3 tablet:gap-x-5 ${className}`.trim();
     return <Tag className={classes}>{children}</Tag>;
   }
 

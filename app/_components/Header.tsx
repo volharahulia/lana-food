@@ -170,9 +170,18 @@ export default function Header() {
             </div>
           )}
 
-          <Button href="/contact" size="md" className="hidden laptop:inline-flex">
-            Contact Us
-          </Button>
+          {/* Wrapper controls visibility (matches the search toggle wrapper
+              above) instead of passing "hidden laptop:inline-flex" straight
+              to Button — Button's own base class always includes an
+              unconditional "inline-flex", which is the same specificity as
+              "hidden" and can win the cascade regardless of source order,
+              silently keeping the button visible (and overflowing the
+              mobile header) instead of hiding it below laptop. */}
+          <div className="hidden laptop:block">
+            <Button href="/contact" size="md">
+              Contact Us
+            </Button>
+          </div>
 
           <button
             type="button"
