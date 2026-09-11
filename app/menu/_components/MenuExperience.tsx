@@ -70,6 +70,23 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
     setQuery(urlQuery);
   }
 
+  // Card → containing-subcategory-name lookup, built once from the full
+  // parsed tree (every category, not just the active tab) so it stays valid
+  // for both normal browsing and cross-category search contexts. Keyed by
+  // object reference, matching how modalIndex/navigateModal already identify
+  // cards below — see their comment on why id alone isn't unique enough.
+  const cardSubcategoryName = useMemo(() => {
+    const map = new Map<MenuCardData, string | null>();
+    for (const category of categories) {
+      for (const subcategory of category.subcategories) {
+        for (const card of subcategory.cards) {
+          map.set(card, subcategory.name);
+        }
+      }
+    }
+    return map;
+  }, [categories]);
+
   const activeCategory = categories.find((c) => c.slug === activeSlug) ?? categories[0];
   const searchActive = query.trim().length > 0;
   // Global search — every category, not just activeCategory — per MENU
@@ -216,6 +233,7 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
 
       <MenuCardModal
         card={modal?.card ?? null}
+        subcategoryName={modal ? cardSubcategoryName.get(modal.card) ?? null : null}
         onOpenChange={(open) => !open && setModal(null)}
         hasPrevious={hasPrevious}
         hasNext={hasNext}

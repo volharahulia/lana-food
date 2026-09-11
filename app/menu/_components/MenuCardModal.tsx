@@ -16,6 +16,10 @@ const SWIPE_DIRECTIONAL_RATIO = 1.5;
 
 type MenuCardModalProps = {
   card: MenuCardData | null;
+  /** The open card's containing subcategory name (null when the category has
+   * no subcategory structure, e.g. Kids' Menu) — rendered as a mobile/tablet-
+   * only contextual label above the card, per MENU.md. */
+  subcategoryName: string | null;
   onOpenChange: (open: boolean) => void;
   hasPrevious: boolean;
   hasNext: boolean;
@@ -25,6 +29,7 @@ type MenuCardModalProps = {
 
 export default function MenuCardModal({
   card,
+  subcategoryName,
   onOpenChange,
   hasPrevious,
   hasNext,
@@ -104,76 +109,87 @@ export default function MenuCardModal({
                   gaps reserve — 2 × (2.75rem button + 1rem gap-4) = 7.5rem —
                   so [Prev][card][Next] always fits the viewport with no
                   overflow. See Dialog.Content's own max-w-[1080px] (the same
-                  960px card cap + that same 7.5rem) for the wide-screen case. */}
-              <div className="w-full max-h-[90vh] overflow-y-auto rounded-lg bg-surface-white p-6 shadow-lg tablet:p-8 laptop:w-[calc(90vw-7.5rem)] laptop:max-w-[960px]">
-                <div className="flex items-start justify-between gap-4">
-                  <Dialog.Title className="font-display text-2xl font-medium text-ink-900">
-                    {card.name}
-                  </Dialog.Title>
-                  <Dialog.Close
-                    aria-label="Close"
-                    className="flex h-11 w-11 shrink-0 items-center justify-center text-ink-700 hover:text-primary-600"
-                  >
-                    <X size={22} aria-hidden />
-                  </Dialog.Close>
-                </div>
+                  960px card cap + that same 7.5rem) for the wide-screen case.
+                  Below laptop the subcategory label (when present) sits in
+                  this same column, above the card, as part of the modal
+                  composition rather than the card itself. */}
+              <div className="flex w-full flex-col items-center gap-2 laptop:w-[calc(90vw-7.5rem)] laptop:max-w-[960px]">
+                {subcategoryName && (
+                  <p className="px-1 text-center font-body text-xs font-semibold uppercase tracking-[0.08em] text-ink-500 laptop:hidden">
+                    {subcategoryName}
+                  </p>
+                )}
 
-                <div className="mt-4 grid grid-cols-1 gap-6 tablet:grid-cols-[minmax(0,280px)_1fr]">
-                  <MenuPhoto
-                    src={card.photo}
-                    alt={card.name}
-                    unavailable={!card.available}
-                    sizes="(min-width: 768px) 280px, 80vw"
-                    className="tablet:max-w-[280px]"
-                  />
+                <div className="max-h-[90vh] w-full overflow-y-auto rounded-lg bg-surface-white p-6 shadow-lg tablet:p-8">
+                  <div className="flex items-start justify-between gap-4">
+                    <Dialog.Title className="font-display text-2xl font-medium text-ink-900">
+                      {card.name}
+                    </Dialog.Title>
+                    <Dialog.Close
+                      aria-label="Close"
+                      className="flex h-11 w-11 shrink-0 items-center justify-center text-ink-700 hover:text-primary-600"
+                    >
+                      <X size={22} aria-hidden />
+                    </Dialog.Close>
+                  </div>
 
-                  <div className="flex flex-col divide-y divide-border-hairline">
-                    {card.variants.map((v, i) => (
-                      <div key={i} className="flex flex-col gap-2 py-4 first:pt-0 last:pb-0">
-                        {v.variant && (
-                          <h4 className="font-display text-lg font-medium text-ink-900">
-                            {v.variant}
-                          </h4>
-                        )}
+                  <div className="mt-4 grid grid-cols-1 gap-6 tablet:grid-cols-[minmax(0,280px)_1fr]">
+                    <MenuPhoto
+                      src={card.photo}
+                      alt={card.name}
+                      unavailable={!card.available}
+                      sizes="(min-width: 768px) 280px, 80vw"
+                      className="tablet:max-w-[280px]"
+                    />
 
-                        {v.description && (
-                          <p className="font-body text-sm text-ink-700">{v.description}</p>
-                        )}
+                    <div className="flex flex-col divide-y divide-border-hairline">
+                      {card.variants.map((v, i) => (
+                        <div key={i} className="flex flex-col gap-2 py-4 first:pt-0 last:pb-0">
+                          {v.variant && (
+                            <h4 className="font-display text-lg font-medium text-ink-900">
+                              {v.variant}
+                            </h4>
+                          )}
 
-                        {v.ingredients && (
-                          <p className="font-body text-sm text-ink-700">
-                            <span className="font-semibold text-ink-900">Ingredients: </span>
-                            {v.ingredients}
-                          </p>
-                        )}
+                          {v.description && (
+                            <p className="font-body text-sm text-ink-700">{v.description}</p>
+                          )}
 
-                        {v.allergens && (
-                          <p className="font-body text-sm text-ink-700">
-                            <span className="font-semibold text-ink-900">Allergens: </span>
-                            {v.allergens}
-                          </p>
-                        )}
-
-                        {(formatQuantity(v) || formatWeight(v)) && (
-                          <p className="font-body text-sm text-ink-500">
-                            {[formatQuantity(v), formatWeight(v)].filter(Boolean).join(" · ")}
-                          </p>
-                        )}
-
-                        <div className="flex items-center justify-between gap-4 pt-1">
-                          {formatPrice(v) && (
-                            <p className="font-body text-lg font-semibold text-primary-600">
-                              {formatPrice(v)}
+                          {v.ingredients && (
+                            <p className="font-body text-sm text-ink-700">
+                              <span className="font-semibold text-ink-900">Ingredients: </span>
+                              {v.ingredients}
                             </p>
                           )}
-                          {!v.available && (
-                            <span className="rounded-full bg-cream-500 px-2.5 py-1 font-body text-xs font-semibold text-ink-700">
-                              Currently Unavailable
-                            </span>
+
+                          {v.allergens && (
+                            <p className="font-body text-sm text-ink-700">
+                              <span className="font-semibold text-ink-900">Allergens: </span>
+                              {v.allergens}
+                            </p>
                           )}
+
+                          {(formatQuantity(v) || formatWeight(v)) && (
+                            <p className="font-body text-sm text-ink-500">
+                              {[formatQuantity(v), formatWeight(v)].filter(Boolean).join(" · ")}
+                            </p>
+                          )}
+
+                          <div className="flex items-center justify-between gap-4 pt-1">
+                            {formatPrice(v) && (
+                              <p className="font-body text-lg font-semibold text-primary-600">
+                                {formatPrice(v)}
+                              </p>
+                            )}
+                            {!v.available && (
+                              <span className="rounded-full bg-cream-500 px-2.5 py-1 font-body text-xs font-semibold text-ink-700">
+                                Currently Unavailable
+                              </span>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
