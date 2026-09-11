@@ -17,6 +17,15 @@ export const reviewsHero = {
   h1: "Loved by Families Across the Bay Area",
   intro:
     "See how Lana Food has helped make celebrations memorable across the San Francisco Bay Area.",
+  // Same { src, alt, objectPosition } shape as cateringHero.image /
+  // menuHero's image slot — until a real photo is placed at this path,
+  // resolveImage() returns undefined and ImagePlaceholder renders the
+  // established neutral placeholder, exactly like Catering/Menu's Hero do.
+  image: {
+    src: "/images/reviews/hero.jpg",
+    alt: "Lana Food homemade dishes shared at a customer celebration",
+    objectPosition: undefined as string | undefined,
+  },
 };
 
 export const ratingSummaryContent = {
@@ -33,6 +42,10 @@ export const ratingSummaryContent = {
 export const googleCtaLabels = {
   readMore: "Read More Reviews on Google",
   leaveReview: "Leave a Review",
+};
+
+export const customerPhotosContent = {
+  heading: "Photos from Our Customers",
 };
 
 // Review category filters and sorting were removed (explicit project

@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import ReviewsHero from "./_components/ReviewsHero";
 import RatingSummary from "./_components/RatingSummary";
-import ReviewsGrid from "./_components/ReviewsGrid";
 import GoogleReviewsCta from "./_components/GoogleReviewsCta";
+import ReviewsGrid from "./_components/ReviewsGrid";
+import CustomerPhotoCarousel from "./_components/CustomerPhotoCarousel";
 import ReviewsFinalCta from "./_components/ReviewsFinalCta";
 import { business } from "../_data/business";
 import { googleRating, googleReviewCount } from "../_data/reviews";
+import { customerPhotos, resolveImage } from "./_data/reviewsImages";
 
 export const metadata: Metadata = {
   title: "Customer Reviews | Lana Food | Bay Area California",
@@ -22,9 +24,9 @@ const breadcrumbJsonLd = {
 };
 
 // AggregateRating only when the real Google values are configured
-// (REVIEW.md §18 — no fabricated schema values). Individual Review schema
+// (REVIEW.md §16 — no fabricated schema values). Individual Review schema
 // is intentionally not emitted yet: Schema.org's Review type expects an
-// author, and REVIEW.md §7/§18 forbid publishing customer identity without
+// author, and REVIEW.md §6/§16 forbid publishing customer identity without
 // approved consent, so there is currently no real, publishable field to use
 // for it — add it once real, attributable review data exists.
 const aggregateRatingJsonLd =
@@ -40,6 +42,15 @@ const aggregateRatingJsonLd =
         },
       }
     : null;
+
+// Resolved server-side (resolveImage() needs fs) and passed down as plain
+// data — CustomerPhotoCarousel is a Client Component and can't resolve
+// image existence itself. See app/reviews/_data/reviewsImages.ts for the
+// actual editable photo list.
+const resolvedCustomerPhotos = customerPhotos.map((photo) => ({
+  src: resolveImage(photo.src),
+  alt: photo.alt,
+}));
 
 export default function ReviewsPage() {
   return (
@@ -57,8 +68,9 @@ export default function ReviewsPage() {
 
       <ReviewsHero />
       <RatingSummary />
-      <ReviewsGrid />
       <GoogleReviewsCta />
+      <ReviewsGrid />
+      <CustomerPhotoCarousel photos={resolvedCustomerPhotos} />
       <ReviewsFinalCta />
     </>
   );
