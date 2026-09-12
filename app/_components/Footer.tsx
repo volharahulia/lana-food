@@ -26,9 +26,9 @@ export default function Footer() {
 
   return (
     <footer className="bg-cream-700 pb-28 laptop:pb-0">
-      <div className="container-page py-10 laptop:py-14">
-        <div className="flex flex-col gap-8 tablet:grid tablet:grid-cols-3 tablet:gap-8">
-          <div className="flex flex-col gap-4">
+      <div className="container-page py-6 laptop:py-8 desktop:py-10">
+        <div className="flex flex-col gap-4 tablet:grid tablet:grid-cols-3 tablet:gap-5 laptop:gap-6 desktop:gap-8">
+          <div className="flex flex-col gap-3">
             <div className="relative h-11 w-[74px]">
               <Image
                 src={business.logo}
@@ -47,7 +47,7 @@ export default function Footer() {
             <h2 className="font-body text-xs font-semibold uppercase tracking-[1.5px] text-ink-500">
               Pages
             </h2>
-            <ul className="mt-4 flex flex-col gap-2">
+            <ul className="mt-2 flex flex-col gap-2">
               {pageLinks.map((link) => (
                 <li key={link.href}>
                   <Link
@@ -65,7 +65,7 @@ export default function Footer() {
             <h2 className="font-body text-xs font-semibold uppercase tracking-[1.5px] text-ink-500">
               Menu Quick Links
             </h2>
-            <ul className="mt-4 flex flex-col gap-2">
+            <ul className="mt-2 flex flex-col gap-2">
               {menuDropdown.map((link) => (
                 <li key={link.href}>
                   <Link
@@ -80,8 +80,8 @@ export default function Footer() {
           </nav>
         </div>
 
-        <div className="mt-8 flex flex-col gap-6 border-t border-border-strong pt-6 tablet:flex-row tablet:items-center tablet:justify-between">
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+        <div className="mt-4 flex flex-col gap-2 border-t border-border-strong pt-3 tablet:flex-row tablet:items-center tablet:justify-between">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             {business.phone && (
               <a
                 href={`tel:${business.phone}`}
@@ -151,13 +151,13 @@ export default function Footer() {
         {googleReviewsUrl && (
           <a
             href={googleReviewsUrl}
-            className="mt-4 inline-block font-body text-sm text-primary-600 hover:underline"
+            className="mt-2 inline-block font-body text-sm text-primary-600 hover:underline"
           >
             View our Google Business Profile
           </a>
         )}
 
-        <p className="mt-6 font-body text-xs text-ink-500">
+        <p className="mt-3 font-body text-xs text-ink-500">
           © {new Date().getFullYear()} Lana Food. All rights reserved.
         </p>
       </div>
