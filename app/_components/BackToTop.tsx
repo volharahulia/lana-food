@@ -44,7 +44,10 @@ export default function BackToTop() {
       type="button"
       onClick={handleClick}
       aria-label="Back to top"
-      className="fixed right-4 bottom-20 z-30 flex h-11 w-11 items-center justify-center rounded-full bg-surface-white text-ink-900 shadow-md transition-colors hover:text-primary-600 laptop:bottom-6"
+      // bottom offset (mobile only) tracks env(safe-area-inset-bottom) so it
+      // stays clear of MobileCTABar even when that bar grows taller on
+      // notched devices — never a hardcoded per-device pixel value.
+      className="fixed right-4 bottom-[calc(5rem+env(safe-area-inset-bottom))] z-30 flex h-11 w-11 items-center justify-center rounded-full bg-surface-white text-ink-900 shadow-md transition-colors hover:text-primary-600 laptop:bottom-6"
     >
       <ArrowUp size={20} aria-hidden />
     </button>

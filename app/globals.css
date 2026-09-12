@@ -74,12 +74,20 @@
 
 html {
   scroll-behavior: smooth;
+  /* Final safety net, not the fix itself — the actual overflow sources
+     (unconstrained flex/grid children, unbroken long text, native input
+     chrome) are fixed at their own root cause. This only catches whatever
+     future content/markup slips past those, and is safe because every
+     intentionally-scrollable region (MenuTabs, MenuSidebar's mobile pill
+     row) already manages its own overflow-x-auto on itself, not on html. */
+  overflow-x: hidden;
 }
 
 body {
   background: var(--color-ivory);
   color: var(--color-ink-900);
   font-family: var(--font-body);
+  overflow-x: hidden;
 }
 
 :focus-visible {
@@ -104,6 +112,18 @@ body {
 
 .skip-link:focus {
   top: 1rem;
+}
+
+/* Every input[type=search] in the app renders its own custom icon/clear
+   button (MenuSearch.tsx, Header.tsx). Without this, WebKit still draws its
+   own native cancel/decoration glyphs in the same corner, so two affordances
+   overlap in the same hit area — on iOS this is the actual cause of "search
+   doesn't reliably work": taps can land on the native control instead of the
+   React-controlled one, clearing the DOM value out from under React state. */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 /* Shared page container — single source of truth for horizontal margins and

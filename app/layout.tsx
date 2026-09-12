@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, Karla, Alex_Brush } from "next/font/google";
 import Header from "./_components/Header";
 import Footer from "./_components/Footer";
@@ -27,6 +27,15 @@ const alexBrush = Alex_Brush({
   variable: "--font-alex-brush",
   display: "swap",
 });
+
+// viewportFit "cover" lets the page draw edge-to-edge on notch/home-indicator
+// devices, which is what makes env(safe-area-inset-*) resolve to a real value
+// below (MobileCTABar.tsx, BackToTop.tsx) instead of 0 — never disables zoom.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   title: "Lana Food | Homemade Eastern European Catering | San Francisco Bay Area",

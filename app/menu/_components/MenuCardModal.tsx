@@ -112,17 +112,23 @@ export default function MenuCardModal({
                   960px card cap + that same 7.5rem) for the wide-screen case.
                   Below laptop the subcategory label (when present) sits in
                   this same column, above the card, as part of the modal
-                  composition rather than the card itself. */}
-              <div className="flex w-full flex-col items-center gap-2 laptop:w-[calc(90vw-7.5rem)] laptop:max-w-[960px]">
+                  composition rather than the card itself. min-w-0: a flex
+                  item's default min-width is its content's min-content size,
+                  not 0 — without this, a long unbroken ingredient/description
+                  string can force this column past its assigned width, and
+                  since Dialog.Content is position:fixed with the default
+                  overflow:visible, that spillover bleeds past the viewport
+                  edge and creates page-level horizontal scroll. */}
+              <div className="flex w-full min-w-0 flex-col items-center gap-2 laptop:w-[calc(90vw-7.5rem)] laptop:max-w-[960px]">
                 {subcategoryName && (
-                  <p className="px-1 text-center font-body text-xs font-semibold uppercase tracking-[0.08em] text-ink-500 laptop:hidden">
+                  <p className="px-1 text-center font-body text-sm font-semibold uppercase tracking-[0.11em] text-ink-900 laptop:hidden">
                     {subcategoryName}
                   </p>
                 )}
 
-                <div className="max-h-[90vh] w-full overflow-y-auto rounded-lg bg-surface-white p-6 shadow-lg tablet:p-8">
+                <div className="max-h-[90vh] w-full overflow-x-hidden overflow-y-auto rounded-lg bg-surface-white p-6 shadow-lg tablet:p-8">
                   <div className="flex items-start justify-between gap-4">
-                    <Dialog.Title className="font-display text-2xl font-medium text-ink-900">
+                    <Dialog.Title className="break-words font-display text-2xl font-medium text-ink-900">
                       {card.name}
                     </Dialog.Title>
                     <Dialog.Close
@@ -146,24 +152,24 @@ export default function MenuCardModal({
                       {card.variants.map((v, i) => (
                         <div key={i} className="flex flex-col gap-2 py-4 first:pt-0 last:pb-0">
                           {v.variant && (
-                            <h4 className="font-display text-lg font-medium text-ink-900">
+                            <h4 className="break-words font-display text-lg font-medium text-ink-900">
                               {v.variant}
                             </h4>
                           )}
 
                           {v.description && (
-                            <p className="font-body text-sm text-ink-700">{v.description}</p>
+                            <p className="break-words font-body text-sm text-ink-700">{v.description}</p>
                           )}
 
                           {v.ingredients && (
-                            <p className="font-body text-sm text-ink-700">
+                            <p className="break-words font-body text-sm text-ink-700">
                               <span className="font-semibold text-ink-900">Ingredients: </span>
                               {v.ingredients}
                             </p>
                           )}
 
                           {v.allergens && (
-                            <p className="font-body text-sm text-ink-700">
+                            <p className="break-words font-body text-sm text-ink-700">
                               <span className="font-semibold text-ink-900">Allergens: </span>
                               {v.allergens}
                             </p>

@@ -127,7 +127,7 @@ export default function Header() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search dishes…"
-                  className="h-9 w-40 rounded-xs border border-border-hairline bg-surface-white px-3 text-sm text-ink-900 placeholder:text-ink-500 focus:border-primary-600"
+                  className="h-9 w-40 appearance-none rounded-xs border border-border-hairline bg-surface-white px-3 text-base text-ink-900 placeholder:text-ink-500 focus:border-primary-600"
                 />
                 {/* Dedicated submit action — same MagnifyingGlass style as the
                     closed-state toggle below — so Enter and this click both

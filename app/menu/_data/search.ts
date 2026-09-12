@@ -1,8 +1,13 @@
-// Shared global menu search — used by both the /menu search field and the
-// site Header search (MenuExperience.tsx), so the two entry points always
-// produce identical results. Searches every category's already-parsed,
-// published-only MenuCardData (parseMenu.ts drops unpublished rows), never
-// just the active tab.
+// Menu search matching — one source of truth (cardMatches) used by both
+// search modes /menu supports:
+//   - searchMenu: category-scoped, used by the /menu page's own search field
+//     (MENU.md "Search Scope": "Search filters the currently selected menu
+//     category (active tab). Search does not filter across tabs.")
+//   - searchMenuAllCategories: global, used only for a query that arrives
+//     from the Home/Header search (MenuExperience.tsx) — never used for the
+//     on-page field's own typing.
+// Neither scope changes what counts as a match; only which cards are in
+// scope to check.
 
 import type { MenuCardData, MenuCategoryData } from "./types";
 
@@ -14,6 +19,13 @@ export function cardMatches(card: MenuCardData, query: string): boolean {
   );
 }
 
+// Preserves the category's own subcategory/Display Order card ordering.
+export function searchMenu(category: MenuCategoryData, query: string): MenuCardData[] {
+  const q = query.trim();
+  if (!q) return [];
+  return category.subcategories.flatMap((s) => s.cards.filter((c) => cardMatches(c, q)));
+}
+
 export type MenuSearchCategoryResult = {
   slug: string;
   name: string;
@@ -21,19 +33,19 @@ export type MenuSearchCategoryResult = {
 };
 
 // Preserves the categories' own order (Holiday, Everyday, Kids', Gastroboxes
-// — set by parseMenu.ts) and each category's existing subcategory/Display
-// Order card ordering. Omits categories with zero matches.
-export function searchMenu(
+// — set by parseMenu.ts). Omits categories with zero matches. Built from the
+// same per-category searchMenu() above, so global and category-scoped search
+// can never disagree on what matches.
+export function searchMenuAllCategories(
   categories: MenuCategoryData[],
   query: string
 ): MenuSearchCategoryResult[] {
-  const q = query.trim();
-  if (!q) return [];
+  if (!query.trim()) return [];
   return categories
     .map((category) => ({
       slug: category.slug,
       name: category.name,
-      cards: category.subcategories.flatMap((s) => s.cards.filter((c) => cardMatches(c, q))),
+      cards: searchMenu(category, query),
     }))
     .filter((result) => result.cards.length > 0);
 }

@@ -1,59 +1,40 @@
-import type { MenuSearchCategoryResult } from "../_data/search";
 import type { MenuCardData } from "../_data/types";
 import Grid from "../../_components/ui/Grid";
 import MenuCard from "./MenuCard";
 
 type MenuSearchResultsProps = {
   query: string;
-  results: MenuSearchCategoryResult[];
-  /** `context` is every matching card across all result groups, in the same
-   * order rendered here — while search is active, the modal's Previous/Next
-   * browses the full filtered result set, per MENU.md, not just one
-   * category's group of matches. */
+  categorySlug: string;
+  cards: MenuCardData[];
   onOpenCard: (card: MenuCardData, context: MenuCardData[]) => void;
 };
 
-// Renders global search results grouped by Menu Category (Holiday, Everyday,
-// Kids', Gastroboxes order — already applied by searchMenu). Reuses the same
-// MenuCard/Grid presentation as normal browsing; no separate result-card design.
-export default function MenuSearchResults({ query, results, onOpenCard }: MenuSearchResultsProps) {
-  const total = results.reduce((sum, r) => sum + r.cards.length, 0);
-  const allResultCards = results.flatMap((r) => r.cards);
-
+// Search results within the currently active category only (MENU.md "Search
+// Scope") — reuses the same MenuCard/Grid presentation as normal browsing,
+// no separate result-card design. Modal Previous/Next browses this same
+// filtered set (`cards` doubles as both the render list and the context).
+export default function MenuSearchResults({ query, categorySlug, cards, onOpenCard }: MenuSearchResultsProps) {
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-6">
       <div>
         <h2 className="font-display text-2xl font-medium text-ink-900">
           Search results for &ldquo;{query}&rdquo;
         </h2>
         <p className="mt-1 font-body text-sm text-ink-700">
-          {total} {total === 1 ? "dish" : "dishes"} found
+          {cards.length} {cards.length === 1 ? "dish" : "dishes"} found
         </p>
       </div>
 
-      {results.map((category) => (
-        <section key={category.slug}>
-          <div className="mb-5 flex items-baseline justify-between gap-3 border-b border-border-hairline pb-2">
-            <h3 className="font-body text-sm font-semibold uppercase tracking-[0.4px] text-ink-900">
-              {category.name}
-            </h3>
-            <span className="shrink-0 font-body text-sm text-ink-500">
-              {category.cards.length} {category.cards.length === 1 ? "result" : "results"}
-            </span>
-          </div>
-
-          <Grid columns={{ base: 1, tablet: 2, laptop: 3, desktop: 4 }} gap="sm">
-            {category.cards.map((card) => (
-              <MenuCard
-                key={card.id}
-                card={card}
-                categorySlug={category.slug}
-                onOpen={() => onOpenCard(card, allResultCards)}
-              />
-            ))}
-          </Grid>
-        </section>
-      ))}
+      <Grid columns={{ base: 1, tablet: 2, laptop: 3, desktop: 4 }} gap="sm">
+        {cards.map((card) => (
+          <MenuCard
+            key={card.id}
+            card={card}
+            categorySlug={categorySlug}
+            onOpen={() => onOpenCard(card, cards)}
+          />
+        ))}
+      </Grid>
     </div>
   );
 }

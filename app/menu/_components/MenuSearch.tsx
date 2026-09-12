@@ -29,7 +29,12 @@ export default function MenuSearch({ value, onChange }: MenuSearchProps) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={menuSearch.placeholder}
-        className={`h-11 w-full rounded-xs border border-border-hairline bg-surface-white font-body text-sm text-ink-900 placeholder:text-ink-500 focus:border-primary-600 ${
+        // text-base (16px), not text-sm — below 16px, iOS Safari auto-zooms
+        // the page on focus, which is what breaks the layout while the
+        // keyboard is open. appearance-none strips iOS's own search-field
+        // chrome (rounded pill + reserved icon inset) so it doesn't fight
+        // the custom icon/clear button positioned below.
+        className={`h-11 w-full appearance-none rounded-xs border border-border-hairline bg-surface-white font-body text-base text-ink-900 placeholder:text-ink-500 focus:border-primary-600 ${
           menuSearch.iconPosition === "left" ? "pl-10" : "pl-4"
         } ${value ? "pr-10" : "pr-4"}`}
       />
