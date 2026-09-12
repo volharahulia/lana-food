@@ -199,6 +199,22 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
       ?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [resolvedTarget]);
 
+  // Global-search arrival scroll: same getElementById + scrollIntoView
+  // pattern as the deep-link effect above, targeting the same #menu-tabs
+  // anchor BackToTop.tsx already uses to return to "the page's primary
+  // working area" on /menu. A global (Home/Header) search query lands above
+  // the full-height Menu Hero, which alone can exceed the entire viewport on
+  // a short/landscape screen — without this, the tabs, search field and
+  // results sit far below the fold with nothing visibly indicating the
+  // search succeeded. Keyed on urlQuery (only Header.tsx ever writes the URL
+  // "q" param — MenuSearch's own onChange never does, see
+  // handleSearchFieldChange), so a local, on-page category search — which
+  // never touches the URL — can never trigger this.
+  useEffect(() => {
+    if (!isGlobalSearch || !urlQuery.trim()) return;
+    document.getElementById("menu-tabs")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [isGlobalSearch, urlQuery]);
+
   if (!activeCategory) return null;
 
   const subcategoryNames = activeCategory.subcategories

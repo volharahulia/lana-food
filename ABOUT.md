@@ -51,8 +51,9 @@ The page should contain these sections in this exact order:
 1. About Lana / Founder Story
 2. Our Mission
 3. Core Values
-4. Closing CTA
-5. Global Footer
+4. Food Safety & Compliance
+5. Closing CTA
+6. Global Footer
 
 Do not add additional sections such as:
 - FAQ
@@ -183,7 +184,65 @@ Reliable Service
 You can count on us for delicious food,
 delivered on time, every time.
 
-### 4. Closing CTA
+### 4. Food Safety & Compliance
+
+A calm, understated trust-building section — not a promotional
+certification banner. Same warm cream/ivory background as Mission and
+Core Values, so it reads as one continuous section rather than an
+embedded third-party widget.
+
+Placed after Core Values and before the Closing CTA.
+
+Heading:
+Food Safety & Compliance
+
+Optional short supporting text only — no additional paragraphs.
+
+Two document cards (Environmental Health Permit, ServSafe Food Protection
+Manager Certification):
+
+- side by side on tablet and desktop;
+- stacked on mobile;
+- each card shows a document preview (the PDF's first page as a static
+  image, or the certificate image directly), the official document title,
+  concise factual supporting information, and a "View ..." action;
+- clicking the preview or the "View ..." action opens the real source
+  document (the actual PDF or the actual certificate image) in a shared
+  modal/dialog — not a screenshot standing in for the document, not a
+  separate page;
+- the modal has a labeled, accessible Close control, closes on Escape and
+  on backdrop click, and is keyboard accessible.
+
+Content rules:
+
+- Environmental Health Permit card text is exactly:
+  "Environmental Health Permit" /
+  "Issued by Santa Clara County Department of Environmental Health"
+- ServSafe card text uses only what the certificate itself visibly
+  supports (currently: "ServSafe Certification" /
+  "Accredited by the ANSI National Accreditation Board (ANAB)")
+- Do not display expiration dates, validity periods, permit numbers, or
+  other time-sensitive document metadata anywhere on the page — the full
+  document (opened via the modal) is the source for that detail.
+- Do not add certification claims beyond what the documents themselves
+  state (no "licensed caterer", "certified kitchen", "fully compliant").
+
+Document assets (see `app/about/_data/aboutDocuments.ts` for the full
+registry):
+
+- `public/images/about/environmental-health-permit.pdf` — the actual PDF
+- `public/images/about/environmental-health-permit-preview.png` — a static
+  image of the PDF's first page, used only for the card thumbnail
+- `public/images/about/servsafe.jpg` — the certificate image, used as both
+  the card thumbnail and the full modal view
+
+Replacing a renewed document requires only overwriting these asset files
+(and regenerating the PDF preview image) — no component, layout, or modal
+changes. Do not implement automatic expiration/status logic ("expired",
+"valid until", etc.) — the site simply presents the currently supplied
+documents.
+
+### 5. Closing CTA
 
 Use a full-width Lana Food CTA section with the approved
 red background treatment shown in the About visual reference.
@@ -205,7 +264,7 @@ View Menu → /menu
 
 ---
 
-### 5. Footer
+### 6. Footer
 
 Use the global Lana Food Footer component.
 
@@ -232,10 +291,13 @@ Visual order:
    - four-column desktop layout
    - stacked mobile layout
 
-4. Closing CTA
+4. Food Safety & Compliance
+   - two document cards, side by side on tablet/desktop, stacked on mobile
+
+5. Closing CTA
    - full-width red section
 
-5. Global footer
+6. Global footer
 
 ### Desktop
 
@@ -243,6 +305,7 @@ Visual order:
 - two-column founder section
 - founder portrait on the right
 - four value blocks in one row
+- two food safety/compliance document cards side by side
 - full-width red CTA
 - global footer
 
@@ -252,6 +315,7 @@ Visual order:
 - portrait stacked with content
 - centered mission
 - four values stacked vertically
+- food safety/compliance document cards stacked vertically
 - full-width CTA
 - fixed mobile Contact Us bar from the global layout
 - no horizontal overflow

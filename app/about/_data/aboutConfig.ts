@@ -64,6 +64,12 @@ export const aboutValues: AboutValue[] = [
   },
 ];
 
+export const aboutFoodSafety = {
+  heading: "Food Safety & Compliance",
+  supportingText:
+    "We take food safety seriously. Our current permit and certification are available to view below.",
+};
+
 export const aboutCta = {
   headline: "Ready to Make Your Next Occasion Special?",
   supportText: "We’d love to help make your event delicious and memorable.",

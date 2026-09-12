@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import AboutFounder from "./_components/AboutFounder";
 import AboutMission from "./_components/AboutMission";
 import AboutValues from "./_components/AboutValues";
+import AboutFoodSafety from "./_components/AboutFoodSafety";
 import AboutCTA from "./_components/AboutCTA";
 
 export const metadata: Metadata = {
@@ -16,6 +17,7 @@ export default function AboutPage() {
       <AboutFounder />
       <AboutMission />
       <AboutValues />
+      <AboutFoodSafety />
       <AboutCTA />
     </>
   );
