@@ -1,13 +1,12 @@
-// Menu search matching — one source of truth (cardMatches) used by both
-// search modes /menu supports:
-//   - searchMenu: category-scoped, used by the /menu page's own search field
-//     (MENU.md "Search Scope": "Search filters the currently selected menu
-//     category (active tab). Search does not filter across tabs.")
-//   - searchMenuAllCategories: global, used only for a query that arrives
-//     from the Home/Header search (MenuExperience.tsx) — never used for the
-//     on-page field's own typing.
-// Neither scope changes what counts as a match; only which cards are in
-// scope to check.
+// Menu search matching — cardMatches is the single source of truth for what
+// counts as a match. There is exactly one search mode: global, across every
+// category, used identically whether the query arrives from the Home/Header
+// search (?q= on /menu) or is typed directly into the /menu page's own
+// field — see MenuExperience.tsx, which always renders searchMenuAllCategories'
+// grouped-by-category result set while a query is active, regardless of
+// which tab is selected. searchMenu (single-category) is a building block
+// searchMenuAllCategories composes over — it is not used on its own to
+// scope or filter displayed results.
 
 import type { MenuCardData, MenuCategoryData } from "./types";
 

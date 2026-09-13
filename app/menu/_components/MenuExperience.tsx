@@ -3,14 +3,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { MenuCardData, MenuCategoryData } from "../_data/types";
-import { searchMenu, searchMenuAllCategories } from "../_data/search";
+import { searchMenuAllCategories } from "../_data/search";
 import { resolveMenuTarget, menuCardDomId } from "../_data/menuTarget";
 import MenuTabs from "./MenuTabs";
 import MenuSearch from "./MenuSearch";
 import MenuSidebar, { slugify } from "./MenuSidebar";
 import MenuCategoryInfo from "./MenuCategoryInfo";
 import MenuCategorySection from "./MenuCategorySection";
-import MenuSearchResults from "./MenuSearchResults";
 import MenuGlobalSearchResults from "./MenuGlobalSearchResults";
 import MenuCardModal from "./MenuCardModal";
 import EmptyState from "./EmptyState";
@@ -41,15 +40,10 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
       (initialTab && tabSlugs.includes(initialTab) ? initialTab : (categories[0]?.slug ?? ""))
   );
   const urlQuery = searchParams.get("q") ?? "";
+  // One global query — searches every category, always. Switching tabs
+  // never clears it and never changes the (global) results shown; only the
+  // user's own Clear action resets it back to normal per-tab browsing.
   const [query, setQuery] = useState(urlQuery);
-  // Two distinct search modes (not two matching algorithms — cardMatches is
-  // the only matcher, used by both): a query that arrives via the URL came
-  // from the Home/Header search (Header.tsx does nothing but
-  // router.push("/menu?q=...") — the on-page field below never writes to the
-  // URL), so it searches every category and stays global until the user
-  // either edits the field directly or changes tabs, at which point it
-  // becomes an ordinary active-category-only search.
-  const [isGlobalSearch, setIsGlobalSearch] = useState(urlQuery.trim().length > 0);
   // The open modal's card plus the exact card list it was opened from (the
   // Previous/Next navigation context) — see openCardInContext below. Kept as
   // one piece of state so a card and its context never drift apart.
@@ -77,7 +71,6 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
   if (urlQuery !== lastUrlQuery) {
     setLastUrlQuery(urlQuery);
     setQuery(urlQuery);
-    setIsGlobalSearch(urlQuery.trim().length > 0);
   }
 
   // Card → containing-subcategory-name lookup, built once from the full
@@ -99,32 +92,21 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
 
   const activeCategory = categories.find((c) => c.slug === activeSlug) ?? categories[0];
   const searchActive = query.trim().length > 0;
-  // Global mode (Home/Header search landing): every category. Category mode
-  // (typing directly into the field below): active category only — MENU.md
-  // "Search Scope": search does not filter across tabs. Never both at once.
-  const globalSearchResults = useMemo(
-    () => (searchActive && isGlobalSearch ? searchMenuAllCategories(categories, query) : []),
-    [categories, query, searchActive, isGlobalSearch]
+  // One search mode: global, across every category, always — the active
+  // tab never filters, narrows, or hides these results. Tabs only matter
+  // for normal browsing once the query is cleared.
+  const globalResults = useMemo(
+    () => (searchActive ? searchMenuAllCategories(categories, query) : []),
+    [categories, query, searchActive]
   );
-  const localSearchResults = useMemo(
-    () => (searchActive && !isGlobalSearch && activeCategory ? searchMenu(activeCategory, query) : []),
-    [activeCategory, query, searchActive, isGlobalSearch]
-  );
-  const hasGlobalResults = globalSearchResults.some((r) => r.cards.length > 0);
-  const hasLocalResults = localSearchResults.length > 0;
+  const hasResults = globalResults.some((r) => r.cards.length > 0);
 
-  // Direct interaction with the field is a category-scoped search from here
-  // on, per the origin-based distinction above, regardless of what the field
-  // was pre-filled with on arrival.
   function handleSearchFieldChange(value: string) {
     setQuery(value);
-    setIsGlobalSearch(false);
   }
 
   function handleTabChange(slug: string) {
     setActiveSlug(slug);
-    setQuery("");
-    setIsGlobalSearch(false);
     setActiveSubcategory(null);
     router.replace(`/menu?tab=${slug}`, { scroll: false });
   }
@@ -134,9 +116,9 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
   }
 
   // Opens the modal with `card` plus the list it was opened from — the same
-  // array reference MenuCategorySection/MenuSearchResults are already
+  // array reference MenuCategorySection/MenuGlobalSearchResults are already
   // rendering (the section's current preview/expanded cards, or the full
-  // search-result set), never a separately built/duplicated list.
+  // cross-category search-result set), never a separately built/duplicated list.
   function openCardInContext(card: MenuCardData, context: MenuCardData[]) {
     setModal({ card, context });
   }
@@ -199,21 +181,21 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
       ?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [resolvedTarget]);
 
-  // Global-search arrival scroll: same getElementById + scrollIntoView
+  // Header-search arrival scroll: same getElementById + scrollIntoView
   // pattern as the deep-link effect above, targeting the same #menu-tabs
   // anchor BackToTop.tsx already uses to return to "the page's primary
-  // working area" on /menu. A global (Home/Header) search query lands above
-  // the full-height Menu Hero, which alone can exceed the entire viewport on
-  // a short/landscape screen — without this, the tabs, search field and
+  // working area" on /menu. A Home/Header search query lands above the
+  // full-height Menu Hero, which alone can exceed the entire viewport on a
+  // short/landscape screen — without this, the search field, tabs and
   // results sit far below the fold with nothing visibly indicating the
   // search succeeded. Keyed on urlQuery (only Header.tsx ever writes the URL
-  // "q" param — MenuSearch's own onChange never does, see
-  // handleSearchFieldChange), so a local, on-page category search — which
-  // never touches the URL — can never trigger this.
+  // "q" param — MenuSearch's own onChange never does), so it fires once per
+  // fresh Header-search navigation, never on a tab switch or on typing
+  // directly into the on-page field.
   useEffect(() => {
-    if (!isGlobalSearch || !urlQuery.trim()) return;
+    if (!urlQuery.trim()) return;
     document.getElementById("menu-tabs")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, [isGlobalSearch, urlQuery]);
+  }, [urlQuery]);
 
   if (!activeCategory) return null;
 
@@ -223,6 +205,13 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
 
   return (
     <div>
+      {/* Search sits above the tabs (Menu Hero → Search → Tabs → Content) —
+          a single field for the whole menu, not scoped to whichever tab
+          happens to be active. */}
+      <div className="container-page py-6 laptop:py-8">
+        <MenuSearch value={query} onChange={handleSearchFieldChange} />
+      </div>
+
       <MenuTabs
         categories={categories.map((c) => ({ slug: c.slug, name: c.name }))}
         active={activeSlug}
@@ -230,8 +219,6 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
       />
 
       <div className="container-page flex flex-col gap-6 py-6 laptop:py-8">
-        <MenuSearch value={query} onChange={handleSearchFieldChange} />
-
         <div className="flex flex-col gap-6 laptop:flex-row laptop:items-start laptop:gap-10">
           {activeCategory.hasSubcategories && !searchActive && (
             <MenuSidebar
@@ -243,19 +230,8 @@ export default function MenuExperience({ categories }: MenuExperienceProps) {
 
           <div className="min-w-0 flex-1">
             {searchActive ? (
-              isGlobalSearch ? (
-                hasGlobalResults ? (
-                  <MenuGlobalSearchResults query={query} results={globalSearchResults} onOpenCard={openCardInContext} />
-                ) : (
-                  <EmptyState onClear={() => handleSearchFieldChange("")} />
-                )
-              ) : hasLocalResults ? (
-                <MenuSearchResults
-                  query={query}
-                  categorySlug={activeCategory.slug}
-                  cards={localSearchResults}
-                  onOpenCard={openCardInContext}
-                />
+              hasResults ? (
+                <MenuGlobalSearchResults query={query} results={globalResults} onOpenCard={openCardInContext} />
               ) : (
                 <EmptyState onClear={() => handleSearchFieldChange("")} />
               )

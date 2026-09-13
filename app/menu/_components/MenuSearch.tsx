@@ -1,5 +1,7 @@
 "use client";
 
+import { useRef } from "react";
+import type { KeyboardEvent } from "react";
 import { MagnifyingGlass, X } from "@phosphor-icons/react";
 import { menuSearch } from "../_data/menuConfig";
 
@@ -10,6 +12,18 @@ type MenuSearchProps = {
 
 export default function MenuSearch({ value, onChange }: MenuSearchProps) {
   const alignClass = menuSearch.align === "center" ? "mx-auto" : "";
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Filtering already happens live via onChange — this input isn't in a
+  // <form>, so Enter/the mobile keyboard's Search key never triggers a
+  // submit event. Blurring on Enter is what actually closes the mobile
+  // keyboard once the user signals they're done typing; the query and
+  // results are untouched.
+  function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") {
+      inputRef.current?.blur();
+    }
+  }
 
   return (
     <div className={`relative w-full max-w-md ${alignClass}`}>
@@ -24,10 +38,12 @@ export default function MenuSearch({ value, onChange }: MenuSearchProps) {
         />
       )}
       <input
+        ref={inputRef}
         id="menu-search"
         type="search"
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={handleKeyDown}
         placeholder={menuSearch.placeholder}
         // text-base (16px), not text-sm — below 16px, iOS Safari auto-zooms
         // the page on focus, which is what breaks the layout while the

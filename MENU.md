@@ -31,8 +31,8 @@ The Menu page follows this vertical structure:
  
 1. **Site Header** — persistent global header
 2. **Menu Hero** — hero section with title, intro copy, and food photography
-3. **Menu Tabs** — four tabs for category selection (Holiday Menu | Everyday Menu | Kids' Menu | Gastroboxes)
-4. **Search Field** — live search to filter menu items in the current category
+3. **Search Field** — live search across the entire menu, positioned above the tabs
+4. **Menu Tabs** — four tabs for category selection (Holiday Menu | Everyday Menu | Kids' Menu | Gastroboxes); while a search is active, tabs determine normal browsing only and never filter the (global) search results
 5. **Menu Content Area**
    - **Left sidebar:** clickable category/subcategory navigation
    - **Right side:** menu item cards organized by subcategory
@@ -553,9 +553,21 @@ Follow the Lana Food Design System for modal styling:
  
 ### Search Scope
  
-Search filters the currently selected menu category (active tab).
+Search is global — it searches every menu category (Holiday, Everyday,
+Kids', Gastroboxes) and always displays matches from all of them together,
+grouped/labeled by category.
  
-Search does not filter across tabs; when a tab changes, reset the search.
+Tabs never filter, narrow, or hide search results. Switching tabs while a
+search is active does not reset or clear the query and does not change the
+(global) results shown — tabs only determine which category is displayed
+once the query is cleared.
+ 
+The empty-state message ("No dishes found matching your search") only
+appears when there are zero matches across the entire menu — never merely
+because the currently selected tab has no match while another category does.
+ 
+Clearing the search (via the clear control) restores the normal, per-tab
+browsing view for the currently selected tab.
  
 ### Searchable Fields
  

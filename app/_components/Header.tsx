@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -18,13 +18,17 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
+  // Blurs the input (not hides/unmounts the field, not a setTimeout) so the
+  // mobile keyboard closes on submit while the query stays visible and the
+  // field stays open — the query and results live on at /menu?q=..., so
+  // clearing/collapsing this field out from under the user is unwanted.
   function handleSearchSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!query.trim()) return;
+    searchInputRef.current?.blur();
     router.push(`/menu?q=${encodeURIComponent(query.trim())}`);
-    setSearchOpen(false);
-    setQuery("");
   }
 
   const linkClass =
@@ -109,25 +113,32 @@ export default function Header() {
         </NavigationMenu.Root>
 
         <div className="flex items-center gap-2 tablet:gap-3">
-          <div className="hidden items-center tablet:flex">
+          {/* Visible at every width (previously tablet:flex-only, hidden on
+              mobile) — min-w-0 lets this branch shrink instead of imposing
+              its original fixed-width floor on the mobile header row. */}
+          <div className="flex min-w-0 items-center">
             {searchOpen ? (
               <form
                 onSubmit={handleSearchSubmit}
                 role="search"
                 aria-label="Search dishes"
-                className="flex items-center"
+                className="flex min-w-0 items-center"
               >
                 <label htmlFor="site-search" className="sr-only">
                   Search dishes
                 </label>
                 <input
+                  ref={searchInputRef}
                   id="site-search"
                   type="search"
                   autoFocus
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search dishes…"
-                  className="h-9 w-40 appearance-none rounded-xs border border-border-hairline bg-surface-white px-3 text-base text-ink-900 placeholder:text-ink-500 focus:border-primary-600"
+                  // Fluid on mobile (fills whatever room the header row has
+                  // left) — fixed w-40, unchanged, from tablet up, matching
+                  // the original desktop/tablet search exactly.
+                  className="h-9 w-full min-w-0 flex-1 appearance-none rounded-xs border border-border-hairline bg-surface-white px-3 text-base text-ink-900 placeholder:text-ink-500 focus:border-primary-600 tablet:w-40 tablet:flex-none"
                 />
                 {/* Dedicated submit action — same MagnifyingGlass style as the
                     closed-state toggle below — so Enter and this click both
