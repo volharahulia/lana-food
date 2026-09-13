@@ -39,10 +39,17 @@ export default function ContactCTA() {
             {method.label}
           </a>
         ))}
-        <span className="flex items-center gap-2 font-body text-sm font-medium text-cream-300">
-          <MapPin size={20} aria-hidden />
-          {business.serviceArea}
-        </span>
+        {business.googleMapsUrl && (
+          <a
+            href={business.googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 font-body text-sm font-medium text-cream-300 hover:underline"
+          >
+            <MapPin size={20} aria-hidden />
+            {business.serviceArea}
+          </a>
+        )}
       </div>
     </CtaBlock>
   );

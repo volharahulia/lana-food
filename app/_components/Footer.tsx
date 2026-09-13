@@ -109,10 +109,17 @@ export default function Footer() {
                 {business.email}
               </a>
             )}
-            <span className="flex items-center gap-2 font-body text-sm text-ink-700">
-              <MapPin size={18} aria-hidden />
-              {business.serviceArea}
-            </span>
+            {business.googleMapsUrl && (
+              <a
+                href={business.googleMapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 font-body text-sm text-ink-700 hover:text-primary-600"
+              >
+                <MapPin size={18} aria-hidden />
+                {business.serviceArea}
+              </a>
+            )}
           </div>
 
           <div className="flex items-center gap-4">
