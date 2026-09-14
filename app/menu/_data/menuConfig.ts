@@ -27,15 +27,23 @@ export const menuEmptyState = {
 };
 
 export type MenuCategoryInfoContent = {
+  /** Optional short label rendered above the note (e.g. "IMPORTANT
+   * INFORMATION") — omit it (as Gastroboxes does) to render no heading,
+   * unchanged from before this field existed. */
+  heading?: string;
   note: string;
-  boxes: { label: string; price: number; currency: string }[];
+  /** Optional price pills rendered below the note — omit it (as Everyday
+   * Menu does) to render no pills, with no stray gap left in their place. */
+  boxes?: { label: string; price: number; currency: string }[];
 };
 
 // Per-category optional info block (MenuCategoryInfo.tsx), keyed by category
-// slug. Only Gastroboxes has approved content today (MENU.md "Special Case:
-// Gastroboxes") — add an entry here for another category if/when copy is
-// approved for it; categories with no entry simply render nothing.
+// slug. Add an entry here for a category that needs one; categories with no
+// entry simply render nothing.
 export const menuCategoryInfo: Record<string, MenuCategoryInfoContent | undefined> = {
+  everyday: {
+    note: "Our Everyday Menu is available for orders on TUESDAYS and FRIDAYS.",
+  },
   gastroboxes: {
     note: "Minimum order for one type of bruschetta: 10 pcs",
     boxes: [

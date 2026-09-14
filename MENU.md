@@ -241,6 +241,11 @@ The menu contains four primary categories, displayed as tabs in this left-to-rig
    - Default active tab when page loads
 2. **Everyday Menu**
    - Homemade meals for daily life
+   - Before the Everyday Menu cards, display an information block (same
+     component/pattern as the Gastroboxes information block below) with the
+     approved content: "IMPORTANT INFORMATION" / "Our Everyday Menu is
+     available for orders on Tuesdays and Fridays." Implemented as editable
+     content/configuration, not hardcoded into the component.
 3. **Kids' Menu**
    - Child-friendly wholesome options
 4. **Gastroboxes**

@@ -9,7 +9,7 @@ export const business = {
   // hardcode the filename themselves (see the About page image-editability
   // audit: a same-filename asset swap must work without touching a
   // presentation component).
-  logo: "/images/common/logo.PNG",
+  logo: "/images/common/logo.png",
   location: "Mountain View, California",
   serviceArea: "San Francisco Bay Area, California",
   phone: "+16505371182",
