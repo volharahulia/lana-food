@@ -46,12 +46,12 @@ export const aboutDocuments: AboutDocument[] = [
   },
   {
     id: "servsafe-certification",
-    title: "ServSafe Food Protection Manager Certification",
+    title: "ServSafe Certification",
     issuedBy: "Accredited by the ANSI National Accreditation Board (ANAB)",
     type: "image",
     src: "/images/about/servsafe.jpg",
     preview: "/images/about/servsafe.jpg",
-    previewAlt: "Preview of the ServSafe Food Protection Manager Certification",
+    previewAlt: "Preview of the ServSafe Food Certification",
     actionLabel: "View ServSafe Certification",
   },
 ];

@@ -447,7 +447,7 @@ same responsive structure.
 
 Currently available production asset:
 
-- `public/images/logo.PNG`
+- `public/images/common/logo.png`
 
 Current reference assets:
 
@@ -1066,7 +1066,7 @@ The first Home implementation is complete when:
 At the beginning of development, the following production asset is confirmed
 to be available in the project:
 
-`public/images/logo.PNG`
+`public/images/common/logo.png`
 
 The following reference assets are confirmed to be available in the project:
 
