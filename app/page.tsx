@@ -23,7 +23,7 @@ export default function Home() {
         </div>
       </Section>
       <Section spacing="compact">
-        <div className="flex flex-col gap-10 laptop:grid laptop:grid-cols-2 laptop:items-start laptop:gap-12">
+        <div className="flex flex-col gap-10 laptop:grid laptop:grid-cols-2 laptop:items-stretch laptop:gap-12">
           <MeetLana />
           <ReviewsPreview />
         </div>
