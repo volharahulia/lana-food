@@ -6,23 +6,18 @@
      stroke-width="5"
      stroke-linecap="round"
      stroke-linejoin="round">
-    <!-- Prepared dining table -->
-    <path d="M 65 103
-             C 65 100, 68 98, 72 98
-             L 184 98
-             C 188 98, 191 100, 191 103
-             L 191 108
-             C 191 111, 188 113, 184 113
-             L 72 113
-             C 68 113, 65 111, 65 108 Z"/>
-    <path d="M 76 113 L 84 163"/>
-    <path d="M 180 113 L 172 163"/>
-    <path d="M 123 113 L 123 151"/>
-    <path d="M 123 151 L 112 163"/>
-    <path d="M 123 151 L 134 163"/>
-    <!-- Simple place setting / centerpiece -->
-    <path d="M 126 77 L 126 93"/>
-    <path d="M 118 84 L 134 84"/>
-    <path d="M 98 83 A 9 9 0 1 0 116 83 A 9 9 0 1 0 98 83"/>
+    <!-- Set table -->
+    <path d="M 69 108 L 187 108"/>
+    <path d="M 76 108 L 81 117 L 81 151"/>
+    <path d="M 180 108 L 175 117 L 175 151"/>
+    <path d="M 81 151 L 81 160"/>
+    <path d="M 175 151 L 175 160"/>
+    <path d="M 73 108 L 183 108"/>
+    <path d="M 96 108 L 96 151"/>
+    <path d="M 160 108 L 160 151"/>
+    <!-- Small centerpiece -->
+    <path d="M 119 108 L 119 91 C 119 87 122 84 128 84 C 134 84 137 87 137 91 L 137 108"/>
+    <path d="M 128 84 C 122 78 119 73 123 69 C 128 72 130 76 128 84"/>
+    <path d="M 128 84 C 134 78 138 76 141 79 C 140 84 135 87 128 84"/>
   </g>
 </svg>
