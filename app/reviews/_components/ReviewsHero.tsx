@@ -10,33 +10,38 @@ import Grid from "../../_components/ui/Grid";
 import { reviewsHero } from "../_data/reviewsConfig";
 import { resolveImage } from "../_data/reviewsImages";
 
-// Cream/photo fade — same shared mechanism and tuned values as Catering's
-// and Menu's Hero (both also awaiting their real photo). Only these position
-// values are specific to whichever photo eventually lands at reviewsHero.image.src.
+// Cream/photo fade — shared mechanism (HeroPhotoFade), disabled here exactly
+// like Home's Hero (see Hero.tsx's own HERO_FADE_VARS): all-"0%" collapses
+// every blur layer and the cream blend to a hairline at the photo's own
+// edge, so the real reviewsHero.image.src photo reads fully sharp with a
+// clean edge, the same approved desktop treatment Home uses for its real
+// photo. The non-zero placeholder values previously here were tuned before
+// a real photo existed and produced a heavy visible blur/white wash across
+// the photo once one was added — not the intended effect.
 const HERO_FADE_VARS: HeroFadeVars = {
   "--hero-fade-light-blur-start": "0%",
-  "--hero-fade-light-blur-end": "20%",
+  "--hero-fade-light-blur-end": "0%",
   "--hero-fade-medium-blur-start": "0%",
-  "--hero-fade-medium-blur-end": "32%",
+  "--hero-fade-medium-blur-end": "0%",
   "--hero-fade-heavy-blur-start": "0%",
-  "--hero-fade-heavy-blur-end": "44%",
+  "--hero-fade-heavy-blur-end": "0%",
   "--hero-fade-cream-solid": "0%",
-  "--hero-fade-cream-strong": "10%",
-  "--hero-fade-cream-mid": "22%",
-  "--hero-fade-cream-soft": "34%",
-  "--hero-fade-cream-faint": "46%",
-  "--hero-fade-cream-clear": "58%",
+  "--hero-fade-cream-strong": "0%",
+  "--hero-fade-cream-mid": "0%",
+  "--hero-fade-cream-soft": "0%",
+  "--hero-fade-cream-faint": "0%",
+  "--hero-fade-cream-clear": "0%",
 };
 
 // Section 1 — Reviews Hero. Same hero-split treatment/visual weight as
 // every other page Hero (Home/Catering/Menu): a fixed-width text column plus
-// a full photo column with the shared cream/photo fade, rather than a bare
-// text block — Reviews has no hero CTA or trust indicators in its approved
-// content, so the text column is just the H1, divider and intro. Photo slot
-// mirrors Catering/Menu's Hero exactly (4:5 mobile / 16:9 tablet / stretched
-// auto+fade laptop+) since, like theirs, no real photo exists yet — the
-// established neutral placeholder renders until reviewsHero.image.src is
-// filled in at public/images/reviews/hero.jpg.
+// a full photo column, rather than a bare text block — Reviews has no hero
+// CTA or trust indicators in its approved content, so the text column is
+// just the H1, divider and intro. Photo slot mirrors Home's Hero exactly
+// (4:5 mobile / 16:9 tablet / stretched auto, sharp, fade disabled laptop+)
+// now that a real photo lives at public/images/reviews/hero.jpg;
+// ImagePlaceholder/resolveImage still fall back to the neutral placeholder
+// automatically if that file is ever removed.
 export default function ReviewsHero() {
   const heroSrc = resolveImage(reviewsHero.image.src);
 
