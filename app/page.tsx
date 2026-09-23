@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Hero from "./_components/Hero";
 import FeaturedMenuCategories from "./_components/FeaturedMenuCategories";
 import MostPopularDishes from "./_components/MostPopularDishes";
@@ -6,6 +7,10 @@ import MeetLana from "./_components/MeetLana";
 import ReviewsPreview from "./_components/ReviewsPreview";
 import ContactCTA from "./_components/ContactCTA";
 import Section from "./_components/ui/Section";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   return (

@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Menu | Lana Food",
   description:
     "Explore our menu of homemade Eastern European dishes. Order from our Everyday Menu, Holiday Menu, Kids' Menu, or custom Gastroboxes.",
+  alternates: { canonical: "/menu" },
 };
 
 export default async function MenuPage() {

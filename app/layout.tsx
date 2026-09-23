@@ -38,6 +38,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://lanafoodcatering.com"),
   title: "Lana Food | Homemade Eastern European Catering | San Francisco Bay Area",
   description:
     "Fresh homemade Eastern European catering for birthdays, family gatherings, baby showers, holiday celebrations, and kids' parties across the San Francisco Bay Area.",

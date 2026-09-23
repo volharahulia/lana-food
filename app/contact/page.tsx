@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Contact Lana Food | Catering & Homemade Food Bay Area",
   description:
     "Contact Lana Food for homemade Eastern European food and catering in Mountain View and the San Francisco Bay Area. Call, message on WhatsApp, or find us on Google Maps.",
+  alternates: { canonical: "/contact" },
 };
 
 // FAQPage schema generated from the same contactFaq data the visible

@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "Catering Services | Lana Food | Bay Area California",
   description:
     "Homemade Eastern European catering for birthdays, celebrations, and family gatherings in the San Francisco Bay Area. Professional setup, beautiful presentation, and fresh ingredients.",
+  alternates: { canonical: "/catering" },
 };
 
 export default function CateringPage() {

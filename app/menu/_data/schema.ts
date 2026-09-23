@@ -7,7 +7,7 @@ export function buildMenuSchema(categories: MenuCategoryData[]) {
     "@context": "https://schema.org",
     "@type": "Menu",
     name: "Lana Food Menu",
-    url: "https://lanafood.com/menu",
+    url: "https://lanafoodcatering.com/menu",
     hasMenuSection: categories.map((category) => ({
       "@type": "MenuSection",
       name: category.name,

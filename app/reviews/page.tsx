@@ -12,6 +12,7 @@ import { customerPhotos, resolveImage } from "./_data/reviewsImages";
 export const metadata: Metadata = {
   title: "Customer Reviews | Lana Food | Bay Area California",
   description: "Real customer reviews and event photography from Lana Food celebrations.",
+  alternates: { canonical: "/reviews" },
 };
 
 const breadcrumbJsonLd = {
