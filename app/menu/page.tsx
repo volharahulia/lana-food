@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import MenuHero from "./_components/MenuHero";
 import MenuExperience from "./_components/MenuExperience";
 import { getMenuData } from "./_data/parseMenu";
@@ -22,9 +21,7 @@ export default async function MenuPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <MenuHero />
-      <Suspense fallback={null}>
-        <MenuExperience categories={categories} />
-      </Suspense>
+      <MenuExperience categories={categories} />
     </>
   );
 }

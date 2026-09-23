@@ -4,7 +4,7 @@ import { useState } from "react";
 import { CaretDown } from "@phosphor-icons/react";
 import type { MenuCardData, MenuSubcategory } from "../_data/types";
 import MenuCard from "./MenuCard";
-import { slugify } from "./MenuSidebar";
+import { sectionDomId } from "./MenuSidebar";
 import Grid from "../../_components/ui/Grid";
 import { expandControls } from "../_data/menuConfig";
 
@@ -61,7 +61,7 @@ export default function MenuCategorySection({
   const visible = showAll ? cards : getPreviewCards(cards);
 
   return (
-    <section id={name ? `menu-section-${slugify(name)}` : undefined} className="scroll-mt-[150px]">
+    <section id={name ? sectionDomId(categorySlug, name) : undefined} className="scroll-mt-[150px]">
       {name && <h2 className="mb-5 font-display text-2xl font-medium text-ink-900">{name}</h2>}
 
       <Grid columns={{ base: 1, tablet: 2, laptop: 3, desktop: 4 }} gap="sm">

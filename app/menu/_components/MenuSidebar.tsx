@@ -1,4 +1,8 @@
 type MenuSidebarProps = {
+  /** Owning category — needed to build the same category-namespaced section
+   * ids as MenuCategorySection (see sectionDomId below). MenuSidebar always
+   * reflects only the active category, so this is a single slug, not a list. */
+  categorySlug: string;
   subcategories: string[];
   active: string | null;
   onSelect: (name: string) => void;
@@ -9,7 +13,7 @@ type MenuSidebarProps = {
 // subcategory set becomes a horizontal scrollable pill row above the grid —
 // reusing the tab/pill pattern already established on this page rather than
 // introducing a new mobile navigation pattern.
-export default function MenuSidebar({ subcategories, active, onSelect }: MenuSidebarProps) {
+export default function MenuSidebar({ categorySlug, subcategories, active, onSelect }: MenuSidebarProps) {
   return (
     <>
       <nav
@@ -20,7 +24,7 @@ export default function MenuSidebar({ subcategories, active, onSelect }: MenuSid
           {subcategories.map((name) => (
             <li key={name}>
               <a
-                href={`#menu-section-${slugify(name)}`}
+                href={`#${sectionDomId(categorySlug, name)}`}
                 onClick={(e) => {
                   e.preventDefault();
                   onSelect(name);
@@ -43,7 +47,7 @@ export default function MenuSidebar({ subcategories, active, onSelect }: MenuSid
         {subcategories.map((name) => (
           <a
             key={name}
-            href={`#menu-section-${slugify(name)}`}
+            href={`#${sectionDomId(categorySlug, name)}`}
             onClick={(e) => {
               e.preventDefault();
               onSelect(name);
@@ -68,4 +72,13 @@ export function slugify(name: string): string {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
+}
+
+// Category-namespaced subcategory section id. Plain slugify(name) was safe
+// while only one category's sections were ever mounted at a time; now that
+// all four categories render simultaneously (SEO fix — see MenuExperience.tsx),
+// two categories sharing an identical subcategory name would otherwise
+// collide on the same DOM id.
+export function sectionDomId(categorySlug: string, name: string): string {
+  return `menu-section-${categorySlug}-${slugify(name)}`;
 }
