@@ -18,10 +18,13 @@ type MenuCategorySectionProps = {
    * target — forces the full preview open so the target card exists in the
    * DOM to scroll to, per MENU.md deep-link behavior. */
   forceExpanded?: boolean;
-  /** `context` is the exact array of cards currently rendered in this
-   * section (the 4-card preview, or the full list once expanded) — the
-   * modal's Previous/Next navigation set, per MENU.md: navigation stays
-   * within "the same set of menu cards the user is currently browsing". */
+  /** `context` is the modal's Previous/Next navigation set — always this
+   * subcategory's full published/grouped/ordered card list (`subcategory.
+   * cards`), regardless of whether the collapsed 4-card preview or the
+   * full list is currently rendered. The 4-item cap is a purely visual
+   * collapse of the grid and must never limit what the opened modal can
+   * navigate to — see MENU.md: navigation stays within "the current
+   * subcategory", not within whatever happens to be visible on screen. */
   onOpenCard: (card: MenuCardData, context: MenuCardData[]) => void;
 };
 
@@ -70,7 +73,10 @@ export default function MenuCategorySection({
             key={card.id}
             card={card}
             categorySlug={categorySlug}
-            onOpen={() => onOpenCard(card, visible)}
+            // Always the full subcategory (`cards`), never the possibly-
+            // truncated `visible` preview — the 4-item collapse is a visual
+            // grid concern only, and must not limit modal Previous/Next.
+            onOpen={() => onOpenCard(card, cards)}
           />
         ))}
       </Grid>
