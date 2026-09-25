@@ -1,7 +1,7 @@
 import path from "path";
 import { cache } from "react";
 import ExcelJS from "exceljs";
-import { resolveImage } from "../../_data/homeImages";
+import { resolveMenuPhotos } from "./photos";
 import type { MenuCardData, MenuCategoryData, MenuSubcategory, MenuVariant } from "./types";
 
 // docs/lanafood_menu.xlsx is the single source of truth for menu content
@@ -162,6 +162,11 @@ function buildSubcategories(rows: RawItemRow[], subcategoryOrder: string[]): Men
       available: m.available,
     }));
     const rawPhoto = members.find((m) => m.photo)?.photo;
+    // Same cell now optionally holds several comma-separated filenames
+    // (first = primary/default) — see _data/photos.ts. A plain single
+    // filename (the existing format) still resolves to a one-entry array,
+    // so `photo` below is unchanged for existing single-photo data.
+    const photos = resolveMenuPhotos(rawPhoto);
 
     return {
       subcategory: first.subcategory ?? null,
@@ -171,9 +176,11 @@ function buildSubcategories(rows: RawItemRow[], subcategoryOrder: string[]): Men
         featured: members.some((m) => m.featured),
         displayOrder: Math.min(...members.map((m) => m.displayOrder)),
         // Resolved here (server-only, needs `fs`) so downstream components —
-        // including client ones like MenuCardModal — only ever handle a
-        // plain string src, never the resolveImage()/fs machinery itself.
-        photo: rawPhoto ? resolveImage(`/images/menu/${rawPhoto}`) : undefined,
+        // including client ones like MenuCardModal — only ever handle plain
+        // data, never the resolveImage()/readImageDimensions()/fs machinery
+        // itself.
+        photo: photos[0]?.src,
+        photos,
         available: variants.some((v) => v.available),
         popularDish: members.some((m) => m.popularDish),
         variants,

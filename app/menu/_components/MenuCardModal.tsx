@@ -141,11 +141,12 @@ export default function MenuCardModal({
 
                   <div className="mt-4 grid grid-cols-1 gap-6 tablet:grid-cols-[minmax(0,280px)_1fr]">
                     <MenuPhoto
-                      src={card.photo}
+                      photos={card.photos}
                       alt={card.name}
                       unavailable={!card.available}
                       sizes="(min-width: 768px) 280px, 80vw"
                       className="tablet:max-w-[280px]"
+                      aspect="detail"
                     />
 
                     <div className="flex flex-col divide-y divide-border-hairline">
