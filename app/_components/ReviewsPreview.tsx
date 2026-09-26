@@ -6,7 +6,7 @@ import { reviewsPreviewContent } from "../_data/homeContent";
 export default function ReviewsPreview() {
   return (
     <div className="flex h-full flex-col gap-4">
-      <SectionHeading title={reviewsPreviewContent.title} align="center" as="h3" />
+      <SectionHeading title={reviewsPreviewContent.title} align="center" as="h2" />
 
       <div className="flex flex-col gap-3">
         {reviews.slice(0, reviewsPreviewContent.visibleCount).map((review, i) => (

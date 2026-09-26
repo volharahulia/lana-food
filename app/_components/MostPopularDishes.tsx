@@ -20,7 +20,7 @@ export default async function MostPopularDishes() {
       <SectionHeading
         title={mostPopularDishesContent.title}
         subtitle={mostPopularDishesContent.subtitle}
-        as="h3"
+        as="h2"
       />
 
       <ul className="flex flex-col divide-y divide-border-hairline">

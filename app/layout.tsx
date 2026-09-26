@@ -39,9 +39,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://lanafoodcatering.com"),
-  title: "Lana Food | Homemade Eastern European Catering | San Francisco Bay Area",
+  title: "Lana Food | Homemade Eastern European Food & Catering | Bay Area",
   description:
-    "Fresh homemade Eastern European catering for birthdays, family gatherings, baby showers, holiday celebrations, and kids' parties across the San Francisco Bay Area.",
+    "Homemade Eastern European food and catering in the San Francisco Bay Area. Explore everyday, holiday and kids' menus, gastroboxes, and catering for special occasions.",
 };
 
 // Sitewide LocalBusiness schema — the single source of structured business
@@ -68,13 +68,13 @@ const jsonLd = {
     : {}),
   ...(business.phone
     ? {
-        contactPoint: {
-          "@type": "ContactPoint",
-          telephone: business.phone,
-          contactType: "customer service",
-          areaServed: business.serviceArea,
-        },
-      }
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: business.phone,
+        contactType: "customer service",
+        areaServed: business.serviceArea,
+      },
+    }
     : {}),
 };
 

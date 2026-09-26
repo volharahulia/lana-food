@@ -19,7 +19,7 @@ export default function CateringOverview() {
           title={cateringOverviewContent.title}
           subtitle={cateringOverviewContent.subtitle}
           align="center"
-          as="h3"
+          as="h2"
         />
 
         {/* min-w-0 on each <li> below lets a column shrink below its
