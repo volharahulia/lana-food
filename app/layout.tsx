@@ -5,6 +5,7 @@ import Footer from "./_components/Footer";
 import MobileCTABar from "./_components/MobileCTABar";
 import BackToTop from "./_components/BackToTop";
 import { business } from "./_data/business";
+import { googleRating, googleReviewCount } from "./_data/reviews";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -73,6 +74,19 @@ const jsonLd = {
         telephone: business.phone,
         contactType: "customer service",
         areaServed: business.serviceArea,
+      },
+    }
+    : {}),
+  // Real Google rating/count only (REVIEW.md §16 — never fabricated) — kept
+  // on this single sitewide LocalBusiness entity rather than a second,
+  // page-specific one on /reviews, so the business is represented by
+  // exactly one JSON-LD entity everywhere, reviews included.
+  ...(googleRating != null && googleReviewCount != null
+    ? {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: googleRating,
+        reviewCount: googleReviewCount,
       },
     }
     : {}),
