@@ -37,7 +37,7 @@ export const googleWriteReviewUrl: string | null = "https://g.page/r/CRJKa5vvdjq
 export const googleRating: number | null = 5.0;
 
 /** Total Google review count. Never invented — leave null until real. */
-export const googleReviewCount: number | null = 26;
+export const googleReviewCount: number | null = 30;
 
 export type Review = {
   id: string;
